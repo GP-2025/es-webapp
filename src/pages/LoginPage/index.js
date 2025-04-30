@@ -1,10 +1,10 @@
+import { AlertCircle, HelpCircle, Lock, User } from "lucide-react";
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { User, Lock, HelpCircle, AlertCircle } from "lucide-react";
-import { setCookie } from "../../utils/cookieUtils";
 import { authService } from "../../services/authService";
+import { setCookie } from "../../utils/cookieUtils";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -59,24 +59,24 @@ const LoginPage = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-4"
+      className="min-h-screen flex items-center justify-center p-4 backdrop-blur-lg"
       style={{
-        backgroundImage: "url('/mail.png')",
-        backgroundSize: "50%",
+        // backgroundImage: "url('/pexels-pixabay-356065.jpg')",
+        backgroundSize: "100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundColor: "rgba(255, 255, 255, 0.5)", // Blue tint (blue-400 with opacity)
         backgroundBlendMode: "overlay", // Creates a nice blend between the image and background color
       }}
     >
-      <div className="bg-white rounded-lg shadow-lg max-w-md max-h-[60vh] w-full flex flex-col md:flex-row overflow-hidden">
+      <div className="bg-white rounded-md shadow-lg border border-1 border-gray-300 max-w-md w-full flex flex-col md:flex-row">
         {/* Left side is now removed as we have a full screen background */}
 
         {/* Login form */}
-        <div className="w-full p-8">
+        <div className="w-full p-5 items-center">
           <div className="flex flex-col items-center">
+            <img src="/mail.png" className="w-16 h-16 items-center justify-center mb-4"/>
             <h1 className="text-3xl font-bold mb-6 capitalize">Sign in</h1>
-
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="w-full space-y-4"
@@ -99,7 +99,7 @@ const LoginPage = () => {
                           id="email"
                           type="text"
                           placeholder="Your Name"
-                          className={`w-full p-3 border ${
+                          className={`w-full p-3 focus:outline-none focus:border-gray-500 border ${
                             errors.email ? "border-red-500" : "border-gray-300"
                           } rounded-lg pl-10`}
                           {...field}
@@ -136,7 +136,7 @@ const LoginPage = () => {
                           id="password"
                           type="password"
                           placeholder="Password"
-                          className={`w-full p-3 border ${
+                          className={`w-full p-3 focus:outline-none focus:border-gray-500 border ${
                             errors.password
                               ? "border-red-500"
                               : "border-gray-300"

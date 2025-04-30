@@ -47,7 +47,7 @@ function SettingsPage({
     return (
       <button
         onClick={handleOpen}
-        className={`flex items-center p-4 text-gray-700 hover:bg-gray-200 transition-colors`}
+        className={`flex items-center pl-5 py-3 text-gray-700 hover:bg-gray-200 transition-colors`}
       >
         <FiSettings className="text-xl rotating" />
         {isOpen && <span className="sm:ml-3"> {t("general.Settings")}</span>}
@@ -91,11 +91,11 @@ function SettingsPage({
             className="border rounded-md"
           >
             <ToggleButton value="en" aria-label="English" className="px-4 py-2">
-              <FiGlobe className="mr-3 text-lg" />
+              <FiGlobe className="mr-2 text-lg" />
               EN
             </ToggleButton>
             <ToggleButton value="ar" aria-label="Arabic" className="px-4 py-2">
-              <FiGlobe className="mr-3 text-lg" />
+              <FiGlobe className="mr-2 text-lg" />
               العربية
             </ToggleButton>
           </ToggleButtonGroup>

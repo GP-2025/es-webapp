@@ -32,25 +32,25 @@ const SideNavbar = ({ children }) => {
   };
 
   // Hover handler for navigation section
-  const handleNavHover = () => {
-    if (!isOpen) {
-      setHovered(true);
-      dispatch(toggleSidebar(true));
-    }
-  };
+  // const handleNavHover = () => {
+  //   if (!isOpen) {
+  //     setHovered(true);
+  //     dispatch(toggleSidebar(true));
+  //   }
+  // };
 
-  const handleNavLeave = () => {
-    if (hovered) {
-      setHovered(false);
-      dispatch(toggleSidebar(false));
-    }
-  };
+  // const handleNavLeave = () => {
+  //   if (hovered) {
+  //     setHovered(false);
+  //     dispatch(toggleSidebar(false));
+  //   }
+  // };
 
   return (
     <div className="flex h-screen bg-gray-50 w-full ">
       <div
         className={`h-full transition-all duration-300 ${
-          isOpen ? "w-44 lg:w-64 sm:w-44  " : "w-12 md:w-16 sm:w-16"
+          isOpen ? "w-44 lg:w-44 sm:w-44  " : "w-12 md:w-16 sm:w-16"
         } flex-0.4`}
       >
         <UserProfile
@@ -62,14 +62,14 @@ const SideNavbar = ({ children }) => {
 
         <div
           className="mt-2 h-fit"
-          onMouseEnter={handleNavHover}
-          onMouseLeave={handleNavLeave}
+          // onMouseEnter={handleNavHover}
+          // onMouseLeave={handleNavLeave}
         >
           <ComposeButton isOpen={isOpen} setcompose={setcompose} t={t} />
           <NavigationItems isOpen={isOpen} t={t} isRTL={isRTL} />
-          {isOpen && !settingsOpen && (
+          {/* {isOpen && !settingsOpen && (
             <img src="/mail.png" className=" h-48 w-full  " />
-          )}
+          )} */}
         </div>
 
         <FooterSection
@@ -92,7 +92,6 @@ const SideNavbar = ({ children }) => {
         }`}
         style={{
           maxHeight: "calc(100vh - 4rem)",
-          // backgroundImage: "url(/logo.jpeg)",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backdropFilter: "blur(300px)",

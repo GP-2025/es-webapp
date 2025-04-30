@@ -19,28 +19,28 @@ const NavigationItems = ({ isOpen, t, isRTL }) => {
       color: "text-blue-600",
     },
     {
+      text: t("sent.title"),
+      icon: <FiSend />,
+      path: "/home/sent",
+      color: "text-blue-600",
+    },
+    {
       text: t("starred.title"),
       icon: <FiStar />,
       path: "/home/starred",
       color: "text-yellow-600",
     },
     {
+      text: t("draft.draft"),
+      icon: <FiFile />,
+      path: "/home/drafts",
+      color: "text-gray-600",
+    },
+    {
       text: t("archived.title"),
       icon: <FiArchive />,
       path: "/home/archived",
       color: "text-gray-600",
-    },
-    {
-      text: t("sent.title"),
-      icon: <FiSend />,
-      path: "/home/sent",
-      color: "text-purple-600",
-    },
-    {
-      text: t("draft.draft"),
-      icon: <FiFile />,
-      path: "/home/drafts",
-      color: "text-gold-600",
     },
     {
       text: t("trash.title"),
@@ -57,8 +57,8 @@ const NavigationItems = ({ isOpen, t, isRTL }) => {
           <NavLink
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center p-2 transition-all duration-200 w-10 hover:bg-gray-400 
-              ${isRTL ? "rounded-l-3xl" : "rounded-r-3xl"}
+              `flex items-center pl-5 py-1 transition-all duration-200 w-10 hover:bg-gray-400 
+              ${isRTL ? "rounded-l-xl" : "rounded-r-xl"}
               ${
                 isActive
                   ? `${item.color} bg-opacity-20 font-semibold bg-blue-600 hover:bg-opacity-40`

@@ -24,20 +24,20 @@ const FooterSection = ({
         settingsOpen={settingsOpen}
       />
       <button
-        onMouseEnter={() => {
-          if (!isOpen) {
-            setHovered(true);
-            dispatch(toggleSidebar(true));
-          }
-        }}
-        onMouseLeave={() => {
-          if (hovered) {
-            setHovered(false);
-            dispatch(toggleSidebar(false));
-          }
-        }}
+        // onMouseEnter={() => {
+        //   if (!isOpen) {
+        //     setHovered(true);
+        //     dispatch(toggleSidebar(true));
+        //   }
+        // }}
+        // onMouseLeave={() => {
+        //   if (hovered) {
+        //     setHovered(false);
+        //     dispatch(toggleSidebar(false));
+        //   }
+        // }}
         onClick={handleLogout}
-        className="w-full flex items-center p-4 text-red-600 hover:bg-red-200 transition-colors"
+        className="w-full flex items-center pl-5 py-3 mt-2 rounded-r-lg text-red-600 hover:bg-red-200 transition-colors"
       >
         <FiLogOut className="text-xl" />
         {isOpen && <span className="ml-3">{t("general.Logout")}</span>}
