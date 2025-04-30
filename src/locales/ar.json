@@ -1,0 +1,171 @@
+{
+  "trash": {
+    "title": "البريد المحذوف"
+  },
+  "sent": {
+    "title": "البريد المرسل"
+  },
+  "search": {
+    "results": "نتائج البحث",
+    "Searchemails": "بحث البريد الإلكتروني",
+    "SeeAllResults": "عرض جميع النتائج"
+  },
+  "draft": {
+    "draft": "المسودات",
+    "empty": "لا توجد مسودات",
+    "loading": "جاري تحميل المزيد من المسودات..."
+  },
+  "inbox": {
+    "inbox": "البريد الوارد"
+  },
+  "Compose": {
+    "Compose": "إنشاء بريد  ",
+    "Email": "إنشاء بريد إلكتروني",
+    "subject": "موضوع البريد",
+    "reqsubject": "يُطلب إدخال الموضوع",
+    "lensubject": "يجب ألا يتجاوز الموضوع 100 حرف",
+    "subjectplaceholder": "أدخل الموضوع",
+    "body": "نص البريد",
+    "reqbody": "يُطلب إدخال نص البريد",
+    "lenbody": "يجب أن يتجاوز نص البريد 10 أحرف على الأقل",
+    "bodyplaceholder": "أدخل نص البريد",
+    "attachments": "الملحقات",
+    "selectfile": "حدد ملفًا",
+    "remove": "إزالة",
+    "send": "إرسال",
+    "Cancel": "إلغاء",
+    "Recipients": "المستلمون",
+    "recipientRequired": "مطلوب مستلم واحد على الأقل",
+    "duplicate": "مكرر",
+    "Attach": "إرفاق",
+    "file": "الملف",
+    "saved": "تم ارسال البريد الإلكتروني  بنجاح",
+    "saveFailed": "فشل حفظ البريد الإلكتروني",
+    "fail": "فشل إرسال البريد الإلكتروني",
+    "sent": "تم إرسال البريد الإلكتروني بنجاح",
+    "draft": "تم الحفظ التلقائي للمسودة"
+  },
+  "general": {
+    "Compose": "إنشاء",
+    "Logout": "تسجيل الخروج",
+    "Settings": "الإعدادات",
+    "ChangePassword": "تغيير كلمة المرور",
+    "Language": "اللغة",
+    "FirstTimeLogin": "تسجيل الدخول لأول مرة - تغيير كلمة المرور"
+  },
+  "forward": {
+    "ForwardList": "قائمة إعادة التوجيه",
+    "SelectedRecipients": "المستلمون المحددون"
+  },
+  "email": {
+    "Reply": "الرد",
+    "Forward": "إعادة التوجيه",
+    "From": "من:",
+    "Attachments": "الملحقات:",
+    "Subject": "الموضوع:",
+    "today": "اليوم",
+    "yesterday": "أمس",
+    "deleteForMe": "حذف بالنسبة لي",
+    "deleteForEveryone": "حذف للجميع",
+    "to": "الي:"
+  },
+  "error": {
+    "generalError": "خطأ عام"
+  },
+  "validation": {
+    "emptyField": "هذا الحقل مطلوب",
+    "invalidFormat": "تنسيق غير صحيح",
+    "tooShort": "قصير جداً",
+    "tooLong": "طويل جداً"
+  },
+  "archived": {
+    "title": "الأرشيف",
+    "loading_more": "جاري التحميل...",
+    "empty": "لا توجد رسائل في الأرشيف",
+    "unarchive": "إلغاء الأرشفة",
+    "archive": "أرشفة"
+  },
+  "common": {
+    "archive": "أرشفة",
+    "unarchive": "إلغاء الأرشفة",
+    "delete": "حذف"
+  },
+  "starred": {
+    "title": "المميز بنجمة",
+    "loading_more": "جاري التحميل...",
+    "empty": "لا توجد رسائل مميزة",
+    "star": "تمييز بنجمة",
+    "unstar": "إلغاء التمييز"
+  },
+  "support": {
+    "title": "اتصل بالدعم",
+    "description": "سيقوم فريق الدعم لدينا بمراجعة طلبك والرد خلال 24 ساعة. للأمور العاجلة، يرجى الاتصال بمسؤول القسم مباشرة.",
+    "fullName": "الاسم الكامل",
+    "nameRequired": "الاسم الكامل مطلوب",
+    "nationalId": "رقم الهوية الوطنية",
+    "nationalIdRequired": "رقم الهوية الوطنية مطلوب",
+    "emailAddress": "البريد الإلكتروني",
+    "emailRequired": "البريد الإلكتروني مطلوب",
+    "invalidEmail": "عنوان البريد الإلكتروني غير صالح",
+    "problemDescription": "وصف المشكلة",
+    "descriptionRequired": "يرجى وصف مشكلتك",
+    "descriptionMinLength": "يجب أن يكون الوصف 20 حرفًا على الأقل",
+    "backToLogin": "العودة لتسجيل الدخول",
+    "submitRequest": "إرسال الطلب",
+    "submitError": "فشل في إرسال طلب الدعم"
+  },
+  "login": {
+    "title": "تسجيل الدخول",
+    "emailLabel": "البريد الإلكتروني",
+    "emailRequired": "البريد الإلكتروني مطلوب",
+    "invalidEmail": "صيغة البريد الإلكتروني غير صحيحة",
+    "passwordLabel": "كلمة المرور",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "passwordMinLength": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
+    "signIn": "تسجيل الدخول",
+    "helpTitle": "مساعدة تسجيل الدخول",
+    "helpText": "إذا كانت هذه المرة الأولى لتسجيل دخولك، يرجى استخدام رقم الهوية الوطنية ككلمة مرور. سيُطلب منك تغيير كلمة المرور بعد تسجيل الدخول بنجاح.",
+    "contactAdmin": "اتصل بالدعم",
+    "needHelp": "هل تحتاج إلى مساعدة؟ اتصل بمسؤول النظام للمساعدة",
+    "loginError": "فشل تسجيل الدخول. يرجى التحقق من بيانات الاعتماد الخاصة بك."
+  },
+  "changePassword": {
+    "title": "تغيير كلمة المرور",
+    "firstTimeTitle": "تسجيل الدخول لأول مرة",
+    "currentPassword": "كلمة المرور الحالية",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmPassword": "تأكيد كلمة المرور الجديدة",
+    "currentRequired": "كلمة المرور الحالية مطلوبة",
+    "newRequired": "كلمة المرور الجديدة مطلوبة",
+    "confirmRequired": "يرجى تأكيد كلمة المرور الجديدة",
+    "passwordMismatch": "كلمات المرور غير متطابقة",
+    "passwordRequirements": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، حرف كبير، حرف صغير، رقم وحرف خاص",
+    "changePasswordButton": "تغيير كلمة المرور",
+    "changingPassword": "جاري تغيير كلمة المرور...",
+    "submitError": "فشل تغيير كلمة المرور. يرجى المحاولة مرة أخرى."
+  },
+  "Draft": {
+    "edit": "تعديل المسودة",
+    "new": "مسودة جديدة",
+    "close": "إغلاق",
+    "subject": "الموضوع",
+    "subjectRequired": "الموضوع مطلوب",
+    "subjectTooLong": "يجب أن يكون الموضوع أقل من 100 حرف",
+    "subjectPlaceholder": "أدخل الموضوع",
+    "message": "الرسالة",
+    "messageRequired": "الرسالة مطلوبة",
+    "messagePlaceholder": "أدخل رسالتك",
+    "attachments": "المرفقات",
+    "addFiles": "إضافة ملفات",
+    "remove": "إزالة",
+    "cancel": "إلغاء",
+    "save": "حفظ المسودة",
+    "send": "إرسال",
+    "saved": "تم حفظ المسودة بنجاح",
+    "saveFailed": "فشل في حفظ المسودة",
+    "sent": "تم إرسال البريد الإلكتروني بنجاح",
+    "sendFailed": "فشل في إرسال البريد الإلكتروني",
+    "autoSaved": "تم الحفظ التلقائي للمسودة",
+    "autoSaveFailed": "فشل في الحفظ التلقائي للمسودة"
+  }
+}

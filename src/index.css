@@ -1,0 +1,78 @@
+/* src/index.css or src/tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+  max-height: 100vh;
+} /* Keyframe animations for scrolling and rotating */
+html,
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+@keyframes scrollUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scrollDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Panel animations */
+.settings-panel {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.settings-panel.scroll-up {
+  animation: scrollUp 0.6s ease forwards;
+}
+
+.settings-panel.scroll-down {
+  animation: scrollDown 0.6s ease forwards;
+}
+
+/* Rotating icon */
+.rotating {
+  animation: rotate 0.6s linear;
+}
+
+.settings-panel {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.settings-panel.scroll-up {
+  animation: scrollUp 0.6s ease forwards;
+}
+
+.settings-panel.scroll-down {
+  animation: scrollDown 0.6s ease forwards;
+}

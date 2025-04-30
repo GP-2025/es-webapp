@@ -1,0 +1,79 @@
+// NavigationItems.jsx
+import React from "react";
+import { NavLink } from "react-router-dom";
+import {
+  FiInbox,
+  FiStar,
+  FiArchive,
+  FiSend,
+  FiTrash2,
+  FiFile,
+} from "react-icons/fi";
+
+const NavigationItems = ({ isOpen, t, isRTL }) => {
+  const navItems = [
+    {
+      text: t("inbox.inbox"),
+      icon: <FiInbox />,
+      path: "/home/inbox",
+      color: "text-blue-600",
+    },
+    {
+      text: t("starred.title"),
+      icon: <FiStar />,
+      path: "/home/starred",
+      color: "text-yellow-600",
+    },
+    {
+      text: t("archived.title"),
+      icon: <FiArchive />,
+      path: "/home/archived",
+      color: "text-gray-600",
+    },
+    {
+      text: t("sent.title"),
+      icon: <FiSend />,
+      path: "/home/sent",
+      color: "text-purple-600",
+    },
+    {
+      text: t("draft.draft"),
+      icon: <FiFile />,
+      path: "/home/drafts",
+      color: "text-gold-600",
+    },
+    {
+      text: t("trash.title"),
+      icon: <FiTrash2 />,
+      path: "/home/trash",
+      color: "text-red-600",
+    },
+  ];
+
+  return (
+    <ul className={`space-y-1 px-2 ${isRTL ? "pr-0" : "pl-0"}`}>
+      {navItems.map((item) => (
+        <li key={item.text}>
+          <NavLink
+            to={item.path}
+            className={({ isActive }) =>
+              `flex items-center p-2 transition-all duration-200 w-10 hover:bg-gray-400 
+              ${isRTL ? "rounded-l-3xl" : "rounded-r-3xl"}
+              ${
+                isActive
+                  ? `${item.color} bg-opacity-20 font-semibold bg-blue-600 hover:bg-opacity-40`
+                  : `${item.color} text-opacity-70 hover:bg-opacity-25`
+              } w-full h-10`
+            }
+          >
+            <span className="text-xl">{item.icon}</span>
+            {isOpen && (
+              <span className={`${isRTL ? "mr-3" : "ml-2"}`}>{item.text}</span>
+            )}
+          </NavLink>
+        </li>
+      ))}
+    </ul>
+  );
+};
+export default NavigationItems;

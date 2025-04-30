@@ -1,0 +1,323 @@
+search component 
+import React, { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { dummy } from "../pages/dummy"; // Import the email data
+
+const SearchInput = () => {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  // Memoized search results
+  const searchResults = useMemo(() => {
+    if (!search.trim()) return [];
+
+    return dummy.filter(
+      (email) =>
+        email.subject.toLowerCase().includes(search.toLowerCase()) ||
+        email.sender.toLowerCase().includes(search.toLowerCase()) ||
+        email.body.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [search]);
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleItemSelect = (email) => {
+    // Navigate to search page with email details
+    navigate("/home/search", {
+      state: {
+        email: email,
+        fromSearch: true,
+      },
+    });
+
+    // Clear search after selection
+    setSearch("");
+  };
+
+  return (
+    <div className="relative mb-3 left-6 w-[40vw]">
+      <input
+        onChange={handleSearchChange}
+        value={search}
+        type="search"
+        placeholder="Search emails"
+        className="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border border-blue-300 bg-transparent text-blue-800 pl-12 outline-none focus:w-full focus:cursor-text focus:border-blue-500 focus:pl-16 focus:pr-4"
+      />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="absolute inset-y-0 my-auto h-8 w-12 border-transparent stroke-blue-500 px-3.5 peer-focus:border-blue-800 peer-focus:stroke-blue-800 text-blue-800 border-blue-800"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="blue"
+        strokeWidth="3"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
+      </svg>
+
+      {search && (
+        <div className="absolute z-20 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-y-auto">
+          {searchResults.map((email) => (
+            <div
+              key={email.id}
+              onClick={() => handleItemSelect(email)}
+              className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+            >
+              <div className="font-semibold">{email.subject}</div>
+              <div className="text-sm text-gray-600">{email.sender}</div>
+              <div className="text-xs text-gray-500">
+                {email.date.toLocaleDateString()}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default SearchInput;
+
+----------------------------------------------------
+searchpage EmailListItem
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+
+import EmailListItem from "../components/EmailList";
+import { dummy } from "./dummy"; // Replace with actual data import
+// Other imports...
+const dummyEmails = dummy;
+
+const SearchPage = () => {
+  const [emails, setEmails] = useState(dummyEmails);
+  const [currentEmail, setCurrentEmail] = useState(null);
+  const [page, setPage] = useState(1);
+  const [emailsPerPage, setEmailsPerPage] = useState(5); // Default value
+
+  const emailRefs = useRef([]); // To track email item refs
+
+  // Responsive design and emailsPerPage detection
+  useEffect(() => {
+    const calculateEmailsPerPage = () => {
+      if (emailRefs.current.length === 0) return;
+
+      // Calculate the average height of rendered email items
+      const totalHeight = emailRefs.current.reduce((sum, ref) => {
+        return ref ? sum + ref.offsetHeight : sum;
+      }, 0);
+      const averageEmailItemHeight =
+        totalHeight / emailRefs.current.length || 90; // Fallback to 100 if no items are rendered
+
+      const headerHeight = 140; // Adjust based on your layout
+      const availableHeight = window.innerHeight - headerHeight;
+
+      const dynamicEmailsPerPage = Math.floor(
+        availableHeight / averageEmailItemHeight - 2
+      );
+
+      setEmailsPerPage(dynamicEmailsPerPage > 0 ? dynamicEmailsPerPage : 2);
+    };
+
+    // Recalculate on window resize
+    window.addEventListener("resize", calculateEmailsPerPage);
+    calculateEmailsPerPage();
+
+    return () => {
+      window.removeEventListener("resize", calculateEmailsPerPage);
+    };
+  }, []);
+
+  const totalPages = Math.ceil(emails.length / emailsPerPage);
+
+  const handleEmailSelect = (emailId) => {
+    const selected = emails.find((email) => email.id === emailId);
+    setCurrentEmail(selected);
+
+    // Mark email as read
+    const updatedEmails = emails.map((email) =>
+      email.id === emailId ? { ...email, read: true } : email
+    );
+    setEmails(updatedEmails);
+  };
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  const handleClearCurrentEmail = () => {
+    setCurrentEmail(null);
+  };
+
+  const handleDeleteEmail = (emailId) => {
+    const updatedEmails = emails.filter((email) => email.id !== emailId);
+    setEmails(updatedEmails);
+    setCurrentEmail(null);
+  };
+
+  const paginatedEmails = emails.slice(
+    (page - 1) * emailsPerPage,
+    page * emailsPerPage
+  );
+
+  // Mobile-first rendering
+
+  return (
+    <div className="  flex flex-col h-fit">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key="email-list"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="flex-grow overflow-y-auto "
+        >
+          <div className="px-4">
+            <h1 className="text-2xl font-bold mb-4">Search</h1>
+            <ul className="space-y-3">
+              {paginatedEmails.map((email, index) => (
+                <li
+                  key={email.id}
+                  ref={(el) => (emailRefs.current[index] = el)} // Store the reference
+                  className="email-item"
+                >
+                  <EmailListItem
+                    page="Search"
+                    email={email}
+                    onSelect={handleEmailSelect}
+                    isSelected={currentEmail?.id === email.id}
+                  />
+                </li>
+              ))}
+            </ul>
+            <div className="flex justify-center mt-4 space-x-2">
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`w-8 h-8 rounded-full ${
+                    page === index + 1
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200 text-gray-700"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default SearchPage;
+
+------------------------------------------------------
+import React, { useState } from 'react';
+import { Button } from '@mui/material';
+import ComposeModal from './components/ComposeModal';
+
+const EmailPage = () => {
+  const [isComposeOpen, setIsComposeOpen] = useState(false);
+
+  const handleOpenCompose = () => setIsComposeOpen(true);
+  const handleCloseCompose = () => setIsComposeOpen(false);
+
+  return (
+    <div>
+      <Button 
+        variant="contained" 
+        onClick={handleOpenCompose}
+      >
+        Compose Email
+      </Button>
+
+      <ComposeModal 
+        open={isComposeOpen} 
+        onClose={handleCloseCompose} 
+      />
+    </div>
+  );
+};
+
+
+
+
+
+
+inbox  // Desktop rendering
+  // return (
+  //   <div className="container mx-auto p-2 px-4 h-screen">
+  //     <ComposeModal />
+  //     <div className="grid grid-cols-12 gap-4">
+  //       <div
+  //         className={`${
+  //           currentEmail ? "col-span-4" : "col-span-12"
+  //         } transition-all duration-300`}
+  //       >
+  //         <div className="bg-white rounded-lg shadow p-4 h-full">
+  //           <div className="relative py-2">
+  //             <div className="absolute top-0 left-10">
+  //               <p className="flex h-2 w-2 items-center justify-center rounded-full bg-blue-500 p-3 text-xs text-white">
+  //                 3
+  //               </p>
+  //             </div>
+  //             Inbox
+  //           </div>
+  //           <ul className="space-y-3 h-[calc(100vh-135px)] overflow-y-auto">
+  //             {paginatedEmails.map((email, index) => (
+  //               <li
+  //                 key={email.id}
+  //                 ref={(el) => (emailRefs.current[index] = el)} // Store the reference
+  //                 className="email-item"
+  //               >
+  //                 <EmailListItem
+  //                   email={email}
+  //                   onSelect={handleEmailSelect}
+  //                   isSelected={currentEmail?.id === email.id}
+  //                 />
+  //               </li>
+  //             ))}
+  //           </ul>
+  //           <div className="flex justify-center mt-4 space-x-2">
+  //             {[...Array(totalPages)].map((_, index) => (
+  //               <button
+  //                 key={index}
+  //                 onClick={() => handlePageChange(index + 1)}
+  //                 className={`w-8 h-8 rounded-full ${
+  //                   page === index + 1
+  //                     ? "bg-blue-500 text-white"
+  //                     : "bg-gray-200 text-gray-700"
+  //                 }`}
+  //               >
+  //                 {index + 1}
+  //               </button>
+  //             ))}
+  //           </div>
+  //         </div>
+  //       </div>
+  //       <AnimatePresence>
+  //         {currentEmail && (
+  //           <motion.div
+  //             initial={{ x: "100%", opacity: 0 }}
+  //             animate={{ x: 0, opacity: 1 }}
+  //             exit={{ x: "100%", opacity: 0 }}
+  //             className="col-span-8"
+  //           >
+  //             <EmailDetail
+  //               email={currentEmail}
+  //               onGoBack={handleClearCurrentEmail}
+  //               onDelete={() => handleDeleteEmail(currentEmail.id)}
+  //             />
+  //           </motion.div>
+  //         )}
+  //       </AnimatePresence>
+  //     </div>
+  //   </div>
+  // );

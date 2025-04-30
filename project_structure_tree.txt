@@ -1,0 +1,17 @@
+src/  
+├── components/  
+│   ├── EmailList/        // Component for rendering the list of emails  
+│   ├── EmailDetail/      // Component for displaying email details  
+│   ├── ComposeModal/     // Modal for composing and sending emails  
+│   ├── SideNavbar/     // Modal for composing and sending emails  
+├── pages/  
+│   ├── LoginPage/        // Login page  
+│   ├── InboxPage/        // Main page for displaying emails  
+├── store/                // Redux store  
+│   ├── slices/           // Redux slices for emails, auth, etc.  
+│   ├── index.js          // Store setup  
+├── utils/  
+│   ├── authGuard.js      // Higher-order component for route protection  
+│   ├── api.js            // API integration utilities  
+├── App.js                // Main App component  
+├── index.js              // React DOM rendering entry point  
