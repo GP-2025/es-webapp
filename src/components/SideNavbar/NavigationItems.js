@@ -51,14 +51,13 @@ const NavigationItems = ({ isOpen, t, isRTL }) => {
   ];
 
   return (
-    <ul className={`space-y-1 px-2 ${isRTL ? "pr-0" : "pl-0"}`}>
+    <ul className={`space-y-1 pe-2 ${isRTL ? "pr-0" : "pl-0"}`}>
       {navItems.map((item) => (
         <li key={item.text}>
           <NavLink
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center pl-5 py-1 transition-all duration-200 w-10 hover:bg-gray-400 
-              ${isRTL ? "rounded-l-xl" : "rounded-r-xl"}
+              `flex items-center ps-5 py-1 transition-all duration-200 w-10 hover:bg-gray-400 rounded-e-xl
               ${
                 isActive
                   ? `${item.color} bg-opacity-20 font-semibold bg-blue-600 hover:bg-opacity-40`
@@ -67,9 +66,7 @@ const NavigationItems = ({ isOpen, t, isRTL }) => {
             }
           >
             <span className="text-xl">{item.icon}</span>
-            {isOpen && (
-              <span className={`${isRTL ? "mr-3" : "ml-2"}`}>{item.text}</span>
-            )}
+            {isOpen && <span className="ms-2">{item.text}</span>}
           </NavLink>
         </li>
       ))}

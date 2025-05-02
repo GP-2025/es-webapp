@@ -31,21 +31,6 @@ const SideNavbar = ({ children }) => {
     navigate("/login");
   };
 
-  // Hover handler for navigation section
-  // const handleNavHover = () => {
-  //   if (!isOpen) {
-  //     setHovered(true);
-  //     dispatch(toggleSidebar(true));
-  //   }
-  // };
-
-  // const handleNavLeave = () => {
-  //   if (hovered) {
-  //     setHovered(false);
-  //     dispatch(toggleSidebar(false));
-  //   }
-  // };
-
   return (
     <div className="flex h-screen bg-gray-50 w-full ">
       <div
@@ -60,16 +45,9 @@ const SideNavbar = ({ children }) => {
           setsettingsOpen={setsettingsOpen}
         />
 
-        <div
-          className="mt-2 h-fit"
-          // onMouseEnter={handleNavHover}
-          // onMouseLeave={handleNavLeave}
-        >
+        <div className="mt-2 h-fit">
           <ComposeButton isOpen={isOpen} setcompose={setcompose} t={t} />
           <NavigationItems isOpen={isOpen} t={t} isRTL={isRTL} />
-          {/* {isOpen && !settingsOpen && (
-            <img src="/mail.png" className=" h-48 w-full  " />
-          )} */}
         </div>
 
         <FooterSection

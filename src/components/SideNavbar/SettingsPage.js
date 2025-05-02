@@ -47,10 +47,10 @@ function SettingsPage({
     return (
       <button
         onClick={handleOpen}
-        className={`flex items-center pl-5 py-3 text-gray-700 hover:bg-gray-200 transition-colors`}
+        className={`flex items-center ps-5 py-1.5 pe-2 rounded-e-xl text-gray-700 hover:bg-gray-200 transition-colors`}
       >
-        <FiSettings className="text-xl rotating" />
-        {isOpen && <span className="sm:ml-3"> {t("general.Settings")}</span>}
+        <FiSettings className="text-xl my-1 rotating" />
+        {isOpen && <span className="ms-2"> {t("general.Settings")}</span>}
       </button>
     );
   }
