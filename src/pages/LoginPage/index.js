@@ -59,7 +59,7 @@ const LoginPage = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-4 backdrop-blur-lg"
+      className="min-h-screen flex items-center justify-center p-4"
       style={{
         // backgroundImage: "url('/pexels-pixabay-356065.jpg')",
         backgroundSize: "100%",
@@ -191,7 +191,7 @@ const LoginPage = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-400 hover:bg-blue-500 text-white font-medium py-3 px-4 rounded-lg transition duration-100 flex justify-center"
+                className="w-full bg-blue-400 hover:bg-blue-500 text-white font-medium py-3 px-4 rounded-lg transition duration-200 flex justify-center"
                 disabled={isLoading}
               >
                 {isLoading ? (

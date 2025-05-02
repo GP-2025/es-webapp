@@ -68,7 +68,7 @@ const EmailHeader = ({
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={onGoBack}
-          className="p-2 rounded-full hover:bg-gray-100/80 transition-all duration-100"
+          className="p-2 rounded-full hover:bg-gray-100/80 transition-all duration-200"
         >
           <ArrowRight className="w-5 h-5 text-gray-600" />
         </button>
@@ -77,7 +77,7 @@ const EmailHeader = ({
           <button
             onClick={onReply}
             className="flex items-center gap-2 px-3 py-1.5 text-blue-600 
-                     hover:bg-blue-50/80 rounded-full transition-all duration-100 
+                     hover:bg-blue-50/80 rounded-full transition-all duration-200 
                      text-sm font-medium"
           >
             <Reply className="w-4 h-4" />
@@ -87,7 +87,7 @@ const EmailHeader = ({
           <button
             onClick={onForward}
             className="flex items-center gap-2 px-3 py-1.5 text-emerald-600 
-                     hover:bg-emerald-50/80 rounded-full transition-all duration-100 
+                     hover:bg-emerald-50/80 rounded-full transition-all duration-200 
                      text-sm font-medium"
           >
             <ForwardIcon className="w-4 h-4" />

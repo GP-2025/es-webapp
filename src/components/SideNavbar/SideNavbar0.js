@@ -34,8 +34,8 @@ const SideNavbar = ({ children }) => {
   return (
     <div className="flex h-screen bg-gray-50 w-full ">
       <div
-        className={`h-full transition-all duration-100 ${
-          isOpen ? "w-48 lg:w-48 sm:w-44  " : "w-12 md:w-16 sm:w-16"
+        className={`h-full transition-all duration-200 ${
+          isOpen ? "w-48" : "w-16"
         } flex-0.4`}
       >
         <UserProfile
@@ -45,7 +45,7 @@ const SideNavbar = ({ children }) => {
           setsettingsOpen={setsettingsOpen}
         />
 
-        <div className="mt-2 h-fit">
+        <div className="h-fit">
           <ComposeButton isOpen={isOpen} setcompose={setcompose} t={t} />
           <NavigationItems isOpen={isOpen} t={t} isRTL={isRTL} />
         </div>
@@ -65,7 +65,7 @@ const SideNavbar = ({ children }) => {
       </div>
 
       <div
-        className={`transition-all duration-100 overflow-hidden relative top-[4rem] right-0  flex-1 px-1   rounded-lg m-1 ${
+        className={`transition-all duration-200 overflow-hidden relative top-[4rem] right-0  flex-1 px-1   rounded-lg m-1 ${
           isRTL ? "pl-0" : "pr-0"
         }`}
         style={{

@@ -18,11 +18,11 @@ const UserProfile = ({
               handleToggleSidebar(!isOpen);
               setsettingsOpen(false);
             }}
-            className="p-3 rounded-3xl bg-gray-200 hover:bg-blue-100 transition"
+            className="p-3 me-3 rounded-xl bg-gray-300 hover:bg-gray-400 transition"
           >
-            <FiMenu className="text-xl text-gray-600" />
+            <FiMenu className="text-2xl text-gray-600" />
           </button>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <img
               src={
                 (user?.profilePicture != "Empty" && user?.profilePicture) ||
@@ -30,10 +30,10 @@ const UserProfile = ({
                 "/nophto.jpg"
               }
               alt={`${user?.name || "User"}'s profile`}
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-12 h-12 rounded-xl object-cover"
             />
 
-            <div>
+            <div className="">
               <h3 className="text-base font-semibold text-gray-800 truncate">
                 <span className="hidden sm:inline">
                   {user?.name || "Unknown"}

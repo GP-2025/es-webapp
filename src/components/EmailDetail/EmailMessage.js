@@ -46,7 +46,7 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="mb-6 last:mb-0 bg-white rounded-b-xl shadow-sm hover:shadow-xl transition-shadow duration-100"
+      className="mb-6 last:mb-0 bg-white rounded-b-xl shadow-sm hover:shadow-xl transition-shadow duration-200"
     >
       <div className="p-4 md:p-6">
         {/* Header Section */}

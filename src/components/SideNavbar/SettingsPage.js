@@ -47,7 +47,7 @@ function SettingsPage({
     return (
       <button
         onClick={handleOpen}
-        className={`flex items-center ps-5 py-1.5 pe-2 transition-all duration-100 rounded-e-xl text-gray-700 hover:bg-gray-200 transition-colors`}
+        className={`flex items-center ps-5 py-1.5 pe-2 transition-all duration-200 rounded-e-xl text-gray-700 hover:bg-gray-200 transition-colors`}
       >
         <FiSettings className="text-xl my-1 rotating" />
         {isOpen && <span className="ms-2"> {t("general.Settings")}</span>}
@@ -56,9 +56,9 @@ function SettingsPage({
   }
   return (
     <div
-      className={`w-full border border-gray-200 rounded-lg p-3 settings-panel ${animationClass}`}
+      className={`w-full bg-white border border-gray-200 rounded-e-lg p-3 settings-panel ${animationClass}`}
     >
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-3">
         <div
           className="flex items-center cursor-pointer w-full cursor-pointer"
           onClick={handleClose}
@@ -70,11 +70,11 @@ function SettingsPage({
         </div>
       </div>
       <div
-        className={`space-y-5 ${i18n.dir() == "rtl"}`}
+        className={`space-y-3 ${i18n.dir() == "rtl"}`}
       >
         <NavLink
           to="/home/settings"
-          className={`flex items-center px-2 py-3 rounded-md transition-all duration-100 hover:bg-gray-200 text-gray-600`}
+          className={`flex items-center px-2 py-3 rounded-md transition-all duration-200 hover:bg-gray-200 text-gray-600`}
         >
           <FiLock className="me-2 text-lg" />
           <span className="font-medium text-sm">{t("general.ChangePassword")}</span>

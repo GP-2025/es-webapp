@@ -25,7 +25,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        {status === "Connected" && (
+        {/* {status === "Connected" && (
           <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
             🟢 Connected To The Server
           </div>
@@ -41,7 +41,7 @@ function App() {
           <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
             🔴 {status}
           </div>
-        )}
+        )} */}
         <Routes>
           {/* Public Routes */}
           <Route path="/*" element={<LoginPage />} />

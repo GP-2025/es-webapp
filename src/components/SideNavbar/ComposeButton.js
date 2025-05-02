@@ -7,19 +7,16 @@ const ComposeButton = ({ isOpen, setcompose, t }) => {
     <button
       onClick={() => setcompose(true)}
       className={`
-        flex items-center justify-center
-        min-w-[40px] h-12 gap-2
-        transition-all duration-100 ease-in-out
-        rounded-xl bg-blue-300 hover:bg-blue-400 m-2
-        ${isOpen ? "w-fit px-3" : "w-12"}
+        flex items-center justify-center py-3 px-3.5 gap-2
+        transition-all duration-200 ease-in-out
+        rounded-xl dark:bg-blue-600 dark:hover:bg-blue-700 m-2
+        ${isOpen ? "w-fit px-3" : "w-auto"}
       `}
     >
-      <FiEdit2 className="flex-shrink-0 w-5 h-5 font-semibold text-gray-700 text-center  " />
+      <FiEdit2 className="flex-shrink-0 w-5 h-5 my-0.5 font-semibold text-white text-center  " />
       <span
         className={`
-          font-semibold text-gray-700
-          whitespace-nowrap overflow-hidden
-          transition-all duration-100 ease-in-out
+          font-semibold text-white
           ${isOpen ? "w-auto opacity-100" : "hidden w-0 opacity-0"}
         `}
       >

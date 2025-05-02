@@ -13,7 +13,7 @@ const SideNavbar = ({ children }) => {
     <div className="flex h-screen bg-gray-100 w-full">
       {/* Sidebar */}
       <div
-        className={`h-full transition-all duration-100  
+        className={`h-full transition-all duration-200  
           ${isOpen ? "lg:w-72 md:w-44 sm:w-32" : "w-12 md:w-16 sm:w-16"}
           flex-0.4`}
       >
@@ -26,7 +26,7 @@ const SideNavbar = ({ children }) => {
 
       {/* Main Content */}
       <div
-        className="transition-all duration-100 overflow-hidden relative top-[4rem] right-0 bg-white flex-1"
+        className="transition-all duration-200 overflow-hidden relative top-[4rem] right-0 bg-white flex-1"
         style={{
           maxHeight: "calc(100vh - 4rem)",
         }}

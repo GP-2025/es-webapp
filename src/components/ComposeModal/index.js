@@ -183,7 +183,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
       >
         <div
           ref={modalRef}
-          className="relative w-full h-screen transform transition-all duration-100 ease-out flex flex-col"
+          className="relative w-full h-screen transform transition-all duration-200 ease-out flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="bg-gradient-to-br from-white via-blue-50/50 to-indigo-50/50 shadow-2xl border border-white/20 flex flex-col h-full">
@@ -243,7 +243,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                           errors.subject
                             ? "border-red-500 focus:ring-red-200"
                             : "border-gray-200 focus:ring-blue-200"
-                        } focus:border-blue-500 focus:ring-4 transition-all duration-100`}
+                        } focus:border-blue-500 focus:ring-4 transition-all duration-200`}
                         placeholder={t("Compose.subjectplaceholder")}
                       />
                     )}
@@ -279,7 +279,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                           errors.body
                             ? "border-red-500 focus:ring-red-200"
                             : "border-gray-200 focus:ring-blue-200"
-                        } focus:border-blue-500 focus:ring-4 transition-all duration-100`}
+                        } focus:border-blue-500 focus:ring-4 transition-all duration-200`}
                         placeholder={t("Compose.bodyplaceholder")}
                       />
                     )}
@@ -298,7 +298,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                     {t("Compose.attachments")}
                   </label>
                   <div className="flex items-center justify-center w-full">
-                    <label className="flex flex-col items-center w-full px-4 py-6 bg-blue-50 border-2 border-blue-200 border-dashed rounded-lg hover:bg-blue-100 cursor-pointer transition-colors duration-100">
+                    <label className="flex flex-col items-center w-full px-4 py-6 bg-blue-50 border-2 border-blue-200 border-dashed rounded-lg hover:bg-blue-100 cursor-pointer transition-colors duration-200">
                       <svg
                         className="w-8 h-8 text-blue-500 mb-2"
                         fill="none"
@@ -363,14 +363,14 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-100"
+                  className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
                 >
                   {t("Compose.Cancel")}
                 </button>
                 <button
                   type="submit"
                   form="compose-form"
-                  className="px-4 py-2 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-100 flex items-center gap-2"
+                  className="px-4 py-2 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2"
                 >
                   {t("Compose.send")}
                   <MdSend className="w-5 h-5" />

@@ -206,7 +206,7 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
           type="submit"
           disabled={isLoading}
           className="w-full bg-purple-600 text-white py-3 rounded-lg font-medium
-                   hover:bg-purple-700 transition-colors duration-100 
+                   hover:bg-purple-700 transition-colors duration-200 
                    disabled:opacity-50 disabled:cursor-not-allowed
                    focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
         >

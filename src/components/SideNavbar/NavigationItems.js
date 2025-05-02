@@ -1,14 +1,14 @@
 // NavigationItems.jsx
 import React from "react";
-import { NavLink } from "react-router-dom";
 import {
-  FiInbox,
-  FiStar,
   FiArchive,
-  FiSend,
-  FiTrash2,
   FiFile,
+  FiInbox,
+  FiSend,
+  FiStar,
+  FiTrash2,
 } from "react-icons/fi";
+import { NavLink } from "react-router-dom";
 
 const NavigationItems = ({ isOpen, t, isRTL }) => {
   const navItems = [
@@ -57,7 +57,7 @@ const NavigationItems = ({ isOpen, t, isRTL }) => {
           <NavLink
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center ps-5 py-1 transition-all duration-100 w-10 hover:bg-gray-400 rounded-e-xl
+              `flex items-center ps-5 py-1 transition-all duration-200 w-10 hover:bg-gray-400 rounded-e-xl
               ${
                 isActive
                   ? `${item.color} bg-opacity-20 font-semibold bg-blue-600 hover:bg-opacity-40`

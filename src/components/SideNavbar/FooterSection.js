@@ -16,7 +16,7 @@ const FooterSection = ({
   t,
 }) => {
   return (
-    <div className="absolute bottom-0 bg-white transition-all duration-100">
+    <div className="absolute bottom-0 transition-all duration-200">
       <div
         className={`flex flex-col space-y-1 pe-1.5 pb-1 ${
           isOpen ? "w-[190px]" : "w-16"
@@ -30,7 +30,7 @@ const FooterSection = ({
         />
         <button
           onClick={handleLogout}
-          className="flex items-center rounded-e-xl ps-5 py-1.5 transition-all duration-100 text-red-600 hover:bg-red-200 transition-colors"
+          className="flex items-center rounded-e-xl ps-5 py-1.5 transition-all duration-200 text-red-600 hover:bg-red-200 transition-colors"
         >
           <FiLogOut className="text-xl my-1" />
           {isOpen && <span className="ms-3">{t("general.Logout")}</span>}

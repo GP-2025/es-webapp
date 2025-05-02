@@ -57,14 +57,14 @@ const NavItems = ({ isOpen }) => {
       <button
         onClick={() => setCompose(true)}
         className={`flex items-center ml-3 p-3 rounded-lg transition-all cursor-pointer
-          duration-100 text-gray-900 text-xl bg-blue-500 
+          duration-200 text-gray-900 text-xl bg-blue-500 
           ${isOpen ? "w-fit" : "w-9/12 px-2 py-3 mx-auto"} mb-2`}
       >
-        <span className="transition-opacity duration-100 ease-in-out">
+        <span className="transition-opacity duration-200 ease-in-out">
           <Edit2 />
         </span>
         {isOpen && (
-          <span className="ml-3 transition-transform duration-100 ease-in-out transform scale-100">
+          <span className="ml-3 transition-transform duration-200 ease-in-out transform scale-100">
             {t("Compose.Compose")}
           </span>
         )}
@@ -76,7 +76,7 @@ const NavItems = ({ isOpen }) => {
             <NavLink
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center p-3 rounded-lg transition-all duration-100 w-10 hover:bg-blue-500 ${
+                `flex items-center p-3 rounded-lg transition-all duration-200 w-10 hover:bg-blue-500 ${
                   isActive
                     ? `${item.color} bg-opacity-20 font-semibold bg-blue-600 hover:bg-opacity-40`
                     : `${item.color} text-opacity-70 hover:bg-opacity-25`
