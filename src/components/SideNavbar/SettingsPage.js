@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { FiSettings, FiLock, FiGlobe } from "react-icons/fi";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { FiGlobe, FiLock, FiSettings } from "react-icons/fi";
+import { NavLink } from "react-router-dom";
 
 function SettingsPage({
   setsettingsOpen,
@@ -47,7 +47,7 @@ function SettingsPage({
     return (
       <button
         onClick={handleOpen}
-        className={`flex items-center ps-5 py-1.5 pe-2 transition-all duration-200 rounded-e-xl text-gray-700 hover:bg-gray-200 transition-colors`}
+        className={`flex items-center ps-5 py-1.5 pe-2 transition-all duration-100 rounded-e-xl text-gray-700 hover:bg-gray-200 transition-colors`}
       >
         <FiSettings className="text-xl my-1 rotating" />
         {isOpen && <span className="ms-2"> {t("general.Settings")}</span>}
@@ -74,7 +74,7 @@ function SettingsPage({
       >
         <NavLink
           to="/home/settings"
-          className={`flex items-center px-2 py-3 rounded-md transition-all duration-200 hover:bg-gray-200 text-gray-600`}
+          className={`flex items-center px-2 py-3 rounded-md transition-all duration-100 hover:bg-gray-200 text-gray-600`}
         >
           <FiLock className="me-2 text-lg" />
           <span className="font-medium text-sm">{t("general.ChangePassword")}</span>

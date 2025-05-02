@@ -17,7 +17,7 @@ const RecipientsDisplay = ({ recipients }) => {
           recipients.map((recipient, index) => (
             <div
               key={index}
-              className="bg-gray-100 border border-gray-200 rounded-lg p-3 shadow-sm hover:bg-gray-50 transition-all duration-200"
+              className="bg-gray-100 border border-gray-200 rounded-lg p-3 shadow-sm hover:bg-gray-50 transition-all duration-100"
             >
               <div className="flex flex-col space-y-1">
                 <span className="text-sm font-semibold text-gray-800 truncate">

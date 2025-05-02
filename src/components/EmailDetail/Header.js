@@ -1,21 +1,19 @@
+import {
+    Archive,
+    ArchiveRestore,
+    ArrowRight,
+    Clock,
+    ForwardIcon,
+    Reply,
+    Send,
+    Star,
+    Trash2,
+    User
+} from "lucide-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Reply,
-  ForwardIcon,
-  Trash2,
-  Archive,
-  ArchiveRestore,
-  Clock,
-  Star,
-  Mail,
-  Send,
-  User,
-} from "lucide-react";
-import EmailAvatar from "./EmailAvatar";
 import { useSelector } from "react-redux";
+import EmailAvatar from "./EmailAvatar";
 
 const EmailHeader = ({
   email,
@@ -70,7 +68,7 @@ const EmailHeader = ({
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={onGoBack}
-          className="p-2 rounded-full hover:bg-gray-100/80 transition-all duration-200"
+          className="p-2 rounded-full hover:bg-gray-100/80 transition-all duration-100"
         >
           <ArrowRight className="w-5 h-5 text-gray-600" />
         </button>
@@ -79,7 +77,7 @@ const EmailHeader = ({
           <button
             onClick={onReply}
             className="flex items-center gap-2 px-3 py-1.5 text-blue-600 
-                     hover:bg-blue-50/80 rounded-full transition-all duration-200 
+                     hover:bg-blue-50/80 rounded-full transition-all duration-100 
                      text-sm font-medium"
           >
             <Reply className="w-4 h-4" />
@@ -89,7 +87,7 @@ const EmailHeader = ({
           <button
             onClick={onForward}
             className="flex items-center gap-2 px-3 py-1.5 text-emerald-600 
-                     hover:bg-emerald-50/80 rounded-full transition-all duration-200 
+                     hover:bg-emerald-50/80 rounded-full transition-all duration-100 
                      text-sm font-medium"
           >
             <ForwardIcon className="w-4 h-4" />

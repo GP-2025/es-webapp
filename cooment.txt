@@ -259,7 +259,7 @@ inbox  // Desktop rendering
   //       <div
   //         className={`${
   //           currentEmail ? "col-span-4" : "col-span-12"
-  //         } transition-all duration-300`}
+  //         } transition-all duration-100`}
   //       >
   //         <div className="bg-white rounded-lg shadow p-4 h-full">
   //           <div className="relative py-2">

@@ -1,7 +1,7 @@
-import React, { useState, useCallback, memo } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { accountService } from "../services/accountService";
+import React, { memo, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { accountService } from "../services/accountService";
 
 // Extracted form validation logic
 const PASSWORD_REGEX =
@@ -206,7 +206,7 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
           type="submit"
           disabled={isLoading}
           className="w-full bg-purple-600 text-white py-3 rounded-lg font-medium
-                   hover:bg-purple-700 transition-colors duration-200 
+                   hover:bg-purple-700 transition-colors duration-100 
                    disabled:opacity-50 disabled:cursor-not-allowed
                    focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
         >

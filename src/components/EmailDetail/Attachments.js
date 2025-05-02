@@ -22,7 +22,7 @@ const EmailAttachments = ({ attachments }) => {
               <li
                 className="bg-gray-100 rounded p-2 flex items-center justify-between 
                            text-xs md:text-sm lg:text-base flex-col sm:flex-row hover:bg-gray-200 
-                           transition-colors duration-200"
+                           transition-colors duration-100"
               >
                 <span className="w-full text-center sm:text-left truncate">
                   {attachment.name}

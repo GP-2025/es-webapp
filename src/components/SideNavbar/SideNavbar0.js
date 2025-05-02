@@ -1,14 +1,14 @@
 // Main SideNavbar.jsx
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { logout, toggleSidebar } from "../../store/slices/authSlice";
 import ComposeModal from "../ComposeModal";
-import UserProfile from "./UserProfile";
 import ComposeButton from "./ComposeButton";
-import NavigationItems from "./NavigationItems";
 import FooterSection from "./FooterSection";
+import NavigationItems from "./NavigationItems";
+import UserProfile from "./UserProfile";
 
 const SideNavbar = ({ children }) => {
   const { t, i18n } = useTranslation();
@@ -34,7 +34,7 @@ const SideNavbar = ({ children }) => {
   return (
     <div className="flex h-screen bg-gray-50 w-full ">
       <div
-        className={`h-full transition-all duration-300 ${
+        className={`h-full transition-all duration-100 ${
           isOpen ? "w-48 lg:w-48 sm:w-44  " : "w-12 md:w-16 sm:w-16"
         } flex-0.4`}
       >
@@ -65,7 +65,7 @@ const SideNavbar = ({ children }) => {
       </div>
 
       <div
-        className={`transition-all duration-300 overflow-hidden relative top-[4rem] right-0  flex-1 px-1   rounded-lg m-1 ${
+        className={`transition-all duration-100 overflow-hidden relative top-[4rem] right-0  flex-1 px-1   rounded-lg m-1 ${
           isRTL ? "pl-0" : "pr-0"
         }`}
         style={{
