@@ -47,7 +47,7 @@ function SettingsPage({
     return (
       <button
         onClick={handleOpen}
-        className={`flex items-center ps-5 py-1.5 pe-2 rounded-e-xl text-gray-700 hover:bg-gray-200 transition-colors`}
+        className={`flex items-center ps-5 py-1.5 pe-2 transition-all duration-200 rounded-e-xl text-gray-700 hover:bg-gray-200 transition-colors`}
       >
         <FiSettings className="text-xl my-1 rotating" />
         {isOpen && <span className="ms-2"> {t("general.Settings")}</span>}
@@ -56,31 +56,31 @@ function SettingsPage({
   }
   return (
     <div
-      className={`w-full bg-gray-50 shadow-md rounded-lg p-3 settings-panel ${animationClass}`}
+      className={`w-full border border-gray-200 rounded-lg p-3 settings-panel ${animationClass}`}
     >
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-5">
         <div
-          className="flex items-center cursor-pointer w-full"
+          className="flex items-center cursor-pointer w-full cursor-pointer"
           onClick={handleClose}
         >
-          <FiSettings className="text-2xl text-gray-600 mr-3 rotating" />
-          <h2 className="text-xl font-semibold text-gray-800 w-full ">
+          <FiSettings className="text-2xl text-gray-600 me-3 rotating" />
+          <h2 className="text-xl font-semibold text-gray-800 w-full">
             {t("general.Settings")}
           </h2>
         </div>
       </div>
       <div
-        className={`space-y-6 sm:ml-10 ${i18n.dir() == "rtl" && "sm:mr-10"}`}
+        className={`space-y-5 ${i18n.dir() == "rtl"}`}
       >
         <NavLink
           to="/home/settings"
-          className={`flex items-center p-1 sm:p-3 rounded-md transition-all duration-300 hover:bg-gray-100 text-gray-600`}
+          className={`flex items-center px-2 py-3 rounded-md transition-all duration-200 hover:bg-gray-200 text-gray-600`}
         >
-          <FiLock className=" mr-1 sm:mr-3 text-lg" />
-          <span className="font-medium">{t("general.ChangePassword")}</span>
+          <FiLock className="me-2 text-lg" />
+          <span className="font-medium text-sm">{t("general.ChangePassword")}</span>
         </NavLink>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-md font-medium text-gray-700 mb-2">
             {t("general.Language")}
           </label>
           <ToggleButtonGroup
@@ -88,14 +88,15 @@ function SettingsPage({
             exclusive
             onChange={handleLanguageChange}
             aria-label="language"
-            className="border rounded-md"
+            size="medium"
+            dir="ltr"
           >
-            <ToggleButton value="en" aria-label="English" className="px-4 py-2">
-              <FiGlobe className="mr-2 text-lg" />
+            <ToggleButton value="en" aria-label="English" className="" dir="ltr">
+              <FiGlobe className="me-2 text-lg" />
               EN
             </ToggleButton>
-            <ToggleButton value="ar" aria-label="Arabic" className="px-4 py-2">
-              <FiGlobe className="mr-2 text-lg" />
+            <ToggleButton value="ar" aria-label="Arabic" className="" dir="ltr">
+              <FiGlobe className="me-2 text-lg" />
               العربية
             </ToggleButton>
           </ToggleButtonGroup>

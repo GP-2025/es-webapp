@@ -35,7 +35,7 @@ const SideNavbar = ({ children }) => {
     <div className="flex h-screen bg-gray-50 w-full ">
       <div
         className={`h-full transition-all duration-300 ${
-          isOpen ? "w-44 lg:w-44 sm:w-44  " : "w-12 md:w-16 sm:w-16"
+          isOpen ? "w-48 lg:w-48 sm:w-44  " : "w-12 md:w-16 sm:w-16"
         } flex-0.4`}
       >
         <UserProfile

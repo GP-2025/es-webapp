@@ -26,19 +26,19 @@ function App() {
     <>
       <BrowserRouter>
         {status === "Connected" && (
-          <div className="fixed bottom-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+          <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
             🟢 Connected To The Server
           </div>
         )}
         {status === "Reconnecting..." && (
-          <div className="fixed bottom-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg animate-pulse">
+          <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg animate-pulse">
             🟡 Reconnecting...
           </div>
         )}
         {(status === "Disconnected" ||
           status === "Connection Failed" ||
           status === "Authentication Error") && (
-          <div className="fixed bottom-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+          <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
             🔴 {status}
           </div>
         )}

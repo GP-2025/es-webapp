@@ -57,7 +57,7 @@ const NavigationItems = ({ isOpen, t, isRTL }) => {
           <NavLink
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center ps-5 py-1 transition-all duration-200 w-10 hover:bg-gray-400 rounded-e-xl
+              `flex items-center ps-5 py-1 transition-all duration-100 w-10 hover:bg-gray-400 rounded-e-xl
               ${
                 isActive
                   ? `${item.color} bg-opacity-20 font-semibold bg-blue-600 hover:bg-opacity-40`
