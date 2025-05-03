@@ -157,7 +157,7 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
 
   return (
     <div
-      className={`max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg ${
+      className={`max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg ${
         isRTL ? "rtl" : "ltr"
       }`}
     >

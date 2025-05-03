@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import debounce from "lodash/debounce";
-import { ChevronDown, Inbox, SendHorizontal } from "lucide-react";
+import { Inbox, SendHorizontal } from "lucide-react";
+import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { conversationsService } from "../services/conversationsService";
 
 const SearchInput = () => {
@@ -108,7 +108,7 @@ const SearchInput = () => {
     >
       <button
         onClick={() => setShowTypeMenu(!showTypeMenu)}
-        className="px-3 appearance-none rounded-xl border border-gray-300 bg-white text-gray-800 flex gap-2 items-center hover:border-gray-500 transition-colors"
+        className="px-3 appearance-none rounded-2xl border border-gray-300 bg-white text-gray-800 flex gap-2 items-center hover:border-gray-500 transition-colors"
       >
         <span className="flex items-center">
           {searchTypes.find((type) => type.id === searchType)?.icon}
@@ -123,7 +123,7 @@ const SearchInput = () => {
           value={search}
           type="search"
           placeholder={t("search.Searchemails")}
-          className={`w-full sm:w-[30vw] h-12 rounded-xl border border-gray-300 bg-white text-gray-800 ps-12 pe-3 outline-none focus:border-gray-500`}
+          className={`w-full sm:w-[30vw] h-12 rounded-2xl border border-gray-300 bg-white text-gray-800 ps-12 pe-3 outline-none focus:border-gray-500`}
           dir={isRTL ? "rtl" : "ltr"}
         />
         <svg

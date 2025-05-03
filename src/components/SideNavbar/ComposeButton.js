@@ -9,7 +9,7 @@ const ComposeButton = ({ isOpen, setcompose, t }) => {
       className={`
         flex items-center justify-center py-3 px-3.5 gap-2
         transition-all duration-200 ease-in-out
-        rounded-xl dark:bg-blue-600 dark:hover:bg-blue-700 m-2
+        rounded-2xl dark:bg-blue-600 dark:hover:bg-blue-700 m-2
         ${isOpen ? "w-fit px-3" : "w-auto"}
       `}
     >

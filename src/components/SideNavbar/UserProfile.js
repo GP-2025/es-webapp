@@ -18,7 +18,7 @@ const UserProfile = ({
               handleToggleSidebar(!isOpen);
               setsettingsOpen(false);
             }}
-            className="p-3 me-3 rounded-xl bg-gray-300 hover:bg-gray-400 transition"
+            className="p-3 me-3 rounded-2xl bg-gray-300 hover:bg-gray-400 transition"
           >
             <FiMenu className="text-2xl text-gray-600" />
           </button>
@@ -30,7 +30,7 @@ const UserProfile = ({
                 "/nophto.jpg"
               }
               alt={`${user?.name || "User"}'s profile`}
-              className="w-12 h-12 rounded-xl object-cover"
+              className="w-12 h-12 rounded-2xl object-cover"
             />
 
             <div className="">
