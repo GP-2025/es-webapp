@@ -108,57 +108,30 @@ const SearchInput = () => {
     >
       <button
         onClick={() => setShowTypeMenu(!showTypeMenu)}
-        className="h-12 px-2 sm:px-1 rounded-full border border-blue-300 bg-white text-blue-800 flex items-center gap-1 hover:border-blue-500 transition-colors"
+        className="px-3 appearance-none rounded-xl border border-gray-300 bg-white text-gray-800 flex gap-2 items-center hover:border-gray-500 transition-colors"
       >
+        <span className="flex items-center">
+          {searchTypes.find((type) => type.id === searchType)?.icon}
+        </span>
         <span className="hidden sm:inline">
           {searchTypes.find((type) => type.id === searchType)?.label}
         </span>
-        <span className="sm:hidden flex items-center">
-          {searchTypes.find((type) => type.id === searchType)?.icon}
-        </span>
-        <ChevronDown className="w-3 h-3" />
       </button>
-      {showTypeMenu && (
-        <div
-          className={`absolute top-full ${
-            !isRTL ? "right-0" : "left-0"
-          } w-20 mt-1 bg-white border border-gray-200 rounded-md shadow-lg`}
-        >
-          {searchTypes.map((type) => (
-            <button
-              key={type.id}
-              onClick={() => handleTypeSelect(type.id)}
-              className={`w-full flex items-center gap-2 ${
-                isRTL ? "text-right" : "text-left"
-              } px-4 py-2 hover:bg-gray-100 ${
-                searchType === type.id ? "bg-blue-50" : ""
-              }`}
-            >
-              {type.icon}
-              <span className="hidden sm:inline">{type.label}</span>
-            </button>
-          ))}
-        </div>
-      )}
-      <div className={`relative flex-1 `}>
+      <div className={`relative flex-1`}>
         <input
           onChange={handleSearchChange}
           value={search}
           type="search"
           placeholder={t("search.Searchemails")}
-          className={`w-full sm:w-[30vw] h-12 rounded-full border border-blue-300 bg-white text-blue-800 ${
-            isRTL ? "pr-12 pl-4" : "pl-12 pr-4"
-          } outline-none focus:border-blue-500`}
+          className={`w-full sm:w-[30vw] h-12 rounded-xl border border-gray-300 bg-white text-gray-800 ps-12 pe-3 outline-none focus:border-gray-500`}
           dir={isRTL ? "rtl" : "ltr"}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className={`absolute ${
-            isRTL ? "right-3" : "left-3"
-          } top-1/2 -translate-y-1/2 h-6 w-6 stroke-blue-500 z-[9999]`}
+          className={`absolute start-3 top-1/2 -translate-y-1/2 h-6 w-6 stroke-gray-400 z-[9999]`}
           fill="none"
           viewBox="0 0 24 24"
-          stroke="blue"
+          stroke="gray"
           strokeWidth="3"
         >
           <path
@@ -178,7 +151,7 @@ const SearchInput = () => {
           >
             {isLoading ? (
               <div className="p-4 text-center text-gray-500">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500 mx-auto"></div>
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-500 mx-auto"></div>
               </div>
             ) : (
               <>
@@ -210,6 +183,28 @@ const SearchInput = () => {
           </div>
         )}
       </div>
+      {showTypeMenu && (
+        <div
+          className={`absolute top-full ${
+            !isRTL ? "right-0" : "left-0"
+          } w-20 mt-1 bg-white border border-gray-200 rounded-md shadow-lg`}
+        >
+          {searchTypes.map((type) => (
+            <button
+              key={type.id}
+              onClick={() => handleTypeSelect(type.id)}
+              className={`w-full flex items-center gap-2 ${
+                isRTL ? "text-right" : "text-left"
+              } p-2 hover:bg-gray-100 ${
+                searchType === type.id ? "bg-blue-50" : ""
+              }`}
+            >
+              {type.icon}
+              <span className="sm:inline">{type.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
