@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { Star } from "lucide-react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useInView } from "react-intersection-observer";
 import { conversationsService } from "../services/conversationsService";
-import { Star } from "lucide-react";
 
-import EmailListItem from "../components/EmailList/index";
-import EmailDetail from "../components/EmailDetail";
 import { useSelector } from "react-redux";
+import EmailDetail from "../components/EmailDetail";
+import EmailListItem from "../components/EmailList/index";
 
 const StarredPage = ({ messages }) => {
   const user = useSelector((state) => state.auth.user);
@@ -182,13 +182,12 @@ const StarredPage = ({ messages }) => {
               className="flex-grow overflow-y-auto"
             >
               <div
-                className={`sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-lg mt-1  ${
+                className={`sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-xl mt-1  ${
                   isRTL ? "ml-1" : "mr-1"
                 } mb-1`}
               >
                 <div className="flex items-center gap-2 ">
                   <Star className="w-6 h-6 text-yellow-500" />
-
                   <h1 className="text-2xl font-bold ">{t("starred.title")}</h1>
                 </div>
               </div>

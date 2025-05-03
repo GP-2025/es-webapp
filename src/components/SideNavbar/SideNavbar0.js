@@ -45,7 +45,7 @@ const SideNavbar = ({ children }) => {
           setsettingsOpen={setsettingsOpen}
         />
 
-        <div className="h-fit">
+        <div className="h-fit mt-[68px]">
           <ComposeButton isOpen={isOpen} setcompose={setcompose} t={t} />
           <NavigationItems isOpen={isOpen} t={t} isRTL={isRTL} />
         </div>

@@ -69,7 +69,7 @@ const LoginPage = () => {
         backgroundBlendMode: "overlay", // Creates a nice blend between the image and background color
       }}
     >
-      <div className="bg-white rounded-md shadow-lg border border-1 border-gray-300 max-w-md w-full flex flex-col md:flex-row">
+      <div className="bg-white rounded-xl shadow-lg border border-1 border-gray-300 max-w-md w-full flex flex-col md:flex-row">
         {/* Left side is now removed as we have a full screen background */}
 
         {/* Login form */}
@@ -101,7 +101,7 @@ const LoginPage = () => {
                           placeholder="Your Name"
                           className={`w-full p-3 focus:outline-none focus:border-gray-500 border ${
                             errors.email ? "border-red-500" : "border-gray-300"
-                          } rounded-lg pl-10`}
+                          } rounded-xl pl-10`}
                           {...field}
                         />
                         <div className="absolute left-3 top-3 text-gray-400">
@@ -140,7 +140,7 @@ const LoginPage = () => {
                             errors.password
                               ? "border-red-500"
                               : "border-gray-300"
-                          } rounded-lg pl-10`}
+                          } rounded-xl pl-10`}
                           {...field}
                         />
                         <div className="absolute left-3 top-3 text-gray-400">
@@ -191,7 +191,7 @@ const LoginPage = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-400 hover:bg-blue-500 text-white font-medium py-3 px-4 rounded-lg transition duration-200 flex justify-center"
+                className="w-full bg-blue-400 hover:bg-blue-500 text-white font-medium py-3 px-4 rounded-xl transition duration-200 flex justify-center"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -224,7 +224,7 @@ const LoginPage = () => {
               <div className="mt-6">
                 <button
                   type="button"
-                  className="w-full border border-purple-600 text-purple-600 font-medium py-2 px-4 rounded-lg flex items-center justify-center"
+                  className="w-full border border-purple-600 text-purple-600 font-medium py-2 px-4 rounded-xl flex items-center justify-center"
                   onClick={() => navigate("/support")}
                 >
                   <HelpCircle size={16} className="mr-2" />

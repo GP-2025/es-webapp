@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { Trash2 } from "lucide-react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useInView } from "react-intersection-observer";
-import EmailListItem from "../components/EmailList/index";
-import EmailDetail from "../components/EmailDetail";
-import { conversationsService } from "../services/conversationsService";
-import { Trash2 } from "lucide-react";
 import { useSelector } from "react-redux";
+import EmailListItem from "../components/EmailList/index";
+import { conversationsService } from "../services/conversationsService";
 
 const TrashPage = () => {
   const { t, i18n } = useTranslation();
@@ -129,7 +128,7 @@ const TrashPage = () => {
             exit={{ opacity: 0 }}
             className="flex-grow overflow-y-auto"
           >
-            <div className="sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-lg">
+            <div className="sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-xl">
               <div className="flex items-center gap-2">
                 <Trash2 className="w-6 h-6 text-red-500" />
                 <h1 className="text-2xl font-bold">{t("trash.title")}</h1>

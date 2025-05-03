@@ -5,7 +5,7 @@ const DeleteMenu = ({ messageId, setConfirmModal, setMenuOpen }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10 py-1">
+    <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg z-10 py-1">
       <button
         onClick={() => {
           setConfirmModal({ open: true, type: "forMe", messageId });

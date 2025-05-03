@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
 import { ArrowLeft, Paperclip } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 import EmailLookup from "../../components/ComposeModal/EmailLookup";
-import { errorToast, successToast } from "../../utils/toastConfig";
-import RecipientsDisplay from "./RecipientsDisplay";
 import { composeEmail } from "../../services/emailService";
 import getContacts from "../../services/getContactsService";
+import { errorToast, successToast } from "../../utils/toastConfig";
 
 const ComposeMail = ({ email, onGoBack }) => {
   console.log(email);
@@ -114,7 +113,7 @@ const ComposeMail = ({ email, onGoBack }) => {
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto">
         <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
-          <div className="bg-white shadow-sm rounded-lg p-4">
+          <div className="bg-white shadow-sm rounded-xl p-4">
             {/* Recipients Field */}
 
             <EmailLookup control={control} errors={errors} />

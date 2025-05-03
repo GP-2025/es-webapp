@@ -101,34 +101,18 @@ const SearchInput = () => {
   };
 
   return (
-    <div
-      className={`sticky top-2 ${
-        isRTL ? "left-4" : "right-4"
-      } z-[20] w-[40vw] sm:w-[100vw] max-w-sm flex gap-2  flex-row-reverse`}
-    >
-      <button
-        onClick={() => setShowTypeMenu(!showTypeMenu)}
-        className="px-3 appearance-none rounded-2xl border border-gray-300 bg-white text-gray-800 flex gap-2 items-center hover:border-gray-500 transition-colors"
-      >
-        <span className="flex items-center">
-          {searchTypes.find((type) => type.id === searchType)?.icon}
-        </span>
-        <span className="hidden sm:inline">
-          {searchTypes.find((type) => type.id === searchType)?.label}
-        </span>
-      </button>
-      <div className={`relative flex-1`}>
+    <div className="absolute top-2 left-1/2 -translate-x-1/2 flex gap-2 z-[20]">
+      <div className="relative flex-1">
         <input
           onChange={handleSearchChange}
           value={search}
           type="search"
-          placeholder={t("search.Searchemails")}
-          className={`w-full sm:w-[30vw] h-12 rounded-2xl border border-gray-300 bg-white text-gray-800 ps-12 pe-3 outline-none focus:border-gray-500`}
+          className={`bg-gray-350 focus:bg-white w-full sm:w-[30vw] h-12 rounded-full border border-gray-300 bg-white text-gray-800 ps-12 pe-3 outline-none focus:border-gray-500`}
           dir={isRTL ? "rtl" : "ltr"}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className={`absolute start-3 top-1/2 -translate-y-1/2 h-6 w-6 stroke-gray-400 z-[9999]`}
+          className={`absolute start-3 top-3 h-6 w-6 stroke-gray-300`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="gray"
@@ -143,10 +127,9 @@ const SearchInput = () => {
 
         {search && (searchResults.length > 0 || isLoading) && (
           <div
-            className={`absolute z-[20] ${
-              !isRTL ? "right-0" : "left-0"
-            } mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-y-auto
-            w-[70vw] md:max-w-md`}
+            className={`absolute ${
+              !isRTL ? "left-0" : "right-0"
+            } mt-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-60 overflow-y-auto`}
             dir={!isRTL ? "rtl" : "ltr"}
           >
             {isLoading ? (
@@ -183,28 +166,43 @@ const SearchInput = () => {
           </div>
         )}
       </div>
-      {showTypeMenu && (
-        <div
-          className={`absolute top-full ${
-            !isRTL ? "right-0" : "left-0"
-          } w-20 mt-1 bg-white border border-gray-200 rounded-md shadow-lg`}
+
+      <div className="flex-col items-center gap-2">
+        <button
+          onClick={() => setShowTypeMenu(!showTypeMenu)}
+          className="
+            w-24 h-12 focus:outline-offset-2 focus:outline-gray-500
+            px-3 appearance-none rounded-full border border-gray-300 bg-white text-gray-400
+            flex gap-2 items-center hover:border-gray-500 hover:text-gray-600 transition-colors
+          "
         >
-          {searchTypes.map((type) => (
-            <button
-              key={type.id}
-              onClick={() => handleTypeSelect(type.id)}
-              className={`w-full flex items-center gap-2 ${
-                isRTL ? "text-right" : "text-left"
-              } p-2 hover:bg-gray-100 ${
-                searchType === type.id ? "bg-blue-50" : ""
-              }`}
-            >
-              {type.icon}
-              <span className="sm:inline">{type.label}</span>
-            </button>
-          ))}
-        </div>
-      )}
+          <span className="flex items-center">
+            {searchTypes.find((type) => type.id === searchType)?.icon}
+          </span>
+          <span className="hidden sm:inline">
+            {searchTypes.find((type) => type.id === searchType)?.label}
+          </span>
+        </button>
+
+        {showTypeMenu && (
+          <div className="w-24 mt-1 bg-white rounded-md shadow-lg">
+            {searchTypes.map((type) => (
+              <button
+                key={type.id}
+                onClick={() => handleTypeSelect(type.id)}
+                className={`w-full flex rounded-md items-center gap-2 ${
+                  isRTL ? "text-right" : "text-left"
+                } py-2 px-3 ${
+                  searchType === type.id ? "bg-blue-100" : ""
+                }`}
+              >
+                {type.icon}
+                <span className="sm:inline">{type.label}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

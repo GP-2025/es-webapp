@@ -1,11 +1,11 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
 import { Mail, MailOpen } from "lucide-react";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import EmailAvatar from "./EmailAvatar";
-import EmailPreview from "./EmailPreview";
-import EmailMetadata from "./EmailMetadata";
 import EmailDateTime from "./EmailDateTime";
+import EmailMetadata from "./EmailMetadata";
+import EmailPreview from "./EmailPreview";
 
 const EmailListItem = React.memo(
   ({ email, onSelect, isSelected, page, isSent }) => {
@@ -22,7 +22,7 @@ const EmailListItem = React.memo(
         flex items-center p-3 
         ${isUnread ? "bg-blue-50 border-4 border-blue-500" : "bg-white"} 
         hover:bg-gray-50 
-        rounded-lg shadow-sm 
+        rounded-xl shadow-sm 
         cursor-pointer 
         transition-colors 
         duration-150 

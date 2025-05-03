@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { Inbox } from "lucide-react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useInView } from "react-intersection-observer";
 import { useSelector } from "react-redux";
-import { conversationsService } from "../services/conversationsService";
-import EmailListItem from "../components/EmailList/index";
 import EmailDetail from "../components/EmailDetail";
-import { Inbox } from "lucide-react";
-import { toast } from "react-toastify";
+import EmailListItem from "../components/EmailList/index";
+import { conversationsService } from "../services/conversationsService";
 
 const InboxPage = ({ messages }) => {
   const { t, i18n } = useTranslation();
@@ -184,12 +183,12 @@ const InboxPage = ({ messages }) => {
   // Responsive layout with RTL support
   return (
     <div
-      className={`flex flex-col overflow-hidden ${isRTL ? "rtl" : "ltr"}`}
+      className={`bg-blue-100 -ms-1 flex flex-col ${isRTL ? "rtl" : "ltr"}`}
       dir={isRTL ? "rtl" : "ltr"}
       style={{ maxHeight: "calc(100vh - 4rem)" }}
     >
       {error ? (
-        <div className="text-red-500 text-center p-4">{error}</div>
+        <div className="text-red-500 text-center">{error}</div>
       ) : (
         <AnimatePresence mode="wait">
           {!currentEmail ? (
@@ -198,20 +197,16 @@ const InboxPage = ({ messages }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex-grow overflow-y-auto"
+              className="flex-grow"
             >
-              <div
-                className={`sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-lg mt-1  ${
-                  isRTL ? "ml-1" : "mr-1"
-                } mb-1`}
-              >
-                <div className="flex items-center gap-2 ">
+              <div className="sticky top-0 bg-blue-100 px-4 py-3">
+                <div className="flex items-center gap-2">
                   <Inbox className="w-6 h-6 text-blue-500" />
                   <h1 className="text-2xl font-bold ">{t("inbox.inbox")}</h1>
                 </div>
               </div>
-              <div className="px-4">
-                <ul className="space-y-3">
+              <div className="px-4 overflow-y-auto">
+                <ul className="space-y-3 mt-5">
                   {emails.map((email) => {
                     return (
                       <li key={email.id} className="email-item">

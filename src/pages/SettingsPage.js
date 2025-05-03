@@ -56,7 +56,7 @@ function SettingsPage({
   }
   return (
     <div
-      className={`w-full bg-gray-50 shadow-md rounded-lg p-3 settings-panel ${animationClass}`}
+      className={`w-full bg-gray-50 shadow-md rounded-xl p-3 settings-panel ${animationClass}`}
     >
       <div className="flex items-center justify-between mb-6">
         <div

@@ -41,7 +41,7 @@ const PasswordInput = memo(
           type={showPassword ? "text" : "password"}
           value={value}
           onChange={onChange}
-          className={`w-full px-4 py-3 rounded-lg border ${
+          className={`w-full px-4 py-3 rounded-xl border ${
             error ? "border-red-500" : "border-gray-300"
           } focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all pr-12`}
           placeholder={label}
@@ -157,7 +157,7 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
 
   return (
     <div
-      className={`max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg ${
+      className={`max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg ${
         isRTL ? "rtl" : "ltr"
       }`}
     >
@@ -205,7 +205,7 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-purple-600 text-white py-3 rounded-lg font-medium
+          className="w-full bg-purple-600 text-white py-3 rounded-xl font-medium
                    hover:bg-purple-700 transition-colors duration-200 
                    disabled:opacity-50 disabled:cursor-not-allowed
                    focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"

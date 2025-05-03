@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { File } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useInView } from "react-intersection-observer";
 import { useSelector } from "react-redux";
-import { conversationsService } from "../services/conversationsService";
-import { File } from "lucide-react";
 import EmailListItem from "../components/EmailList/index.js";
 import ComposeMail from "../pages/ComposeMail";
+import { conversationsService } from "../services/conversationsService";
 
 const DraftPage = () => {
   const { t, i18n } = useTranslation();
@@ -111,7 +111,7 @@ const DraftPage = () => {
             exit={{ opacity: 0 }}
             className="flex-grow overflow-y-auto"
           >
-            <div className="sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-lg">
+            <div className="sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-xl">
               <div className="flex items-center gap-2">
                 <File className="w-6 h-6 text-yellow-600" />
                 <h1 className="text-2xl font-bold">{t("draft.draft")}</h1>
