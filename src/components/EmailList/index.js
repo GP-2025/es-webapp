@@ -19,13 +19,11 @@ const EmailListItem = React.memo(
 
     const getLayoutClasses = () => {
       return `
-        flex items-center p-3 
-        ${isUnread ? "bg-blue-50 border-4 border-blue-500" : "bg-white"} 
-        hover:bg-gray-50 
-        rounded-xl shadow-sm 
-        cursor-pointer 
-        transition-colors 
-        duration-150 
+        flex items-center px-4 py-2
+        ${isUnread ? "bg-white font-bold" : "bg-opacity-50 bg-blue-50"}
+        hover:bg-gray-300
+        border-b border-gray-300
+        cursor-pointer
         ${isSelected ? "ring-2 ring-blue-500" : ""}
       `;
     };
@@ -40,7 +38,7 @@ const EmailListItem = React.memo(
         onClick={handleClick}
         dir={isRTL ? "rtl" : "ltr"}
       >
-        <div className="flex flex-grow items-center space-x-3 sm:space-x-4 w-full">
+        <div className="flex items-center w-full">
           <div className="flex-shrink-0">
             <EmailAvatar
               picture={email.senderPicture}
@@ -50,7 +48,7 @@ const EmailListItem = React.memo(
             />
           </div>
 
-          <div className="flex-shrink-0 text-gray-500">
+          <div className="flex-shrink-0 text-gray-500 ms-4">
             {isUnread ? <Mail size={20} /> : <MailOpen size={20} />}
           </div>
 

@@ -19,30 +19,24 @@ const EmailDateTime = ({ date }) => {
     if (emailDate.toDateString() === today.toDateString()) {
       return (
         <div className="flex items-center gap-2">
-          <Clock className="w-4 h-4 text-gray-500 mb-1" />
           <div className="flex flex-col items-end">
             <span>{t("email.today")}</span>
-            <span>{time}</span>
           </div>
         </div>
       );
     } else if (emailDate.toDateString() === yesterday.toDateString()) {
       return (
         <div className="flex items-center gap-2">
-          <Clock className="w-4 h-4 text-gray-500 mb-1" />
           <div className="flex flex-col items-end">
             <span>{t("email.yesterday")}</span>
-            <span>{time}</span>
           </div>
         </div>
       );
     } else {
       return (
         <div className="flex items-center gap-2">
-          <Clock className="w-4 h-4 text-gray-500 mb-1" />
           <div className="flex flex-col items-end">
             <span>{emailDate.toLocaleDateString()}</span>
-            <span>{time}</span>
           </div>
         </div>
       );
@@ -50,7 +44,7 @@ const EmailDateTime = ({ date }) => {
   };
 
   return (
-    <div className="text-xs text-gray-500 flex flex-col items-end">
+    <div className="text-xs text-gray-500 flex flex-col items-end ms-4">
       {getDateDisplay()}
     </div>
   );

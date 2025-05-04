@@ -205,11 +205,11 @@ const InboxPage = ({ messages }) => {
                 </div>
               </div>
 
-              <div className="p-3 overflow-y-auto pb-10 h-[calc(100vh-124px)]">
+              <div className="overflow-y-auto pb-10 h-[calc(100vh-124px)]">
                 <ul className="">
                   {emails.map((email) => {
                     return (
-                      <li key={email.id} className="email-item pb-3">
+                      <li key={email.id} className="email-item">
                         <EmailListItem
                           email={email}
                           onSelect={handleEmailSelect}
