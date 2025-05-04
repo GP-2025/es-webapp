@@ -205,11 +205,7 @@ const InboxPage = ({ messages }) => {
                 </div>
               </div>
 
-              <div className="p-3 overflow-y-auto pb-10"
-                style={{
-                  height: "calc(100vh - 124px)",
-                }}
-              >
+              <div className="p-3 overflow-y-auto pb-10 h-[calc(100vh-124px)]">
                 <ul className="">
                   {emails.map((email) => {
                     return (

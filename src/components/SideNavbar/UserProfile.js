@@ -38,27 +38,18 @@ const UserProfile = ({
 
             <div className="absolute end-0 hidden group-hover:block top-full mt-1 border border-gray-400 bg-gray-100 bg-opacity-50 backdrop-blur-xl shadow-lg rounded-lg p-3 z-10">
               <h3 className="text-base font-bold text-gray-800 truncate">
-                <span className="hidden sm:inline">
+                <span className="">
                   {user?.role || "Unknown"}
-                </span>
-                <span className="sm:hidden">
-                  {(user?.role || "Unknown").split(" ").slice(0, 2).join(" ")}
                 </span>
               </h3>
               <p className="text-base font-semibold text-gray-800 truncate">
-                <span className="hidden sm:inline">
+                <span className="">
                   {user?.name || "Unknown"}
-                </span>
-                <span className="sm:hidden">
-                  {(user?.name || "Unknown").split(" ").slice(0, 2).join(" ")}
                 </span>
               </p>
               <p className="text-sm text-gray-500 truncate">
-                <span className="hidden sm:inline">
+                <span className="">
                   {user?.email || "Unknown@fci.com"}
-                </span>
-                <span className="sm:hidden">
-                  {(user?.email || "Unknown@fci.com").split("@")[0]}
                 </span>
               </p>
             </div>
