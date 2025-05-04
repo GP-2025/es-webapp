@@ -24,34 +24,45 @@ const UserProfile = ({
           </button>
         </div>
 
-        <div className="ms-auto flex items-center gap-3">
-          <div className="">
-            <h3 className="text-base font-semibold text-gray-800 truncate">
-              <span className="hidden sm:inline">
-                {user?.name || "Unknown"}
-              </span>
-              <span className="sm:hidden ">
-                {(user?.name || "Unknown").split(" ").slice(0, 2).join(" ")}
-              </span>
-            </h3>
-            <p className="text-sm text-gray-500 truncate">
-              <span className="hidden sm:inline">
-                {user?.email || "Unknown@fci.com"}
-              </span>
-              <span className="sm:hidden">
-                {(user?.email || "Unknown@fci.com").split("@")[0]}
-              </span>
-            </p>
+        <div className="ms-auto relative">
+          <div className="flex items-center gap-3 group">
+            <img
+              src={
+                (user?.profilePicture != "Empty" && user?.profilePicture) ||
+                (user?.pictureURL != "Empty" && user?.pictureURL) ||
+                "/nophto.jpg"
+              }
+              alt={`${user?.name || "User"}'s profile`}
+              className="w-12 h-12 rounded-xl object-cover cursor-pointer"
+            />
+
+            <div className="absolute end-0 hidden group-hover:block top-full mt-1 border border-gray-400 bg-gray-100 bg-opacity-50 backdrop-blur-xl shadow-lg rounded-lg p-3 z-10">
+              <h3 className="text-base font-bold text-gray-800 truncate">
+                <span className="hidden sm:inline">
+                  {user?.role || "Unknown"}
+                </span>
+                <span className="sm:hidden">
+                  {(user?.role || "Unknown").split(" ").slice(0, 2).join(" ")}
+                </span>
+              </h3>
+              <p className="text-base font-semibold text-gray-800 truncate">
+                <span className="hidden sm:inline">
+                  {user?.name || "Unknown"}
+                </span>
+                <span className="sm:hidden">
+                  {(user?.name || "Unknown").split(" ").slice(0, 2).join(" ")}
+                </span>
+              </p>
+              <p className="text-sm text-gray-500 truncate">
+                <span className="hidden sm:inline">
+                  {user?.email || "Unknown@fci.com"}
+                </span>
+                <span className="sm:hidden">
+                  {(user?.email || "Unknown@fci.com").split("@")[0]}
+                </span>
+              </p>
+            </div>
           </div>
-          <img
-            src={
-              (user?.profilePicture != "Empty" && user?.profilePicture) ||
-              (user?.pictureURL != "Empty" && user?.pictureURL) ||
-              "/nophto.jpg"
-            }
-            alt={`${user?.name || "User"}'s profile`}
-            className="w-12 h-12 rounded-xl object-cover"
-          />
         </div>
       </div>
       <SearchInput />

@@ -185,7 +185,6 @@ const InboxPage = ({ messages }) => {
     <div
       className={`bg-blue-100 -ms-1 flex flex-col ${isRTL ? "rtl" : "ltr"}`}
       dir={isRTL ? "rtl" : "ltr"}
-      style={{ maxHeight: "calc(100vh - 4rem)" }}
     >
       {error ? (
         <div className="text-red-500 text-center">{error}</div>
@@ -199,17 +198,22 @@ const InboxPage = ({ messages }) => {
               exit={{ opacity: 0 }}
               className="flex-grow"
             >
-              <div className="sticky top-0 bg-blue-100 px-4 py-3">
+              <div className="sticky top-0 bg-blue-100 px-4 py-3 shadow-sm">
                 <div className="flex items-center gap-2">
                   <Inbox className="w-6 h-6 text-blue-500" />
                   <h1 className="text-2xl font-bold ">{t("inbox.inbox")}</h1>
                 </div>
               </div>
-              <div className="px-4 overflow-y-auto">
-                <ul className="space-y-3 mt-5">
+
+              <div className="p-3 overflow-y-auto pb-10"
+                style={{
+                  height: "calc(100vh - 124px)",
+                }}
+              >
+                <ul className="">
                   {emails.map((email) => {
                     return (
-                      <li key={email.id} className="email-item">
+                      <li key={email.id} className="email-item pb-3">
                         <EmailListItem
                           email={email}
                           onSelect={handleEmailSelect}

@@ -102,12 +102,12 @@ const SearchInput = () => {
 
   return (
     <div className="absolute top-2 left-1/2 -translate-x-1/2 flex gap-2 z-[20]">
-      <div className="relative flex-1">
+      <div className="relative flex-1 gap-2">
         <input
           onChange={handleSearchChange}
           value={search}
           type="search"
-          className={`bg-gray-350 focus:bg-white w-full sm:w-[30vw] h-12 rounded-full border border-gray-300 bg-white text-gray-800 ps-12 pe-3 outline-none focus:border-gray-500`}
+          className="lg:w-[800px] w-[calc(100vw-185px)] h-12 rounded-xl border border-gray-300 text-gray-800 ps-12 pe-3 outline-none focus:border-gray-500 focus:bg-white"
           dir={isRTL ? "rtl" : "ltr"}
         />
         <svg
@@ -127,14 +127,13 @@ const SearchInput = () => {
 
         {search && (searchResults.length > 0 || isLoading) && (
           <div
-            className={`absolute ${
-              !isRTL ? "left-0" : "right-0"
-            } mt-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-60 overflow-y-auto`}
+            className={`absolute ${!isRTL ? "left-0" : "right-0"
+              } lg:w-[800px] mt-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-64 overflow-y-auto`}
             dir={!isRTL ? "rtl" : "ltr"}
           >
             {isLoading ? (
               <div className="p-4 text-center text-gray-500">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-500 mx-auto"></div>
+                <div className="animate-spin rounded-xl h-6 w-6 border-b-2 border-gray-500 mx-auto"></div>
               </div>
             ) : (
               <>
@@ -142,9 +141,8 @@ const SearchInput = () => {
                   <div
                     key={email.id}
                     onClick={() => handleItemSelect(email)}
-                    className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${
-                      isRTL ? "text-right" : "text-left"
-                    }`}
+                    className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${isRTL ? "text-right" : "text-left"
+                      }`}
                   >
                     <div className="font-semibold">{email.subject}</div>
                     <div className="text-sm text-gray-600">{email.sender}</div>
@@ -171,8 +169,8 @@ const SearchInput = () => {
         <button
           onClick={() => setShowTypeMenu(!showTypeMenu)}
           className="
-            w-24 h-12 focus:outline-offset-2 focus:outline-gray-500
-            px-3 appearance-none rounded-full border border-gray-300 bg-white text-gray-400
+            lg:w-24 h-12 focus:outline-offset-2 focus:outline-gray-500
+            px-3 appearance-none rounded-xl border border-gray-300 bg-white text-gray-400
             flex gap-2 items-center hover:border-gray-500 hover:text-gray-600 transition-colors
           "
         >
@@ -185,19 +183,22 @@ const SearchInput = () => {
         </button>
 
         {showTypeMenu && (
-          <div className="w-24 mt-1 bg-white rounded-md shadow-lg">
+          <div className="lg:w-24 mt-1 bg-white rounded-lg shadow-lg border border-gray-200">
             {searchTypes.map((type) => (
               <button
                 key={type.id}
                 onClick={() => handleTypeSelect(type.id)}
-                className={`w-full flex rounded-md items-center gap-2 ${
-                  isRTL ? "text-right" : "text-left"
-                } py-2 px-3 ${
-                  searchType === type.id ? "bg-blue-100" : ""
-                }`}
+                className={`w-full flex items-center gap-2 ${isRTL ? "text-right" : "text-left"
+                  } py-2 px-3 ${searchType === type.id ? "bg-gray-200" : ""
+                  }
+                ${type.label === "Inbox"
+                    ? "rounded-t-md"
+                    : "rounded-b-md"
+                  }
+                `}
               >
                 {type.icon}
-                <span className="sm:inline">{type.label}</span>
+                <span className="hidden sm:inline">{type.label}</span>
               </button>
             ))}
           </div>
