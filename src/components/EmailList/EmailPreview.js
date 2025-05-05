@@ -34,7 +34,7 @@ const EmailPreview = ({ email, isUnread, page, isSent }) => {
         </div>
 
         <div className="me-3 flex items-center font-normal">
-          <p className="truncate text-xs text-gray-500 max-w-[230px] md:max-w-[200px] lg:max-w-[300px]">
+          <p className="truncate text-xs text-gray-500 max-w-[230px] md:max-w-[300px] lg:max-w-[300px]">
             {email.body}
           </p>
         </div>
