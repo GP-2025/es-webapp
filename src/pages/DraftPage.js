@@ -51,8 +51,8 @@ const DraftPage = () => {
         ),
         read: true, // Drafts are always considered read
         attachments: email.attachments || [],
-        senderPicture: email.senderPicture || "Empty",
-        recipientPicture: email.recipientPicture || "Empty",
+        senderPictureURL: email.senderPictureURL || "Empty",
+        receiverPictureURL: email.receiverPictureURL || "Empty",
       }));
 
       if (page === 1) {

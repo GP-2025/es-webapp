@@ -139,7 +139,7 @@ const EmailHeader = ({
         <div className="flex items-start gap-3">
           {/* Sender Avatar */}
           <EmailAvatar
-            picture={email.senderPicture}
+            picture={email.senderPictureURL}
             alt={email.sender}
             isSent={email.senderEmail === user.email}
           />

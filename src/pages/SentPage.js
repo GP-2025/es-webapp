@@ -42,7 +42,7 @@ const SentPage = ({ messages }) => {
         subject: conversation.subject,
         sender: conversation.senderName,
         senderEmail: conversation.senderEmail,
-        senderPicture: conversation.senderPictureURL,
+        senderPictureURL: conversation.senderPictureURLURL,
         receiver: conversation.receiverName,
         receiverEmail: conversation.receiverEmail,
         receiverPicture: conversation.receiverPictureURL,

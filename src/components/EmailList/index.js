@@ -20,7 +20,7 @@ const EmailListItem = React.memo(
     const getLayoutClasses = () => {
       return `
         flex items-center px-4 py-2
-        ${isUnread ? "bg-white font-bold" : "bg-opacity-50 bg-blue-50"}
+        ${isUnread ? "bg-opacity-70 bg-blue-100 font-bold" : "bg-white"}
         hover:bg-gray-300
         border-b border-gray-300
         cursor-pointer
@@ -41,14 +41,14 @@ const EmailListItem = React.memo(
         <div className="flex sm:flex-row flex-col md:items-center lg:items-center w-full">
           <div className="flex-shrink-0">
             <EmailAvatar
-              picture={email.senderPicture}
-              recipientPicture={email.recipientPicture}
+              senderPictureURL={email.senderPictureURL}
+              receiverPictureURL={email.receiverPictureURL}
               alt={isSent ? email.recipient : email.sender}
               isSent={isSent}
             />
           </div>
 
-          <div className="hidden lg:flex flex-shrink-0 text-gray-500 ms-4">
+          <div className="hidden lg:flex flex-shrink-0 text-gray-500 me-4">
             {isUnread ? <Mail size={20} /> : <MailOpen size={20} />}
           </div>
 

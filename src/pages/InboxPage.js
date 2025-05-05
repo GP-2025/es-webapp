@@ -83,7 +83,7 @@ const InboxPage = ({ messages }) => {
         subject: conversation.subject,
         sender: conversation.senderName,
         senderEmail: conversation.senderEmail,
-        senderPicture: conversation.senderPictureURL,
+        senderPictureURL: conversation.senderPictureURLURL,
         receiver: conversation.receiverName,
         receiverEmail: conversation.receiverEmail,
         receiverPicture: conversation.receiverPictureURL,
@@ -205,7 +205,7 @@ const InboxPage = ({ messages }) => {
                 </div>
               </div>
 
-              <div className="overflow-y-auto pb-10 h-[calc(100vh-124px)]">
+              <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
                 <ul className="">
                   {emails.map((email) => {
                     return (

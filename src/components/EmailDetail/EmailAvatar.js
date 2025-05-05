@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EmailAvatar = ({ picture, alt, isSent, recipientPicture }) => {
+const EmailAvatar = ({ picture, alt, isSent, receiverPictureURL }) => {
   const [imgError, setImgError] = useState(false);
   const [recipientImgError, setRecipientImgError] = useState(false);
 
@@ -22,13 +22,13 @@ const EmailAvatar = ({ picture, alt, isSent, recipientPicture }) => {
 
   if (
     !isSent &&
-    recipientPicture &&
-    recipientPicture !== "Empty" &&
+    receiverPictureURL &&
+    receiverPictureURL !== "Empty" &&
     !recipientImgError
   ) {
     return (
       <img
-        src={recipientPicture}
+        src={receiverPictureURL}
         alt={alt}
         className="w-10 h-10 rounded-full"
         onError={() => handleImageError(true)}

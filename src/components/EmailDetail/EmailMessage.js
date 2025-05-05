@@ -53,9 +53,9 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
         <div className="flex flex-row sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0">
-              {message.senderPicture ? (
+              {message.senderPictureURL ? (
                 <img
-                  src={message.senderPicture}
+                  src={message.senderPictureURL}
                   alt={message.sender}
                   className="w-10 h-10 rounded-full object-cover border-2 border-gray-100"
                 />

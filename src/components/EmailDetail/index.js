@@ -1,30 +1,22 @@
-import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  conversationsService,
-  deleteConversation,
+    conversationsService,
+    deleteConversation,
 } from "../../services/conversationsService";
 import ForwardList from "../ForwardList";
 
-import Replay from "./Replay";
-import EmailHeader from "./Header";
-import EmailMessage from "./EmailMessage";
-import { data } from "autoprefixer";
-import {
-  Trash2,
-  MoreVertical,
-  ArrowLeft,
-  Archive,
-  ArchiveRestore,
-} from "lucide-react";
-import {
-  deleteMessageForMe,
-  deleteMessageForEveryone,
-} from "../../services/emailService";
 import { useTranslation } from "react-i18next";
-import DeleteConfirmationModal from "./DeleteConfim";
 import { toast } from "react-toastify";
+import {
+    deleteMessageForEveryone,
+    deleteMessageForMe,
+} from "../../services/emailService";
+import DeleteConfirmationModal from "./DeleteConfim";
+import EmailMessage from "./EmailMessage";
+import EmailHeader from "./Header";
+import Replay from "./Replay";
 
 const EmailDetail = ({
   email,
@@ -67,7 +59,7 @@ const EmailDetail = ({
         id: latestMessage.content.id,
         sender: latestMessage.content.senderName,
         senderEmail: latestMessage.content.senderEmail,
-        senderPicture: latestMessage.content.senderPictureURL,
+        senderPictureURL: latestMessage.content.senderPictureURLURL,
         body: latestMessage.content.content,
         date: new Date(latestMessage.content.sentAt),
         attachments:
