@@ -107,7 +107,7 @@ const SearchInput = () => {
           onChange={handleSearchChange}
           value={search}
           type="search"
-          className="lg:w-[800px] w-[calc(100vw-185px)] h-12 rounded-xl border border-gray-300 text-gray-800 ps-12 pe-3 outline-none focus:border-gray-500 focus:bg-white"
+          className="lg:w-[800px] md:w-[calc(100vw-235px)] w-[calc(100vw-185px)] h-12 rounded-xl border border-gray-300 text-gray-800 ps-12 pe-3 outline-none focus:border-gray-500 focus:bg-white"
           dir={isRTL ? "rtl" : "ltr"}
         />
         <svg

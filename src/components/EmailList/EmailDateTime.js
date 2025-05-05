@@ -44,7 +44,7 @@ const EmailDateTime = ({ date }) => {
   };
 
   return (
-    <div className="text-xs text-gray-500 flex flex-col items-end ms-4">
+    <div className="text-xs text-gray-500 flex flex-col items-end">
       {getDateDisplay()}
     </div>
   );

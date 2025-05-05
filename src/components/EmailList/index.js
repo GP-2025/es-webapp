@@ -38,7 +38,7 @@ const EmailListItem = React.memo(
         onClick={handleClick}
         dir={isRTL ? "rtl" : "ltr"}
       >
-        <div className="flex items-center w-full">
+        <div className="flex sm:flex-row flex-col md:items-center lg:items-center w-full">
           <div className="flex-shrink-0">
             <EmailAvatar
               picture={email.senderPicture}
@@ -48,7 +48,7 @@ const EmailListItem = React.memo(
             />
           </div>
 
-          <div className="flex-shrink-0 text-gray-500 ms-4">
+          <div className="hidden lg:flex flex-shrink-0 text-gray-500 ms-4">
             {isUnread ? <Mail size={20} /> : <MailOpen size={20} />}
           </div>
 
@@ -58,13 +58,14 @@ const EmailListItem = React.memo(
             page={page}
             isSent={isSent}
           />
+          <div className="flex ms-auto">
+            <EmailMetadata
+              attachments={email.attachments}
+              hasDraft={email.hasDraft}
+            />
 
-          <EmailMetadata
-            attachments={email.attachments}
-            hasDraft={email.hasDraft}
-          />
-
-          <EmailDateTime date={email.date} />
+            <EmailDateTime date={email.date} />
+          </div>
         </div>
       </motion.li>
     );
