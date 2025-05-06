@@ -1,13 +1,13 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import enTranslations from "./locales/en.json";
 import arTranslations from "./locales/ar.json";
+import enTranslations from "./locales/en.json";
 
 // Get browser language
 const getBrowserLanguage = () => {
   const browserLang = navigator.language.split("-")[0]; // Get primary language code
-  //console.log(browserLang);
+  // console.log(browserLang);
   return ["en", "ar"].includes(browserLang) ? browserLang : "en"; // Default to 'en' if not supported
 };
 

@@ -1,8 +1,11 @@
+import {
+  ChevronDown, ChevronUp,
+  User,
+  X,
+} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next"; // Import the hook
-import { X, ChevronDown, ChevronUp } from "lucide-react";
-import { MdOutlineEmail } from "react-icons/md";
 import getContacts from "../../services/getContactsService"; // Import the service
 
 const EmailLookup = ({ control, errors }) => {
@@ -18,7 +21,7 @@ const EmailLookup = ({ control, errors }) => {
     const fetchContacts = async () => {
       try {
         const data = await getContacts();
-        console.log(data);
+        // console.log(data);
 
         setContacts(data);
         setFilteredOptions(data);
@@ -51,7 +54,7 @@ const EmailLookup = ({ control, errors }) => {
 
   // Handle option selection
   const handleOptionSelect = (option, field, id) => {
-    console.log(id);
+    // console.log(id);
     const currentRecipients = field.value || [];
     if (!currentRecipients.includes(option.email)) {
       const newRecipients = [...currentRecipients, option.email];
@@ -81,7 +84,7 @@ const EmailLookup = ({ control, errors }) => {
           language === "ar" ? "text-right" : "text-left"
         } text-gray-700 mb-1 flex items-center gap-2`}
       >
-        <MdOutlineEmail className="w-5 h-5 text-gray-500" />
+        <User className="w-5 h-5 text-gray-500" />
         {t("Compose.Recipients")}
       </label>
       <Controller
@@ -102,14 +105,12 @@ const EmailLookup = ({ control, errors }) => {
                     key={email}
                     className={`flex items-center ${
                       language === "ar" ? "flex-row-reverse" : "flex-row"
-                    } bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded-full text-xs`}
+                    } bg-indigo-200 text-indigo-800 ps-1.5 pe-0.5 py-0.5 rounded-md text-xs`}
                   >
                     {email}
 
                     <X
-                      className={`ml-1 h-3 w-3 cursor-pointer ${
-                        language === "ar" ? "mr-1" : "ml-1"
-                      }`}
+                      className={`ml-1 h-5 w-5 p-1 cursor-pointer`}
                       onClick={() => removeRecipient(email, field)}
                     />
                   </div>
@@ -140,12 +141,12 @@ const EmailLookup = ({ control, errors }) => {
 
               <div
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="absolute inset-y-0 right-0 flex items-center pr-2 cursor-pointer"
+                className="absolute inset-y-0 right-0 flex items-center px-2.5 cursor-pointer"
               >
                 {isDropdownOpen ? (
-                  <ChevronUp className="h-4 w-4 text-gray-400" />
+                  <ChevronUp className="h-5 w-5 text-gray-400" />
                 ) : (
-                  <ChevronDown className="h-4 w-4 text-gray-400" />
+                  <ChevronDown className="h-5 w-5 text-gray-400" />
                 )}
               </div>
               {(isDropdownOpen ||

@@ -1,9 +1,9 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 import { store } from "../store";
 import { logout } from "../store/slices/authSlice";
-import { errorToast } from "../utils/toastConfig";
 import { getCookie, removeCookie, setCookie } from "../utils/cookieUtils";
-import jwtDecode from "jwt-decode";
+import { errorToast } from "../utils/toastConfig";
 
 // Create axios instance for refresh token requests
 const refreshAxios = axios.create({
@@ -41,7 +41,7 @@ const isTokenExpired = (token) => {
   try {
     const decodedToken = jwtDecode(token);
     const currentTime = Date.now() / 1000;
-    //console.log(decodedToken.exp, currentTime);
+    // console.log(decodedToken.exp, currentTime);
     return decodedToken.exp < currentTime;
   } catch (error) {
     return true;
@@ -52,6 +52,10 @@ const isTokenExpired = (token) => {
 const refreshToken = async () => {
   try {
     const oldToken = getCookie("token");
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+    }
     const response = await refreshAxios.get("/Auth/Refresh", {
       headers: {
         accept: "text/plain",

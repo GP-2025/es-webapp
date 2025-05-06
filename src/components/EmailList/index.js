@@ -29,11 +29,11 @@ const EmailListItem = React.memo(
     };
 
     return (
-      <motion.li
+      <motion.div
         layout
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={{ opacity: 0, scale: 1 }}
         animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
+        exit={{ opacity: 0, scale: 1 }}
         className={getLayoutClasses()}
         onClick={handleClick}
         dir={isRTL ? "rtl" : "ltr"}
@@ -67,7 +67,7 @@ const EmailListItem = React.memo(
             <EmailDateTime date={email.date} />
           </div>
         </div>
-      </motion.li>
+      </motion.div>
     );
   }
 );

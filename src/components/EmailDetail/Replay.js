@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { sendReply, saveDraft } from "../../services/emailService";
-import { errorToast, successToast } from "../../utils/toastConfig";
+import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { saveDraft, sendReply } from "../../services/emailService";
 import { getCookie } from "../../utils/cookieUtils";
+import { errorToast, successToast } from "../../utils/toastConfig";
 
 // Custom hook to manage draft content and API calls
 const useDraftManager = (initialContent = "", conversationId, onClose) => {
@@ -27,7 +27,7 @@ const useDraftManager = (initialContent = "", conversationId, onClose) => {
         formData.append("IsDraft", "true");
 
         await saveDraft(content, conversationId);
-        //console.log("Draft saved successfully");
+        // console.log("Draft saved successfully");
         setShouldSave(false);
       } catch (error) {
         console.error("Error saving draft:", error);
@@ -60,7 +60,7 @@ const useDraftManager = (initialContent = "", conversationId, onClose) => {
       try {
         setIsSaving(true);
         await saveDraft(content, conversationId);
-        //console.log("Final draft saved before closing");
+        // console.log("Final draft saved before closing");
       } catch (error) {
         console.error("Error saving final draft:", error);
         errorToast("Failed to save draft");
@@ -170,7 +170,7 @@ const Replay = ({
 
   // Log state for debugging
   useEffect(() => {
-    //console.log("Current state:", {
+    // console.log("Current state:", {
     //   conversationId: actualConversationId,
     //   content,
     //   isSaving,

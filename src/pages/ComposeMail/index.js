@@ -11,7 +11,7 @@ import getContacts from "../../services/getContactsService";
 import { errorToast, successToast } from "../../utils/toastConfig";
 
 const ComposeMail = ({ email, onGoBack }) => {
-  console.log(email);
+  // console.log(email);
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Initialize navigate
@@ -19,7 +19,7 @@ const ComposeMail = ({ email, onGoBack }) => {
   const isRTL = i18n.dir() === "rtl";
   const [Contacts, setContacts] = useState(false);
 
-  //console.log(email);
+  // console.log(email);
   const {
     control,
     handleSubmit,
@@ -36,7 +36,7 @@ const ComposeMail = ({ email, onGoBack }) => {
     const fetchContacts = async () => {
       try {
         const data = await getContacts();
-        console.log(data);
+        // console.log(data);
 
         setContacts(data);
       } catch (error) {

@@ -1,10 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { FiMail, FiUser, FiMessageSquare } from "react-icons/fi";
 
 const EmailPreview = ({ email, isUnread, page, isSent }) => {
   const { t } = useTranslation();
-  console.log("EmailPreview -> email", isSent, email);
+  // console.log("EmailPreview -> email", isSent, email);
   return (
     <div className={`me-auto ${isUnread && page !== "trash" ? "font-bold" : ""}`}>
       <div className="lg:flex md:flex-row flex-col items-center">

@@ -27,7 +27,7 @@ const InboxPage = ({ messages }) => {
   useEffect(() => {
     if (messages && messages.length > 0) {
       const latestMessage = messages[messages.length - 1];
-      console.log(latestMessage, "latest in inbox");
+      // console.log(latestMessage, "latest in inbox");
       // If we receive a new message in a conversation
       if (
         latestMessage.type === "message" ||

@@ -11,7 +11,14 @@ import EmailAttachments from "./Attachments";
 import EmailBody from "./Body";
 import DeleteMenu from "./DeleteMenu";
 
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+
 const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
+  const user = useSelector((state) => state.auth.user);
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === "rtl";
+
   const formatDate = (date) => {
     const messageDate = new Date(date);
     const today = new Date();
@@ -42,22 +49,17 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      className="mb-6 last:mb-0 bg-white rounded-b-xl shadow-sm hover:shadow-xl transition-shadow duration-200"
-    >
+    <div className="mb-6 last:mb-0 bg-white rounded-b-xl">
       <div className="p-4 md:p-6">
         {/* Header Section */}
         <div className="flex flex-row sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-          <div className="flex items-start space-x-3">
-            <div className="flex-shrink-0">
+          <div className="flex items-start">
+            <div className="flex-shrink-0 me-3">
               {message.senderPictureURL ? (
                 <img
                   src={message.senderPictureURL}
                   alt={message.sender}
-                  className="w-10 h-10 rounded-full object-cover border-2 border-gray-100"
+                  className="w-10 h-10 rounded-full object-cover"
                 />
               ) : (
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
@@ -71,18 +73,17 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
             <div className="flex-1 min-w-0">
               <h3 className="text-base font-semibold text-gray-900 truncate flex items-center gap-2">
                 <User className="w-4 h-4 text-gray-500" />
-                {message.sender}
+                {message.sender === user.name ? `${t("email.me")}` : message.sender}
               </h3>
               <p className="text-sm text-gray-500 truncate flex items-center gap-2">
                 <AtSign className="w-4 h-4 text-gray-500" />
                 {message.senderEmail}
-              </p>
+                </p>
             </div>
           </div>
 
           <div className="flex flex-col justify-center items-center gap-3 text-sm text-gray-500">
             <div className="flex items-center justify-center flex-nowrap">
-              <Clock className="w-4 h-4 mr-1" />
               <time>{formatDate(message.date)}</time>
             </div>
 
@@ -124,7 +125,7 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 };
 

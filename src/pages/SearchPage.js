@@ -8,7 +8,7 @@ const SearchPage = ({ messages }) => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  //console.log("location", location);
+  // console.log("location", location);
   const email = location.state?.email;
   const fromSearch = location.state?.fromSearch;
   const fromSearchList = location.state?.fromSearchList;

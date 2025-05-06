@@ -19,7 +19,7 @@ const SignalRConnection = () => {
         connection
           .stop()
           .then(() => {
-            console.log("[SignalR] Connection stopped due to logout");
+            // console.log("[SignalR] Connection stopped due to logout");
             dispatch(setSignalRConnected(false));
           })
           .catch((err) =>
@@ -58,7 +58,7 @@ const SignalRConnection = () => {
     setConnection(newConnection);
 
     newConnection.on("Notification", (message) => {
-      console.log("[SignalR] Notification received:", message);
+      // console.log("[SignalR] Notification received:", message);
       // toast.info(
       //   typeof message === "string" ? message : JSON.stringify(message)
       // );
@@ -69,7 +69,7 @@ const SignalRConnection = () => {
     });
 
     newConnection.on("MessageInsideConversation", (message) => {
-      console.log("[SignalR] New conversation message:", message);
+      // console.log("[SignalR] New conversation message:", message);
       setMessages((prev) => [
         ...prev,
         { type: "message", content: message, timestamp: new Date() },
@@ -77,7 +77,7 @@ const SignalRConnection = () => {
     });
 
     newConnection.on("ReceiveMessage", (message) => {
-      console.log("[SignalR] Message received:", message);
+      // console.log("[SignalR] Message received:", message);
       setMessages((prev) => [
         ...prev,
         { type: "received", content: message, timestamp: new Date() },
@@ -94,12 +94,12 @@ const SignalRConnection = () => {
     });
 
     newConnection.onreconnecting((error) => {
-      console.log("[SignalR] Attempting to reconnect...", error);
+      // console.log("[SignalR] Attempting to reconnect...", error);
       setStatus("Reconnecting...");
     });
 
     newConnection.onreconnected((connectionId) => {
-      console.log("[SignalR] Reconnected. Connection ID:", connectionId);
+      // console.log("[SignalR] Reconnected. Connection ID:", connectionId);
       setStatus("Connected");
       toast.success("Real-time connection restored!");
     });
@@ -108,7 +108,7 @@ const SignalRConnection = () => {
     newConnection
       .start()
       .then(() => {
-        console.log("[SignalR] Connection established successfully");
+        // console.log("[SignalR] Connection established successfully");
         setStatus("Connected");
         dispatch(setSignalRConnected(true));
         // toast.success("Real-time connection established!");
@@ -128,7 +128,7 @@ const SignalRConnection = () => {
         newConnection
           .stop()
           .then(() => {
-            console.log("[SignalR] Connection stopped");
+            // console.log("[SignalR] Connection stopped");
             dispatch(setSignalRConnected(false));
           })
           .catch((err) =>

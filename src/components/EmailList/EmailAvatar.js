@@ -20,9 +20,6 @@ const EmailAvatar = ({ senderPictureURL, alt, isSent, receiverPictureURL }) => {
     </div>
   );
 
-  console.log("receiverPictureURL", receiverPictureURL);
-  console.log("senderPictureURL", senderPictureURL);
-
   if (
     !isSent &&
     receiverPictureURL &&

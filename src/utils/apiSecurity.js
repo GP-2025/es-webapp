@@ -112,7 +112,7 @@ export const secureApi = {
       acc[key] = sanitizeInput(data[key]);
       return acc;
     }, {});
-    // //console.log(secureAxios.post(url, sanitizedData));
+    // console.log(secureAxios.post(url, sanitizedData));
     return true;
   },
   put: (url, data = {}) => {

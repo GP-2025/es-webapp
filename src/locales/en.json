@@ -67,7 +67,8 @@
     "yesterday": "Yesterday",
     "deleteForMe": "Delete for me",
     "deleteForEveryone": "Delete for everyone",
-    "to": "To:"
+    "to": "To:",
+    "me": "Me"
   },
   "archived": {
     "title": "Archived",

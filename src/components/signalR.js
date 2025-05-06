@@ -1,6 +1,6 @@
 // WebSocketNotifier.js
-import React, { useEffect, useState } from "react";
 import * as signalR from "@microsoft/signalr";
+import React, { useEffect, useState } from "react";
 
 const WebSocketNotifier = () => {
   const [messages, setMessages] = useState([]);
@@ -19,11 +19,11 @@ const WebSocketNotifier = () => {
     connection
       .start()
       .then(() => {
-        //console.log("Connected to SignalR hub");
+        // console.log("Connected to SignalR hub");
 
         // Subscribe to a method the server will call (e.g., "ReceiveMessage")
         connection.on("ReceiveMessage", (message) => {
-          //console.log("New message:", message);
+          // console.log("New message:", message);
           setMessages((prevMessages) => [...prevMessages, message]);
         });
       })

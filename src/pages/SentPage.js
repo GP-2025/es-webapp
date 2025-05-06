@@ -28,7 +28,7 @@ const SentPage = ({ messages }) => {
 
   // Add fetch conversations function
   const fetchConversations = async (PageNumber) => {
-    //console.log(PageNumber, "page");
+    // console.log(PageNumber, "page");
     try {
       setIsLoading(true);
       const response = await conversationsService.getAllConversations(
@@ -36,7 +36,7 @@ const SentPage = ({ messages }) => {
         PageNumber,
         pageSize
       );
-      //console.log(response.data, "response");
+      // console.log(response.data, "response");
       const transformedEmails = response.data.map((conversation) => ({
         id: conversation.id,
         subject: conversation.subject,

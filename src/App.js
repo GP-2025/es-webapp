@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import InboxPage from "./pages/InboxPage";
 import LoginPage from "./pages/LoginPage";
-import AuthGuard from "./utils/authGuard";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import SearchListPage from "./pages/SearchListPage";
 import SearchPage from "./pages/SearchPage";
 import SentPage from "./pages/SentPage";
 import TrashPage from "./pages/TrashPage";
 import SignalRConnection from "./services/signalRService";
+import AuthGuard from "./utils/authGuard";
 
 import "./i18n"; // Import i18n configuration
-import ChangePassword from "./pages/ChangePassword";
 import ArchivedPage from "./pages/ArchivedPage";
-import StarredPage from "./pages/StarredPage";
+import ChangePassword from "./pages/ChangePassword";
 import DraftPage from "./pages/DraftPage";
+import StarredPage from "./pages/StarredPage";
 import SupportPage from "./pages/SupportPage";
 
 function App() {
   const { status, messages } = SignalRConnection();
 
-  console.log(messages, "app");
+  // console.log(messages, "app");
   return (
     <>
       <BrowserRouter>

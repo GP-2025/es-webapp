@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTranslation } from "react-i18next"; // Import the hook
 import { Search } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next"; // Import the hook
+import { useLocation, useNavigate } from "react-router-dom";
 
 import EmailListItem from "../components/EmailList/";
 
@@ -47,7 +47,7 @@ const SearchListPage = ({ messages }) => {
   }, [messages]);
 
   const handleItemSelect = (email) => {
-    //console.log("email selected", email);
+    // console.log("email selected", email);
 
     navigate("/home/search", {
       state: {

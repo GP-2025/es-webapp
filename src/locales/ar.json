@@ -67,7 +67,8 @@
     "yesterday": "أمس",
     "deleteForMe": "حذف بالنسبة لي",
     "deleteForEveryone": "حذف للجميع",
-    "to": "الي:"
+    "to": "إلى:",
+    "me": "أنا"
   },
   "error": {
     "generalError": "خطأ عام"

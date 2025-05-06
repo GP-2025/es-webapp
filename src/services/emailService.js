@@ -1,4 +1,3 @@
-import { t } from "i18next";
 import axiosInstance from "./axiosConfig";
 
 export const emailService = {
@@ -57,7 +56,7 @@ export const sendReply = async (body, conversationId, attachments, token) => {
 };
 
 export const saveDraft = async (content, conversationId, attachments) => {
-  //console.log(conversationId, "iddd");
+  // console.log(conversationId, "iddd");
   const formData = new FormData();
   formData.append("Id", "");
   formData.append("Content", content);
@@ -84,7 +83,7 @@ export const saveDraft = async (content, conversationId, attachments) => {
 };
 
 export const composeEmail = async (emailData) => {
-  //console.log(emailData, "emaillldata");
+  // console.log(emailData, "emaillldata");
   const formData = new FormData();
   emailData.id && formData.append("id", emailData.id);
   formData.append("Subject", emailData.subject);

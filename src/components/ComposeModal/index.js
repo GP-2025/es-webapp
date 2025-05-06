@@ -13,7 +13,7 @@ import {
 import EmailLookup from "./EmailLookup";
 
 const ComposeModal = ({ open, onClose, initialCompose = null }) => {
-  console.log(initialCompose, "intial");
+  // console.log(initialCompose, "intial");
   const { t, i18n } = useTranslation();
   const modalRef = useRef(null);
   const isClosingRef = useRef(false);
@@ -107,7 +107,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
     const fetchContacts = async () => {
       try {
         const data = await getContacts();
-        console.log(data);
+        // console.log(data);
 
         setContacts(data);
       } catch (error) {
@@ -144,7 +144,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
         // Add any file validation logic here if needed
         return file instanceof File || file instanceof Blob;
       });
-      console.log(map[data.recipients[0]], "data");
+      // console.log(map[data.recipients[0]], "data");
       const emailData = {
         subject: data.subject,
         receiverId: map[data.recipients[0]], // Assuming single recipient for now
@@ -175,9 +175,9 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
 
   return (
     open && (
-      <div className="fixed inset-0 z-[999] h-screen w-screen flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
+      <div className="select-none fixed inset-0 z-[999] h-screen w-screen flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
         <div
-          className="flex justify-center items-center w-full max-w-screen-md mx-auto rounded-2xl mx-2 my-2 overflow-hidden"
+          className="flex justify-center items-center w-full max-w-screen-lg mx-auto rounded-xl mx-2 my-2 overflow-hidden"
           dir={isRTL ? "rtl" : "ltr"}
           lang={i18n.language}
           onClick={handleClickOutside}
@@ -237,13 +237,14 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                         },
                       }}
                       render={({ field }) => (
-                        <input
+                        <input maxLength={100}
                           {...field}
+                          className={`w-full border ${
+                            errors.recipients
+                              ? "border-red-500"
+                              : "border-gray-300 focus:ring-indigo-400"
+                          } rounded-md py-2 px-3 text-sm shadow-sm focus:outline-none`}
                           type="text"
-                          className={`w-full px-4 py-2.5 rounded-xl border ${errors.subject
-                              ? "border-red-500 focus:ring-red-200"
-                              : "border-gray-200 focus:ring-blue-200"
-                            } focus:border-blue-500 focus:ring-4 transition-all duration-200`}
                           placeholder={t("Compose.subjectplaceholder")}
                         />
                       )}
@@ -273,12 +274,14 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                       }}
                       render={({ field }) => (
                         <textarea
+                          style={{ minHeight: "100px", maxHeight: "300px", resize: "vertical" }}
                           {...field}
                           rows={5}
-                          className={`w-full px-4 py-2.5 rounded-xl border ${errors.body
-                              ? "border-red-500 focus:ring-red-200"
-                              : "border-gray-200 focus:ring-blue-200"
-                            } focus:border-blue-500 focus:ring-4 transition-all duration-200`}
+                          className={`w-full border ${
+                            errors.recipients
+                              ? "border-red-500"
+                              : "border-gray-300 focus:ring-indigo-400"
+                          } rounded-md py-2 px-3 text-sm shadow-sm focus:outline-none`}
                           placeholder={t("Compose.bodyplaceholder")}
                         />
                       )}
@@ -297,9 +300,9 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                       {t("Compose.attachments")}
                     </label>
                     <div className="flex items-center justify-center w-full">
-                      <label className="flex flex-col items-center w-full px-4 py-6 bg-blue-50 border-2 border-blue-200 border-dashed rounded-xl hover:bg-blue-100 cursor-pointer transition-colors duration-200">
+                      <label className="flex flex-col items-center w-full px-4 py-6 bg-gray-50 border-2 border-gray-300 border-dashed rounded-xl hover:bg-gray-200 cursor-pointer">
                         <svg
-                          className="w-8 h-8 text-blue-500 mb-2"
+                          className="w-8 h-8 text-gray-500 mb-2"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -311,7 +314,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                           />
                         </svg>
-                        <span className="text-sm text-blue-600">
+                        <span className="text-sm text-gray-600">
                           {t("Compose.selectfile")}
                         </span>
                         <input
@@ -357,19 +360,19 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
               </div>
 
               {/* Footer - Fixed */}
-              <div className="px-6 py-4 bg-gradient-to-l from-blue-500 to-indigo-600 ">
+              <div className="px-6 py-4 border-t border-gray-200">
                 <div className="flex justify-end gap-3">
                   <button
                     type="button"
                     onClick={handleClose}
-                    className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors duration-200"
+                    className="px-5 py-2.5 text-gray-700 bg-gray-300 hover:bg-gray-400 rounded-md transition-colors duration-100"
                   >
                     {t("Compose.Cancel")}
                   </button>
                   <button
                     type="submit"
                     form="compose-form"
-                    className="px-4 py-2 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2"
+                    className="px-5 py-2.5 text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-md hover:shadow-lg flex items-center gap-2 transition-colors duration-100"
                   >
                     {t("Compose.send")}
                     <MdSend className="w-5 h-5" />

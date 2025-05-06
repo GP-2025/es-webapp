@@ -2,16 +2,16 @@ import { motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-    conversationsService,
-    deleteConversation,
+  conversationsService,
+  deleteConversation,
 } from "../../services/conversationsService";
 import ForwardList from "../ForwardList";
 
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import {
-    deleteMessageForEveryone,
-    deleteMessageForMe,
+  deleteMessageForEveryone,
+  deleteMessageForMe,
 } from "../../services/emailService";
 import DeleteConfirmationModal from "./DeleteConfim";
 import EmailMessage from "./EmailMessage";
@@ -69,13 +69,13 @@ const EmailDetail = ({
             size: att.size,
           })) || [],
       };
-      console.log(newMessage, "new message in details");
+      // console.log(newMessage, "new message in details");
       // Append the new message to the conversation
       setConversation((prev) => ({
         ...prev,
         messages: [newMessage, ...prev.messages],
       }));
-      console.log("setConversation,indetails");
+      // console.log("setConversation,indetails");
     }
   }, [messages]);
 
@@ -176,13 +176,7 @@ const EmailDetail = ({
 
   return (
     <>
-      {/* <div className="fixed inset-0 md:relative w-full h-full  bg-white md:bg-transparent overflow-auto "> */}
-      <motion.div
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "100%" }}
-        className=" overflow-y-auto    shadow md:shadow-xl p-3  "
-      >
+      <div className=" overflow-y-auto shadow md:shadow-xl overflow-auto min-h-screen">
         <EmailHeader
           email={email}
           onGoBack={onGoBack}
@@ -224,7 +218,7 @@ const EmailDetail = ({
             draftMessage={conversation?.draftMessage}
           />
         </div>
-      </motion.div>
+      </div>
       <div className="fixed bottom-0 left-0 right-0 md:absolute hidden  lg:block">
         <Replay
           width={componentWidth}

@@ -1,14 +1,15 @@
 import {
-    Archive,
-    ArchiveRestore,
-    ArrowRight,
-    Clock,
-    ForwardIcon,
-    Reply,
-    Send,
-    Star,
-    Trash2,
-    User
+  Archive,
+  ArchiveRestore,
+  ArrowRight,
+  Clock,
+  ForwardIcon,
+  Reply,
+  Send,
+  Star,
+  Trash2,
+  AtSign,
+  User
 } from "lucide-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -64,12 +65,12 @@ const EmailHeader = ({
   };
 
   return (
-    <div className="sticky top-[-4%] bg-white/95 backdrop-blur-sm z-10 px-4 py-4 border-b border-gray-200 rounded-t-lg">
+    <div className="sticky top-[-4%] bg-white backdrop-blur-sm z-10 p-3.5 md:4.5 lg:p-6 border-b border-gray-200 rounded-t-lg">
       {/* Top Actions Bar */}
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={onGoBack}
-          className="p-2 rounded-full hover:bg-gray-100/80 transition-all duration-200"
+          className="p-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
         >
           <ArrowRight
             className={`
@@ -79,11 +80,11 @@ const EmailHeader = ({
           />
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <button
             onClick={onReply}
             className="flex items-center gap-2 px-3 py-1.5 text-blue-600 
-                     hover:bg-blue-50/80 rounded-full transition-all duration-200 
+                     hover:bg-blue-100 rounded-lg transition-all duration-100
                      text-sm font-medium"
           >
             <Reply className="w-4 h-4" />
@@ -92,8 +93,8 @@ const EmailHeader = ({
 
           <button
             onClick={onForward}
-            className="flex items-center gap-2 px-3 py-1.5 text-emerald-600 
-                     hover:bg-emerald-50/80 rounded-full transition-all duration-200 
+            className="flex items-center gap-2 px-3 py-1.5 text-emerald-600
+                     hover:bg-emerald-100 rounded-lg transition-all duration-100
                      text-sm font-medium"
           >
             <ForwardIcon className="w-4 h-4" />
@@ -102,7 +103,7 @@ const EmailHeader = ({
 
           <button
             onClick={() => onArchive(email.id)}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
             title={isArchived ? t("common.unarchive") : t("common.archive")}
           >
             {isArchived ? (
@@ -114,19 +115,19 @@ const EmailHeader = ({
 
           <button
             onClick={() => onToggleStar(email.id)}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-2 hover:bg-yellow-100 rounded-lg transition-colors"
             title={isStarred ? t("starred.unstar") : t("starred.star")}
           >
             <Star
               className={`w-5 h-5 ${
-                isStarred ? "text-yellow-400 fill-yellow-400" : "text-gray-400"
+                isStarred ? "text-yellow-400 fill-yellow-400" : "text-yellow-400"
               }`}
             />
           </button>
 
           <button
             onClick={() => onDelete(email.id)}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-2 hover:bg-red-100 rounded-lg transition-colors"
             title={t("common.delete")}
           >
             <Trash2 className="w-5 h-5 text-red-500" />
@@ -142,7 +143,7 @@ const EmailHeader = ({
           </h1>
         </div>
 
-        <div className="flex items-start gap-3">
+        <div className="flex items-start">
           {/* Sender Avatar */}
           <EmailAvatar
             picture={email.senderPictureURL}
@@ -154,24 +155,32 @@ const EmailHeader = ({
           <div className="flex-grow min-w-0">
             <div className="flex items-center justify-between">
               <div className="flex-grow">
-                <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+
+                <div className="font-semibold text-gray-900 flex items-center gap-2">
                   <User className="w-4 h-4 text-gray-500" />
-                  {email.sender}
-                </h2>
-                <p className="text-sm text-gray-500">{email.senderEmail}</p>
+                  <h2 className="">
+                    {email.sender === user.name ? `${t("email.me")}` : email.sender}
+                  </h2>
+                </div>
+
+                <div className="text-sm text-gray-500 flex items-center gap-2">
+                  <AtSign className="w-4 h-4 text-gray-500" />
+                  <span> {email.senderEmail} </span>
+                </div>
+                <div className="text-sm text-gray-600 flex items-center gap-2">
+                  <Send className="w-4 h-4 text-gray-500" />
+                  <span>
+                    {email.receiverEmail === user.email ? `${t("email.to")} ${t("email.me")}` : `${t("email.to")} ${email.receiverEmail}`}
+                  </span>
+                </div>
+
               </div>
-              <div className="flex items-center text-gray-500 text-sm">
-                <Clock className="w-4 h-4 mr-1" />
+              <div className="flex items-center text-gray-500 text-sm gap-2">
                 {formatDateTime(email.date)}
               </div>
+
             </div>
 
-            <div className="mt-1 text-sm text-gray-600 flex items-center gap-2">
-              <Send className="w-4 h-4 text-gray-500" />
-              <span>
-                {t("email.to")} {email.receiverEmail}
-              </span>
-            </div>
           </div>
         </div>
       </div>
