@@ -27,8 +27,9 @@ const EmailHeader = ({
   isStarred,
   onToggleStar,
 }) => {
-  const { t } = useTranslation();
   const user = useSelector((state) => state.auth.user);
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === "rtl";
 
   const formatDateTime = (date) => {
     const messageDate = new Date(date);
@@ -70,7 +71,12 @@ const EmailHeader = ({
           onClick={onGoBack}
           className="p-2 rounded-full hover:bg-gray-100/80 transition-all duration-200"
         >
-          <ArrowRight className="w-5 h-5 text-gray-600" />
+          <ArrowRight
+            className={`
+              w-5 h-5 text-gray-600
+              ${isRTL ? "" : "rotate-180"}
+            `}
+          />
         </button>
 
         <div className="flex items-center gap-2">

@@ -154,7 +154,7 @@ const EmailLookup = ({ control, errors }) => {
                   {filteredOptions.map((option) => (
                     <div
                       key={option.email}
-                      className="px-3 py-1.5 hover:bg-gray-100 cursor-pointer"
+                      className="px-3 py-1.5 hover:bg-gray-200 cursor-pointer"
                       onClick={() =>
                         handleOptionSelect(option, field, option.id)
                       }

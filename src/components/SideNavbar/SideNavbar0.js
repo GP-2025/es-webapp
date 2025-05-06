@@ -32,7 +32,7 @@ const SideNavbar = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 w-full ">
+    <div className="flex h-screen bg-gray-100 w-full">
       <div
         className={`h-full transition-all duration-200 ${
           isOpen ? "w-48" : "w-16"

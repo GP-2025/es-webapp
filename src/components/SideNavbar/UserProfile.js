@@ -10,8 +10,8 @@ const UserProfile = ({
   setsettingsOpen,
 }) => {
   return (
-    <div className="absolute top-0 w-full bg-gray-50 flex items-center justify-endpx-2">
-      <div className="w-full flex items-center justify-between p-2 bg-gray-50">
+    <div className="absolute top-0 w-full bg-gray-100 flex items-center justify-endpx-2">
+      <div className="w-full flex items-center justify-between p-2">
         <div className="flex">
           <button
             onClick={() => {
@@ -27,17 +27,18 @@ const UserProfile = ({
         <div className="ms-auto relative">
           <div className="flex items-center gap-3 relative">
             <div className="hover:cursor-pointer group">
-              <img
-                src={
-                  (user?.profilePicture != "Empty" && user?.profilePicture) ||
-                  (user?.pictureURL != "Empty" && user?.pictureURL) ||
-                  "/nophto.jpg"
-                }
-                alt={`${user?.name || "User"}'s profile`}
-                className="w-12 h-12 rounded-xl object-cover"
-              />
-
-              <div className="absolute end-0 hidden group-hover:block top-full mt-1 border border-gray-400 bg-gray-100 bg-opacity-50 backdrop-blur-xl shadow-lg rounded-lg p-3 z-10">
+              <div className="pb-1">
+                <img
+                  src={
+                    (user?.profilePicture != "Empty" && user?.profilePicture) ||
+                    (user?.pictureURL != "Empty" && user?.pictureURL) ||
+                    "/nophto.jpg"
+                  }
+                  alt={`${user?.name || "User"}'s profile`}
+                  className="w-12 h-12 rounded-xl object-cover"
+                />
+              </div>
+              <div className="absolute end-0 hidden group-hover:block hover:block top-full  border border-gray-400 bg-gray-100 bg-opacity-50 backdrop-blur-xl shadow-lg rounded-lg p-3 z-10">
                 <h3 className="text-base font-bold text-gray-800 truncate">
                   <span className="">
                     {user?.role || "Unknown"}
