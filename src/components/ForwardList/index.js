@@ -5,6 +5,7 @@ import {
   DialogContent,
   IconButton,
   TextField,
+  Radio,
   Checkbox,
   List,
   ListItem,
@@ -101,8 +102,8 @@ const CategorizedForwardList = ({ open, onClose, onSend }) => {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <PersonAddIcon color="primary" />
-          <Typography variant="h6" color="primary">
+          <PersonAddIcon color="black" />
+          <Typography variant="h6" color="black">
             {t("forward.ForwardList")}
           </Typography>
         </Box>
@@ -119,7 +120,7 @@ const CategorizedForwardList = ({ open, onClose, onSend }) => {
         </IconButton>
       </DialogTitle>
 
-      <Box sx={{ px: 3, pt: 2 }}>
+      {/* <Box sx={{ px: 3, pt: 2 }}>
         <TextField
           label={t("forward.SelectedRecipients")}
           value={recipients.map((r) => r.name).join(", ")}
@@ -136,49 +137,71 @@ const CategorizedForwardList = ({ open, onClose, onSend }) => {
           }}
           dir={i18n.dir}
         />
-      </Box>
+      </Box> */}
 
-      <DialogContent sx={{ py: 0, px: 3 }}>
+      <DialogContent sx={{ p: 0, m: 0 }}>
         {Object.keys(categorizedContacts).map((category) => (
-          <Accordion key={category} defaultExpanded>
+          <Accordion key={category} defaultExpanded
+            sx={{
+              m: 0,
+              p: 0,
+            }}
+          >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               sx={{
-                backgroundColor: "rgba(0, 0, 0, 0.04)",
-                borderRadius: 2,
+                m: 0,
+                p: 0,
+                px: 2,
+                backgroundColor: "rgba(0, 0, 0, 0.09)", 
+                border: "none"
               }}
             >
-              <Typography variant="subtitle1" color="primary">
+              <Typography variant="subtitle1" color="black">
                 {category}
               </Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails
+              sx={{
+                m: 0,
+                p: 0,
+                px: 2,
+              }}
+            >
               <List>
                 {categorizedContacts[category].map((recipient) => (
                   <ListItem
                     key={recipient.id}
-                    onClick={() => handleToggleRecipient(recipient)}
+                    onClick={() => {
+                      // Clear any existing selections first
+                      if (recipients.length > 0) {
+                        recipients.forEach((r) => handleToggleRecipient(r));
+                      }
+                      handleToggleRecipient(recipient);
+                    }}
                     sx={{
+                      m: 0,
+                      p: 0,
+                      px: 2,
                       borderRadius: 2,
                       "&:hover": {
-                        backgroundColor: "rgba(0,0,0,0.04)",
+                        backgroundColor: "rgba(0,0,0,0.15)",
                         cursor: "pointer",
                       },
-                      transition: "background-color 0.2s",
+                      transition: "background-color 0.1s",
                     }}
                   >
                     <ListItemIcon>
-                      <Checkbox
+                      <Radio
                         edge="start"
                         checked={recipients.some((r) => r.id === recipient.id)}
                         tabIndex={-1}
                         disableRipple
-                        color="primary"
+                        color="black"
                       />
                     </ListItemIcon>
                     <ListItemText
-                      primary={recipient.name}
-                      secondary={`${recipient.email}`}
+                      primary={recipient.email}
                     />
                   </ListItem>
                 ))}
@@ -188,7 +211,12 @@ const CategorizedForwardList = ({ open, onClose, onSend }) => {
         ))}
       </DialogContent>
 
-      <Box sx={{ p: 3, pt: 0 }}>
+      <Box
+        sx={{
+          p: 2,
+          display: "flex",
+        }}
+        >
         <Button
           fullWidth
           variant="contained"
@@ -199,6 +227,8 @@ const CategorizedForwardList = ({ open, onClose, onSend }) => {
           sx={{
             borderRadius: 2,
             py: 1.5,
+            mx: "auto",
+            width: "120px",
             textTransform: "none",
             fontWeight: 600,
             boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
@@ -212,7 +242,6 @@ const CategorizedForwardList = ({ open, onClose, onSend }) => {
           }}
         >
           {t("Compose.send")}
-          {recipients.length > 0 ? `(${recipients.length})` : ""}
         </Button>
       </Box>
     </Dialog>

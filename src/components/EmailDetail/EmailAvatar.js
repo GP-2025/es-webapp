@@ -13,7 +13,7 @@ const EmailAvatar = ({ picture, alt, isSent, receiverPictureURL }) => {
   };
 
   const renderFallbackAvatar = () => (
-    <div className="me-3 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+    <div className="hidden md:flex lg:flex me-3 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
       <span className="text-white text-lg font-medium">
         {alt?.charAt(0).toUpperCase()}
       </span>
@@ -30,7 +30,7 @@ const EmailAvatar = ({ picture, alt, isSent, receiverPictureURL }) => {
       <img
         src={receiverPictureURL}
         alt={alt}
-        className="me-3 w-10 h-10 rounded-full"
+        className="hidden md:flex lg:flex me-3 w-10 h-10 rounded-full"
         onError={() => handleImageError(true)}
       />
     );
@@ -40,7 +40,7 @@ const EmailAvatar = ({ picture, alt, isSent, receiverPictureURL }) => {
       <img
         src={picture}
         alt={alt}
-        className="me-3 w-10 h-10 rounded-full"
+        className="hidden md:flex lg:flex me-3 w-10 h-10 rounded-full"
         onError={() => handleImageError(false)}
       />
     );

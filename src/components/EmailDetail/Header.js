@@ -65,9 +65,9 @@ const EmailHeader = ({
   };
 
   return (
-    <div className="sticky top-[-4%] bg-white backdrop-blur-sm z-10 p-3.5 md:4.5 lg:p-6 border-b border-gray-200 rounded-t-lg">
+    <div className="sticky top-[-4%] bg-white  z-10 p-3.5 md:4.5 lg:p-6 border-b border-gray-200">
       {/* Top Actions Bar */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-2">
         <button
           onClick={onGoBack}
           className="p-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
@@ -83,21 +83,21 @@ const EmailHeader = ({
         <div className="flex items-center gap-4">
           <button
             onClick={onReply}
-            className="flex items-center gap-2 px-3 py-1.5 text-blue-600 
+            className="flex items-center gap-2 px-3 py-2 text-blue-600 
                      hover:bg-blue-100 rounded-lg transition-all duration-100
                      text-sm font-medium"
           >
-            <Reply className="w-4 h-4" />
+            <Reply className="w-5 h-5" />
             <span className="hidden sm:inline">{t("email.Reply")}</span>
           </button>
 
           <button
             onClick={onForward}
-            className="flex items-center gap-2 px-3 py-1.5 text-emerald-600
+            className="flex items-center gap-2 px-3 py-2 text-emerald-600
                      hover:bg-emerald-100 rounded-lg transition-all duration-100
                      text-sm font-medium"
           >
-            <ForwardIcon className="w-4 h-4" />
+            <ForwardIcon className="w-5 h-5" />
             <span className="hidden sm:inline">{t("email.Forward")}</span>
           </button>
 
@@ -136,9 +136,9 @@ const EmailHeader = ({
       </div>
 
       {/* Email Info Section */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <h1 className="text-xl font-semibold text-gray-900 leading-tight">
+      <div className="space-y-3">
+        <div className="ms-6 lg:ms-[75px]">
+          <h1 className="text-2xl font-bold text-gray-900 leading-tight">
             {email.subject}
           </h1>
         </div>
@@ -153,9 +153,8 @@ const EmailHeader = ({
 
           {/* Sender Info & Time */}
           <div className="flex-grow min-w-0">
-            <div className="flex items-center justify-between">
+            <div className="flex items-end justify-between">
               <div className="flex-grow">
-
                 <div className="font-semibold text-gray-900 flex items-center gap-2">
                   <User className="w-4 h-4 text-gray-500" />
                   <h2 className="">
@@ -167,18 +166,18 @@ const EmailHeader = ({
                   <AtSign className="w-4 h-4 text-gray-500" />
                   <span> {email.senderEmail} </span>
                 </div>
+
                 <div className="text-sm text-gray-600 flex items-center gap-2">
                   <Send className="w-4 h-4 text-gray-500" />
                   <span>
                     {email.receiverEmail === user.email ? `${t("email.to")} ${t("email.me")}` : `${t("email.to")} ${email.receiverEmail}`}
                   </span>
                 </div>
-
               </div>
-              <div className="flex items-center text-gray-500 text-sm gap-2">
+
+              <div className="flex text-gray-500 text-sm">
                 {formatDateTime(email.date)}
               </div>
-
             </div>
 
           </div>

@@ -176,7 +176,7 @@ const EmailDetail = ({
 
   return (
     <>
-      <div className=" overflow-y-auto shadow md:shadow-xl overflow-auto min-h-screen">
+      <div className=" overflow-y-auto shadow md:shadow-xl overflow-auto min-h-screen rounded-t-lg">
         <EmailHeader
           email={email}
           onGoBack={onGoBack}
