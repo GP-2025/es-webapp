@@ -1,4 +1,4 @@
-import axiosInstance from "./axiosInstance";
+import axiosInstance from "./axiosConfig";
 
 export const conversationService = {
   getAllConversations: async (

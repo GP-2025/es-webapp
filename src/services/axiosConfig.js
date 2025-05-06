@@ -9,6 +9,9 @@ import { errorToast } from "../utils/toastConfig";
 const refreshAxios = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
   timeout: 10000,
+  headers: {
+    accept: "text/plain",
+  },
 });
 
 // Create main axios instance
@@ -65,8 +68,6 @@ const refreshToken = async () => {
       },
     });
 
-    // Add debugging
-
     // Check if response contains the new token
     if (!response.data) {
       throw new Error("No token received from refresh endpoint");
@@ -75,6 +76,7 @@ const refreshToken = async () => {
     const newToken = response.data;
     setCookie("token", newToken);
     return newToken;
+
   } catch (error) {
     console.error("Refresh Token Error:", error);
     if (error.response?.status === 404) {

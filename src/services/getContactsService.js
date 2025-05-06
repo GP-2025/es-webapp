@@ -1,5 +1,5 @@
-import axiosInstance from "./axiosInstance";
 import { getCookie } from "../utils/cookieUtils";
+import axiosInstance from "./axiosConfig";
 
 const getContacts = async () => {
   try {
