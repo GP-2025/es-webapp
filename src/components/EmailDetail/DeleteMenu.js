@@ -5,13 +5,13 @@ const DeleteMenu = ({ messageId, setConfirmModal, setMenuOpen }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg z-10 py-1">
+    <div className="absolute end-0 mt-1 w-48 bg-white shadow-lg z-10 border border-gray-200 rounded-xl">
       <button
         onClick={() => {
           setConfirmModal({ open: true, type: "forMe", messageId });
           setMenuOpen(null);
         }}
-        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        className="w-full text-left px-4 py-3 rounded-t-lg text-sm text-gray-700 hover:bg-gray-200"
       >
         {t("email.deleteForMe")}
       </button>
@@ -20,7 +20,7 @@ const DeleteMenu = ({ messageId, setConfirmModal, setMenuOpen }) => {
           setConfirmModal({ open: true, type: "forEveryone", messageId });
           setMenuOpen(null);
         }}
-        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        className="w-full text-left px-4 py-3 rounded-b-lg text-sm text-gray-700 hover:bg-gray-200"
       >
         {t("email.deleteForEveryone")}
       </button>

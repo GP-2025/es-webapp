@@ -59,7 +59,7 @@ const LoginPage = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-4"
+      className="min-h-screen flex items-center justify-center p-4 -mt-5 mx-2"
       dir="ltr"
       style={{
         backgroundSize: "100%",
@@ -69,7 +69,7 @@ const LoginPage = () => {
         backgroundBlendMode: "overlay", // Creates a nice blend between the image and background color
       }}
     >
-      <div className="bg-white rounded-xl shadow-lg border border-1 border-gray-300 max-w-md w-full flex flex-col md:flex-row">
+      <div className="bg-white rounded-lg border border-1 border-gray-300 max-w-md w-full flex flex-col md:flex-row">
         {/* Left side is now removed as we have a full screen background */}
 
         {/* Login form */}
@@ -98,10 +98,10 @@ const LoginPage = () => {
                         <input
                           id="email"
                           type="text"
-                          placeholder="Your Name"
-                          className={`w-full p-3 focus:outline-none focus:border-gray-500 border ${
+                          placeholder="your email"
+                          className={`w-full px-3 py-2 focus:outline-none border ${
                             errors.email ? "border-red-500" : "border-gray-300"
-                          } rounded-xl pl-10`}
+                          } rounded-lg pl-10`}
                           {...field}
                         />
                         <div className="absolute left-3 top-3 text-gray-400">
@@ -135,12 +135,12 @@ const LoginPage = () => {
                         <input
                           id="password"
                           type="password"
-                          placeholder="Password"
-                          className={`w-full p-3 focus:outline-none focus:border-gray-500 border ${
+                          placeholder="your password"
+                          className={`w-full px-3 py-2 focus:outline-none border ${
                             errors.password
                               ? "border-red-500"
                               : "border-gray-300"
-                          } rounded-xl pl-10`}
+                          } rounded-lg pl-10`}
                           {...field}
                         />
                         <div className="absolute left-3 top-3 text-gray-400">
@@ -191,7 +191,7 @@ const LoginPage = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-400 hover:bg-blue-500 text-white font-medium py-3 px-4 rounded-xl transition duration-200 flex justify-center"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium p-3 rounded-lg transition duration-200 flex justify-center"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -224,7 +224,7 @@ const LoginPage = () => {
               <div className="mt-6">
                 <button
                   type="button"
-                  className="w-full border border-purple-600 text-purple-600 font-medium py-2 px-4 rounded-xl flex items-center justify-center"
+                  className="w-full border border-purple-600 text-purple-600 font-medium py-2 px-4 rounded-lg flex items-center justify-center"
                   onClick={() => navigate("/support")}
                 >
                   <HelpCircle size={16} className="mr-2" />

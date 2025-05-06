@@ -183,7 +183,7 @@ const InboxPage = ({ messages }) => {
   // Responsive layout with RTL support
   return (
     <div
-      className={`bg-white -ms-1 flex flex-col border border-gray-200 rounded-t-lg ${isRTL ? "rtl" : "ltr"}`}
+      className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg ${isRTL ? "rtl" : "ltr"}`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       {error ? (
@@ -198,8 +198,8 @@ const InboxPage = ({ messages }) => {
               exit={{ opacity: 0 }}
               className="flex-grow"
             >
-              <div className="sticky top-0 bg-blue-100 px-4 py-3 shadow-sm rounded-t-md">
-                <div className="flex items-center gap-2">
+              <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
+                <div className="select-none flex items-center gap-2">
                   <Inbox className="w-6 h-6 text-blue-500" />
                   <h1 className="text-2xl font-bold ">{t("inbox.inbox")}</h1>
                 </div>

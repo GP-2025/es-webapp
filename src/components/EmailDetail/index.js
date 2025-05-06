@@ -175,8 +175,8 @@ const EmailDetail = ({
   if (!email) return null;
 
   return (
-    <>
-      <div className=" overflow-y-auto shadow md:shadow-xl overflow-auto min-h-screen rounded-t-lg">
+    <div className="rounded-t-lg">
+      <div className="rounded-t-lg">
         <EmailHeader
           email={email}
           onGoBack={onGoBack}
@@ -190,7 +190,7 @@ const EmailDetail = ({
           className="sticky top-0 z-10 bg-white"
         />
 
-        <div className="">
+        <div className="overflow-y-auto h-[calc(100vh-247px)] lg:h-[calc(100vh-268px)]">
           {isLoading ? (
             <div className="flex justify-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
@@ -243,7 +243,7 @@ const EmailDetail = ({
           conversation={conversation}
         />
       )}
-    </>
+    </div>
   );
 };
 
