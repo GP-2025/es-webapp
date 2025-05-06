@@ -9,7 +9,7 @@ import { setCookie } from "../../utils/cookieUtils";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // You would normally get these from your Redux store
+
   const { isLoading, error, isLoggedIn } = useSelector(
     (state) =>
       state.auth || {
@@ -58,12 +58,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div
-      // className="min-h-screen flex items-center justify-center bg-gray-400 bg-opacity-50 backdrop-blur-sm"
-      className="min-h-screen flex items-center justify-center"
-      dir="ltr"
-    >
-      <div className="absolute z-[10]"
+    // <div dir="ltr" className="min-h-screen flex items-center justify-center">
+    <div dir="ltr" className="min-h-screen flex items-center justify-center bg-gray-200">
+      {/* just for the background */}
+      {/* <div className="absolute z-[10]"
         style={{
           width: '100%',
           height: '100%',
@@ -72,11 +70,11 @@ const LoginPage = () => {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',
-          // opacity: '0.6',
-        }}
-      ></div>
+          opacity: '0.9',
+        }}>  
+      </div> */}
 
-      <div className="z-[999] bg-white shadow-lg rounded-lg max-w-md w-full flex flex-col md:flex-row">
+      <div className="z-[999] bg-white border border-gray-200 rounded-lg max-w-sm md:max-w-md lg:max-w-md w-full flex flex-col md:flex-row">
         <div className="w-full p-6 items-center">
           <div className="flex flex-col items-center">
             <img src="/uni-logo.png" className="w-16 h-16 items-center justify-center mb-6" />
