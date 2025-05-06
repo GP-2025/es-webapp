@@ -190,7 +190,7 @@ const EmailDetail = ({
           className="sticky top-0 z-10 bg-white"
         />
 
-        <div className="mt-4">
+        <div className="">
           {isLoading ? (
             <div className="flex justify-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />

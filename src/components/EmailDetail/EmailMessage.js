@@ -49,12 +49,12 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
   };
 
   return (
-    <div className="mb-6 last:mb-0 bg-white rounded-b-xl">
-      <div className="p-4 md:p-6">
+    <div className="bg-white border-b border-gray-200">
+      <div className="py-4 p-3.5 md:p-4.5 lg:px-6">
         {/* Header Section */}
-        <div className="flex flex-row sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-          <div className="flex items-start">
-            <div className="flex-shrink-0 me-3">
+        <div className="flex flex-col md:flex-row lg:flex-row justify-between">
+          <div className="flex items-start me-auto">
+            <div className="flex-shrink-0 me-3 hidden md:flex lg:flex">
               {message.senderPictureURL ? (
                 <img
                   src={message.senderPictureURL}
@@ -70,7 +70,7 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
               )}
             </div>
 
-            <div className="flex-1 min-w-0">
+            <div className="flex-1  min-w-0">
               <h3 className="text-base font-semibold text-gray-900 truncate flex items-center gap-2">
                 <User className="w-4 h-4 text-gray-500" />
                 {message.sender === user.name ? `${t("email.me")}` : message.sender}
@@ -82,20 +82,19 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center items-center gap-3 text-sm text-gray-500">
-            <div className="flex items-center justify-center flex-nowrap">
+          <div className="flex md:flex-col lg:flex-col items-end justify-between gap-2 text-sm text-gray-500">
+            <div className="flex items-start justify-between flex-nowrap">
               <time>{formatDate(message.date)}</time>
             </div>
-
             <div className="relative">
               <button
                 onClick={() =>
                   setMenuOpen(menuOpen === message.id ? null : message.id)
                 }
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                className="p-1.5 hover:bg-red-100 rounded-lg transition-colors"
                 aria-label="Delete options"
               >
-                <Trash2 className="w-5 h-5 text-red-500 hover:text-red-600" />
+                <Trash2 className="w-3.5 h-3.5 text-red-500 hover:text-red-600" />
               </button>
 
               {menuOpen === message.id && (
@@ -111,10 +110,6 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
 
         {/* Message Body */}
         <div className="prose prose-sm max-w-none">
-          <div className="flex items-center gap-2 text-gray-500 mb-3">
-            <MessageSquare className="w-4 h-4" />
-            <span className="text-sm font-medium">Message</span>
-          </div>
           <EmailBody body={message.body} />
         </div>
 

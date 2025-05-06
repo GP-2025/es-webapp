@@ -65,7 +65,7 @@ const EmailHeader = ({
   };
 
   return (
-    <div className="sticky top-[-4%] bg-white  z-10 p-3.5 md:4.5 lg:p-6 border-b border-gray-200">
+    <div className="sticky top-0 bg-white z-10 p-3.5 md:4.5 lg:p-6 border-b border-gray-200">
       {/* Top Actions Bar */}
       <div className="flex items-center justify-between mb-2">
         <button
@@ -137,7 +137,7 @@ const EmailHeader = ({
 
       {/* Email Info Section */}
       <div className="space-y-3">
-        <div className="ms-6 lg:ms-[75px]">
+        <div className="ms-6 md:ms-[75px] lg:ms-[75px]">
           <h1 className="text-2xl font-bold text-gray-900 leading-tight">
             {email.subject}
           </h1>
@@ -167,7 +167,7 @@ const EmailHeader = ({
                   <span> {email.senderEmail} </span>
                 </div>
 
-                <div className="text-sm text-gray-600 flex items-center gap-2">
+                <div className="text-sm text-gray-500 flex items-center gap-2">
                   <Send className="w-4 h-4 text-gray-500" />
                   <span>
                     {email.receiverEmail === user.email ? `${t("email.to")} ${t("email.me")}` : `${t("email.to")} ${email.receiverEmail}`}
