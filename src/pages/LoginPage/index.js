@@ -75,7 +75,7 @@ const LoginPage = () => {
         {/* Login form */}
         <div className="w-full p-5 items-center">
           <div className="flex flex-col items-center">
-            <img src="/mail.png" className="w-16 h-16 items-center justify-center mb-4"/>
+            <img src="/uni-logo.png" className="w-16 h-16 items-center justify-center mb-4"/>
             <h1 className="text-3xl font-bold mb-6 capitalize">Sign in</h1>
             <form
               onSubmit={handleSubmit(onSubmit)}
