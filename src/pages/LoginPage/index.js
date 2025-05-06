@@ -60,8 +60,8 @@ const LoginPage = () => {
   return (
     <div
       className="min-h-screen flex items-center justify-center p-4"
+      dir="ltr"
       style={{
-        // backgroundImage: "url('/pexels-pixabay-356065.jpg')",
         backgroundSize: "100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
