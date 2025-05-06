@@ -177,7 +177,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
     open && (
       <div className="select-none fixed inset-0 z-[999] h-screen w-screen flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
         <div
-          className="flex justify-center items-center w-full max-w-screen-lg mx-auto rounded-xl mx-2 my-2 overflow-hidden"
+          className="flex justify-center items-center w-full max-w-screen-md mx-auto rounded-xl mx-2 my-2 overflow-hidden"
           dir={isRTL ? "rtl" : "ltr"}
           lang={i18n.language}
           onClick={handleClickOutside}

@@ -49,8 +49,8 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
   };
 
   return (
-    <div className="bg-white border-b border-gray-200">
-      <div className="py-4 p-3.5 md:p-4.5 lg:px-6">
+    <div className="bg-white border-b border-gray-300">
+      <div className="p-3.5 md:p-4.5 lg:px-6 lg:py-5">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row lg:flex-row justify-between">
           <div className="flex items-start me-auto">
@@ -115,7 +115,7 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
 
         {/* Attachments */}
         {message?.attachments?.length > 0 && (
-          <div className="mt-4 pt-4 border-t border-gray-100">
+          <div className="">
             <EmailAttachments attachments={message.attachments} />
           </div>
         )}

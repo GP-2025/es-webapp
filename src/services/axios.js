@@ -36,7 +36,6 @@ axiosInstance.interceptors.response.use(
       errorToast("Session expired. Please log in again.");
       return Promise.reject(error);
     }
-    // Rest of your error handling code...
   }
 );
 

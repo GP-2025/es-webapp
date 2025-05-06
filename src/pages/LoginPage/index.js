@@ -9,7 +9,7 @@ import { setCookie } from "../../utils/cookieUtils";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // You would normally get these from your Redux store
+
   const { isLoading, error, isLoggedIn } = useSelector(
     (state) =>
       state.auth || {
@@ -58,28 +58,30 @@ const LoginPage = () => {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center p-4"
-      dir="ltr"
-      style={{
-        backgroundSize: "100%",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundColor: "rgba(255, 255, 255, 0.5)", // Blue tint (blue-400 with opacity)
-        backgroundBlendMode: "overlay", // Creates a nice blend between the image and background color
-      }}
-    >
-      <div className="bg-white rounded-xl shadow-lg border border-1 border-gray-300 max-w-md w-full flex flex-col md:flex-row">
-        {/* Left side is now removed as we have a full screen background */}
+    // <div dir="ltr" className="min-h-screen flex items-center justify-center">
+    <div dir="ltr" className="min-h-screen flex items-center justify-center bg-gray-200">
+      {/* just for the background */}
+      {/* <div className="absolute z-[10]"
+        style={{
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'url(/back.jpeg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
+          opacity: '0.9',
+        }}>  
+      </div> */}
 
-        {/* Login form */}
-        <div className="w-full p-5 items-center">
+      <div className="z-[999] bg-white border border-gray-200 rounded-lg max-w-sm md:max-w-md lg:max-w-md w-full flex flex-col md:flex-row">
+        <div className="w-full p-6 items-center">
           <div className="flex flex-col items-center">
-            <img src="/uni-logo.png" className="w-16 h-16 items-center justify-center mb-4"/>
+            <img src="/uni-logo.png" className="w-16 h-16 items-center justify-center mb-6" />
             <h1 className="text-3xl font-bold mb-6 capitalize">Sign in</h1>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="w-full space-y-4"
+              className="w-full space-y-6"
             >
               <div className="relative">
                 <Controller
@@ -98,10 +100,9 @@ const LoginPage = () => {
                         <input
                           id="email"
                           type="text"
-                          placeholder="Your Name"
-                          className={`w-full p-3 focus:outline-none focus:border-gray-500 border ${
-                            errors.email ? "border-red-500" : "border-gray-300"
-                          } rounded-xl pl-10`}
+                          placeholder="your email"
+                          className={`w-full px-3 py-2 focus:outline-none border ${errors.email ? "border-red-500" : "border-gray-300"
+                            } rounded-lg pl-10`}
                           {...field}
                         />
                         <div className="absolute left-3 top-3 text-gray-400">
@@ -135,12 +136,11 @@ const LoginPage = () => {
                         <input
                           id="password"
                           type="password"
-                          placeholder="Password"
-                          className={`w-full p-3 focus:outline-none focus:border-gray-500 border ${
-                            errors.password
+                          placeholder="your password"
+                          className={`w-full px-3 py-2 focus:outline-none border ${errors.password
                               ? "border-red-500"
                               : "border-gray-300"
-                          } rounded-xl pl-10`}
+                            } rounded-lg pl-10`}
                           {...field}
                         />
                         <div className="absolute left-3 top-3 text-gray-400">
@@ -157,7 +157,7 @@ const LoginPage = () => {
 
                           {/* Help Popover */}
                           {helpPopoverAnchor && (
-                            <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-4 z-10">
+                            <div className="absolute end-0 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-4 z-10">
                               <h3 className="font-medium text-gray-900 mb-1">
                                 Login Help
                               </h3>
@@ -191,7 +191,7 @@ const LoginPage = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-400 hover:bg-blue-500 text-white font-medium py-3 px-4 rounded-xl transition duration-200 flex justify-center"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium p-3 rounded-lg transition duration-200 flex justify-center"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -207,33 +207,26 @@ const LoginPage = () => {
                       cy="12"
                       r="10"
                       stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
+                      strokeWidth="4">
+                    </circle>
                     <path
                       className="opacity-75"
                       fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
                   </svg>
                 ) : (
                   "Log in"
                 )}
               </button>
 
-              {/* Support button from the provided code */}
-              <div className="mt-6">
-                <button
-                  type="button"
-                  className="w-full border border-purple-600 text-purple-600 font-medium py-2 px-4 rounded-xl flex items-center justify-center"
-                  onClick={() => navigate("/support")}
-                >
-                  <HelpCircle size={16} className="mr-2" />
-                  Contact Admin
-                </button>
-                <p className="text-center text-gray-500 text-sm mt-2">
+              <div>
+                <p className="text-center text-gray-500 text-sm hover:text-gray-600 hover:underline cursor-pointer"
+                  onClick={() => navigate("/support")}>
                   Need help? Contact our support team.
                 </p>
               </div>
+
             </form>
           </div>
         </div>

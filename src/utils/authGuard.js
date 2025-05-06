@@ -2,7 +2,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation, Outlet } from "react-router-dom";
-import SideNavbar from "../components/SideNavbar/SideNavbar0";
+import SideNavbar from "../components/SideNavbar/SideNavbar";
 // import SearchInput from "../components/Search";
 import { getCookie } from "../utils/cookieUtils";
 

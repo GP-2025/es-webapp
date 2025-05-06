@@ -20,7 +20,7 @@ const EmailListItem = React.memo(
     const getLayoutClasses = () => {
       return `
         flex items-center px-4 py-2
-        ${isUnread ? "bg-opacity-70 bg-blue-100 font-bold" : "bg-white"}
+        ${isUnread ? "bg-blue-100 font-bold" : "bg-white"}
         hover:bg-gray-300
         border-b border-gray-300
         cursor-pointer
