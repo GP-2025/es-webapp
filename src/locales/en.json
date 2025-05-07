@@ -18,6 +18,12 @@
   "inbox": {
     "inbox": "Inbox"
   },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of"
+  },
   "Compose": {
     "Compose": "Compose",
     "Email": "Compose Email",

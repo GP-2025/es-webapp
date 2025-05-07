@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Archive } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useInView } from "react-intersection-observer";
 import { useSelector } from "react-redux";
 import EmailDetail from "../components/EmailDetail";
 import EmailListItem from "../components/EmailList/index";
@@ -18,15 +17,10 @@ const ArchivedPage = ({ messages }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentEmail, setCurrentEmail] = useState(null);
-  const [pageNumber, setPageNumber] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+  const [pageNumber, setPageNumber] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  const pageSize = 5;
-
-  // Intersection observer for infinite scroll
-  const { ref: loadMoreRef, inView } = useInView({
-    threshold: 0.1,
-  });
+  const pageSize = 25;
+  const totalPages = Math.ceil(totalCount / pageSize);
 
   // Fetch conversations with pagination
   const fetchConversations = async (page) => {
@@ -35,7 +29,6 @@ const ArchivedPage = ({ messages }) => {
       const response = await conversationsService.getAllConversations(
         "Archived",
         page,
-
         pageSize
       );
 
@@ -59,14 +52,8 @@ const ArchivedPage = ({ messages }) => {
         })),
       }));
 
-      if (page === 1) {
-        setEmails(transformedEmails);
-      } else {
-        setEmails((prev) => [...prev, ...transformedEmails]);
-      }
-
+      setEmails(transformedEmails);
       setTotalCount(response.count);
-      setHasMore(response.data.length === pageSize);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -74,18 +61,10 @@ const ArchivedPage = ({ messages }) => {
     }
   };
 
-  // Initial load
+  // Update useEffect for initial load
   useEffect(() => {
-    fetchConversations(1);
-  }, []);
-
-  // Load more when scrolling
-  useEffect(() => {
-    if (inView && hasMore && !isLoading) {
-      setPageNumber((prev) => prev + 1);
-      fetchConversations(pageNumber + 1);
-    }
-  }, [inView, hasMore, isLoading]);
+    fetchConversations(pageNumber);
+  }, [pageNumber]);
 
   // Handle real-time messages
   useEffect(() => {
@@ -158,6 +137,13 @@ const ArchivedPage = ({ messages }) => {
     }
   };
 
+  // Add pagination handlers
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPageNumber(newPage);
+    }
+  };
+
   return (
     <div
       className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
@@ -176,9 +162,46 @@ const ArchivedPage = ({ messages }) => {
               className="flex-grow"
             >
               <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
-                <div className="select-none flex items-center gap-2">
-                  <Archive className="w-6 h-6 text-gray-600" />
-                  <h1 className="text-2xl font-bold">{t("archived.title")}</h1>
+                <div className="select-none flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Archive className="w-6 h-6 text-gray-600" />
+                    <h1 className="text-2xl font-bold">{t("archived.title")}</h1>
+                  </div>
+                  
+                  {/* Pagination Controls */}
+                  <div className="flex items-center gap-2">
+                    <span className="hidden md:block lg:block text-sm py-1.5 px-4 rounded-lg border border-gray-300">
+                      {(pageNumber - 1) * pageSize + 1} - {Math.min(pageNumber * pageSize, totalCount)} {t("pagination.of")} {totalCount}
+                    </span>
+
+                    <button
+                      onClick={() => handlePageChange(pageNumber - 1)}
+                      disabled={pageNumber === 1 || isLoading}
+                      className="p-2 rounded-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-400" viewBox="0 0 512 512" fill="currentColor">
+                        <path d={
+                          isRTL
+                            ? "M406.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-192-192c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 256 169.3 425.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l192-192z"
+                            : "M105.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L173.3 256l169.4 169.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192z"}
+                        />
+                      </svg>
+                    </button>
+
+                    <button
+                      onClick={() => handlePageChange(pageNumber + 1)}
+                      disabled={pageNumber === totalPages || isLoading}
+                      className="p-2 rounded-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-400" viewBox="0 0 512 512" fill="currentColor">
+                        <path d={
+                          isRTL
+                            ? "M105.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L173.3 256l169.4 169.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192z"
+                            : "M406.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-192-192c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 256 169.3 425.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l192-192z"}
+                        />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -198,19 +221,6 @@ const ArchivedPage = ({ messages }) => {
                     </li>
                   ))}
                 </ul>
-
-                {hasMore && (
-                  <div
-                    ref={loadMoreRef}
-                    className="h-10 flex items-center justify-center"
-                  >
-                    {isLoading ? (
-                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500" />
-                    ) : (
-                      t("archived.loading_more")
-                    )}
-                  </div>
-                )}
               </div>
             </motion.div>
           ) : (
