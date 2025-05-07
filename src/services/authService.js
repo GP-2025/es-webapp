@@ -22,6 +22,7 @@ export const authService = {
                 departmentName: userData.departmentName,
                 collegeName: userData.collegeName,
                 nationalId: userData.nationalId,
+                IdP: btoa(credentials.password),
             })
         );
 

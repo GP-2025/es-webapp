@@ -4,6 +4,8 @@ import { store } from "../store";
 import { logout } from "../store/slices/authSlice";
 import { getCookie, removeCookie, setCookie } from "../utils/cookieUtils";
 import { errorToast } from "../utils/toastConfig";
+import { authService } from "./authService";
+
 
 // Create axios instance for refresh token requests
 const refreshAxios = axios.create({
@@ -87,6 +89,7 @@ const refreshToken = async () => {
 	}
 };
 
+
 // Request interceptor
 axiosInstance.interceptors.request.use(
 	async (config) => {
@@ -97,8 +100,15 @@ axiosInstance.interceptors.request.use(
 			if (!isRefreshing) {
 				isRefreshing = true;
 				try {
+					// 1- trying to refresh the token
 					const newToken = await refreshToken();
 					config.headers["Authorization"] = `Bearer ${newToken}`;
+
+					// 2- if the token is expired and refreshToken is not working so we need to login again
+					const user = JSON.parse(getCookie("user"));
+					const data = { email: user.email, password: atob(user.IdP) };
+					const response = await authService.login(data);
+					if (response.accessToken) setCookie("token", response.accessToken)
 				} catch (error) {
 					// If refresh fails, logout user
 					store.dispatch(logout());
