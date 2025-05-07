@@ -98,6 +98,7 @@ const LoginPage = () => {
                                         <div>
                                             <div className="relative">
                                                 <input
+                                                    autoFocus
                                                     id="email"
                                                     type="text"
                                                     placeholder="your email"

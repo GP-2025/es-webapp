@@ -12,8 +12,7 @@ const VisibilityToggle = memo(({ show, onClick }) => (
     <button
         type="button"
         onClick={onClick}
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 
-               hover:text-gray-700 focus:outline-none"
+        className="absolute end-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
         aria-label={show ? "Hide password" : "Show password"}
     >
         {show ? (
@@ -35,14 +34,14 @@ const PasswordInput = memo(
         onToggleVisibility,
         error,
     }) => (
-        <div className=" mb-6">
+        <div className=" mb-5">
             <div className="flex items-center relative">
                 <input
                     type={showPassword ? "text" : "password"}
                     value={value}
                     onChange={onChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${error ? "border-red-500" : "border-gray-300"
-                        } focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all pr-12`}
+                    className={`w-full px-4 py-2 rounded-lg border ${error ? "border-red-500" : "border-gray-300"
+                        } focus:outline-none focus:ring-1 focus:ring-blue-300 pe-12`}
                     placeholder={label}
                 />
                 <VisibilityToggle show={showPassword} onClick={onToggleVisibility} />
@@ -109,25 +108,25 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
         const newErrors = {};
 
         if (!oldPassword) {
-            newErrors.oldPassword = "Current password is required";
+            newErrors.oldPassword = isRTL ? "كلمة المرور الحالية مطلوبة" : "Current password is required";
         }
 
         if (!newPassword) {
-            newErrors.newPassword = "New password is required";
+            newErrors.newPassword = isRTL ? "كلمة المرور الجديدة مطلوبة" : "New password is required";
         } else if (!PASSWORD_REGEX.test(newPassword)) {
             newErrors.newPassword =
-                "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character";
+                isRTL ? "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، وحرف كبير، وحرف صغير، ورقم، وحرف خاص" : "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character";
         }
 
         if (!confirmPassword) {
-            newErrors.confirmPassword = "Please confirm your new password";
+            newErrors.confirmPassword = isRTL ? "يرجى تأكيد كلمة المرور الجديدة" : "Please confirm your new password";
         } else if (newPassword !== confirmPassword) {
-            newErrors.confirmPassword = "Passwords do not match";
+            newErrors.confirmPassword = isRTL ? "كلمات المرور غير متطابقة" : "Passwords do not match";
         }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
-    }, [oldPassword, newPassword, confirmPassword]);
+    }, [oldPassword, newPassword, confirmPassword, isRTL]);
 
     // Update handleSubmit
     const handleSubmit = async (e) => {
@@ -148,7 +147,7 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
             onSuccess?.();
         } catch (error) {
             console.error("Password change failed:", error);
-            setErrors({ submit: "Failed to change password. Please try again." });
+            setErrors({ submit: isRTL ? "فشل تغيير كلمة المرور. يرجى المحاولة مرة أخرى." : "Failed to change password. Please try again." });
         } finally {
             setIsLoading(false);
         }
@@ -195,18 +194,14 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
                 />
 
                 {errors.submit && (
-                    <p className="text-red-500 text-sm mb-4">
-                        {t("changePassword.submitError")}
-                    </p>
+                    <p className="text-red-500 text-sm mb-4"> {t("changePassword.submitError2")} </p>
                 )}
 
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-purple-600 text-white py-3 rounded-xl font-medium
-                   hover:bg-purple-700 transition-colors duration-200 
-                   disabled:opacity-50 disabled:cursor-not-allowed
-                   focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                    className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200
+                   disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
                     {isLoading ? (
                         <span className="flex items-center justify-center">
