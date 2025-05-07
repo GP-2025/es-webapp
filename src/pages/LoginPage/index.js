@@ -1,14 +1,21 @@
 import { AlertCircle, HelpCircle, Lock, User } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../../services/authService";
-import { setCookie } from "../../utils/cookieUtils";
+import { getCookie, setCookie } from "../../utils/cookieUtils";
 
 const LoginPage = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+    
+    // checking if user is already logged in.
+    useEffect(() => {
+        const token = getCookie("token");
+        if (token) {
+            navigate("/home/inbox", { replace: true });
+        }
+    }, [navigate]);
 
     const { isLoading, error, isLoggedIn } = useSelector(
         (state) =>
@@ -55,7 +62,7 @@ const LoginPage = () => {
                 "Login failed. Please check your credentials.";
             setLoginError(errorMessage);
         }
-    };
+    }
 
     return (
         // <div dir="ltr" className="min-h-screen flex items-center justify-center">

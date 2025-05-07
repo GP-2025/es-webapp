@@ -36,7 +36,6 @@ const authSlice = createSlice({
             state.user = null;
             state.error = null;
             state.signalRConnected = false;
-            localStorage.removeItem("token");
         },
         toggleSidebar: (state, action) => {
             state.sidebarOpen = action.payload;

@@ -1,11 +1,10 @@
 import axios from "axios";
+import CryptoJS from 'crypto-js';
 import jwtDecode from "jwt-decode";
 import { store } from "../store";
 import { logout } from "../store/slices/authSlice";
 import { getCookie, removeCookie, setCookie } from "../utils/cookieUtils";
 import { errorToast } from "../utils/toastConfig";
-import { authService } from "./authService";
-import CryptoJS from 'crypto-js';
 
 // Create axios instance for refresh token requests
 const refreshAxios = axios.create({
@@ -58,8 +57,10 @@ const isAccessTokenExpired = (token) => {
 	try {
 		const decodedToken = jwtDecode(token);
 		const currentTime = Date.now() / 1000;
-		// 60 seconds before the token expires
-		return currentTime > (decodedToken.exp - 60);
+		console.log("Minutes until token expires:", Math.floor((decodedToken.exp - currentTime)/60/60));
+		
+		// 5 minutes before the token expires
+		return currentTime > (decodedToken.exp - 60 * 5);
 	} catch (error) {
 		return true;
 	}
@@ -67,7 +68,7 @@ const isAccessTokenExpired = (token) => {
 
 // refresh token from login endpoint function
 const refreshToken = async () => {
-	const IDU = JSON.parse(localStorage.getItem('IDU'));
+	const IDU = JSON.parse(sessionStorage.getItem('IDU'));
 	const response = await fetch(process.env.REACT_APP_API_BASE_URL + "/Auth/Login", {
 		method: "POST",
 		headers: {
@@ -94,8 +95,14 @@ axiosInstance.interceptors.request.use(
 	async (config) => {
 		// same the normal isTokenExpired but for checks for the expire time
 		// of he access token 60 seconds before its actually expires
-		if (window.location.pathname != "/login" && isAccessTokenExpired(getCookie("token")))
+		if (window.location.pathname != "/login")
+			if (isAccessTokenExpired(getCookie("token")))
 				await refreshToken();
+
+		// refresh token as soon as the page is loaded
+		// if the page is not the login page
+		// if (window.location.pathname != "/login")
+		// 	await refreshToken();
 
 		// get the token from the cookie
 		const token = getCookie("token");

@@ -47,7 +47,7 @@ function SettingsPage({
         return (
             <button
                 onClick={handleOpen}
-                className={`flex items-center ps-5 py-1.5 pe-2 transition-all duration-200 rounded-e-xl text-gray-700 hover:bg-gray-200 transition-colors`}
+                className={`flex items-center ps-5 py-1.5 pe-2 transition-all duration-200 rounded-e-xl text-gray-700 hover:bg-gray-200`}
             >
                 <FiSettings className="text-xl my-1 rotating" />
                 {isOpen && <span className="ms-2"> {t("general.Settings")}</span>}
@@ -60,7 +60,7 @@ function SettingsPage({
         >
             <div className="flex items-center justify-between mb-3">
                 <div
-                    className="flex items-center cursor-pointer w-full cursor-pointer"
+                    className="flex items-center w-full cursor-pointer"
                     onClick={handleClose}
                 >
                     <FiSettings className="text-2xl text-gray-600 me-3 rotating" />
