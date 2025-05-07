@@ -1,169 +1,169 @@
 {
-  "trash": {
-    "title": "Trash"
-  },
-  "sent": {
-    "title": "Sent"
-  },
-  "search": {
-    "results": "Search Results",
-    "Searchemails": "Search Emails",
-    "SeeAllResults": "See All Results"
-  },
-  "draft": {
-    "draft": "Drafts",
-    "empty": "No draft messages",
-    "loading": "Loading more drafts..."
-  },
-  "inbox": {
-    "inbox": "Inbox"
-  },
-  "pagination": {
-    "previous": "Previous",
-    "next": "Next",
-    "page": "Page",
-    "of": "of"
-  },
-  "Compose": {
-    "Compose": "Compose",
-    "Email": "Compose Email",
-    "subject": "Email Subject",
-    "reqsubject": "Subject is required",
-    "lensubject": "Subject must be less than 100 characters",
-    "subjectplaceholder": "Enter Subject",
-    "body": "Email Body",
-    "reqbody": "Email body is required",
-    "lenbody": "Email body must be at least 10 characters",
-    "bodyplaceholder": "Enter email body",
-    "attachments": "Attachments",
-    "selectfile": "Select a file",
-    "remove": "Remove",
-    "send": "Send",
-    "Cancel": "Cancel",
-    "Recipients": "Recipients",
-    "duplicate": "File already attached",
-    "Attach": "Attach",
-    "file": "File",
-    "saved": "Email sent successfully",
-    "saveFailed": "Email failed to save",
-    "fail": "Failed to send email",
-    "sent": "Email sent successfully",
-    "draft": "Email saved automatically to draft",
-    "recipientRequired": "At least one recipient is required"
-  },
-  "general": {
-    "Compose": "Compose",
-    "Logout": "Logout",
-    "Settings": "Settings",
-    "ChangePassword": "Change Password",
-    "Language": "Language",
-    "FirstTimeLogin": "First Time Login - Change Password"
-  },
-  "forward": {
-    "ForwardList": "Forward List",
-    "SelectedRecipients": "Selected Recipients"
-  },
-  "email": {
-    "Reply": "Reply",
-    "Forward": "Forward",
-    "From": "From:",
-    "Attachments": "Attachments:",
-    "Subject": "Subject:",
-    "today": "Today",
-    "yesterday": "Yesterday",
-    "deleteForMe": "Delete for me",
-    "deleteForEveryone": "Delete for everyone",
-    "to": "To:",
-    "me": "Me"
-  },
-  "archived": {
-    "title": "Archived",
-    "loading_more": "Loading more...",
-    "empty": "No archived messages",
-    "unarchive": "Unarchive",
-    "archive": "Archive"
-  },
-  "common": {
-    "archive": "Archive",
-    "unarchive": "Unarchive",
-    "delete": "Delete"
-  },
-  "starred": {
-    "title": "Starred",
-    "loading_more": "Loading more...",
-    "empty": "No starred messages",
-    "star": "Star",
-    "unstar": "Unstar"
-  },
-  "login": {
-    "title": "Sign in",
-    "emailLabel": "Email Address",
-    "emailRequired": "Email is required",
-    "invalidEmail": "Invalid email format",
-    "passwordLabel": "Password",
-    "passwordRequired": "Password is required",
-    "passwordMinLength": "Password must be at least 6 characters",
-    "signIn": "Sign In",
-    "helpTitle": "Login Help",
-    "helpText": "If this is your first time logging in, please use your National ID as your password. You will be prompted to change your password after successful login.",
-    "contactAdmin": "Contact Support",
-    "needHelp": "Need help? Contact your administrator for assistance",
-    "loginError": "Login failed. Please check your credentials."
-  },
-  "support": {
-    "title": "Contact Support",
-    "description": "Our support team will review your request and respond within 24 hours. For urgent matters, please contact your department administrator directly.",
-    "fullName": "Full Name",
-    "nameRequired": "Full name is required",
-    "nationalId": "National ID",
-    "nationalIdRequired": "National ID is required",
-    "emailAddress": "Email Address",
-    "emailRequired": "Email is required",
-    "invalidEmail": "Invalid email address",
-    "problemDescription": "Problem Description",
-    "descriptionRequired": "Please describe your problem",
-    "descriptionMinLength": "Description must be at least 20 characters",
-    "backToLogin": "Back to Login",
-    "submitRequest": "Submit Request",
-    "submitError": "Failed to send support request"
-  },
-  "changePassword": {
-    "title": "Change Password",
-    "firstTimeTitle": "First Time Login",
-    "currentPassword": "Current Password",
-    "newPassword": "New Password",
-    "confirmPassword": "Confirm New Password",
-    "currentRequired": "Current password is required",
-    "newRequired": "New password is required",
-    "confirmRequired": "Please confirm your new password",
-    "passwordMismatch": "Passwords do not match",
-    "passwordRequirements": "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character",
-    "changePasswordButton": "Change Password",
-    "changingPassword": "Changing Password...",
-    "submitError": "Failed to change password. Please try again."
-  },
-  "Draft": {
-    "edit": "Edit Draft",
-    "new": "New Draft",
-    "close": "Close",
-    "subject": "Subject",
-    "subjectRequired": "Subject is required",
-    "subjectTooLong": "Subject must be less than 100 characters",
-    "subjectPlaceholder": "Enter subject",
-    "message": "Message",
-    "messageRequired": "Message is required",
-    "messagePlaceholder": "Enter your message",
-    "attachments": "Attachments",
-    "addFiles": "Add Files",
-    "remove": "Remove",
-    "cancel": "Cancel",
-    "save": "Save Draft",
-    "send": "Send",
-    "saved": "Draft saved successfully",
-    "saveFailed": "Failed to save draft",
-    "sent": "Email sent successfully",
-    "sendFailed": "Failed to send email",
-    "autoSaved": "Draft auto-saved",
-    "autoSaveFailed": "Failed to auto-save draft"
-  }
+    "trash": {
+        "title": "Trash"
+    },
+    "sent": {
+        "title": "Sent"
+    },
+    "search": {
+        "results": "Search Results",
+        "Searchemails": "Search Emails",
+        "SeeAllResults": "See All Results"
+    },
+    "draft": {
+        "draft": "Drafts",
+        "empty": "No draft messages",
+        "loading": "Loading more drafts..."
+    },
+    "inbox": {
+        "inbox": "Inbox"
+    },
+    "pagination": {
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page",
+        "of": "of"
+    },
+    "Compose": {
+        "Compose": "Compose",
+        "Email": "Compose Email",
+        "subject": "Email Subject",
+        "reqsubject": "Subject is required",
+        "lensubject": "Subject must be less than 100 characters",
+        "subjectplaceholder": "Enter Subject",
+        "body": "Email Body",
+        "reqbody": "Email body is required",
+        "lenbody": "Email body must be at least 10 characters",
+        "bodyplaceholder": "Enter email body",
+        "attachments": "Attachments",
+        "selectfile": "Select a file",
+        "remove": "Remove",
+        "send": "Send",
+        "Cancel": "Cancel",
+        "Recipients": "Recipients",
+        "duplicate": "File already attached",
+        "Attach": "Attach",
+        "file": "File",
+        "saved": "Email sent successfully",
+        "saveFailed": "Email failed to save",
+        "fail": "Failed to send email",
+        "sent": "Email sent successfully",
+        "draft": "Email saved automatically to draft",
+        "recipientRequired": "At least one recipient is required"
+    },
+    "general": {
+        "Compose": "Compose",
+        "Logout": "Logout",
+        "Settings": "Settings",
+        "ChangePassword": "Change Password",
+        "Language": "Language",
+        "FirstTimeLogin": "First Time Login - Change Password"
+    },
+    "forward": {
+        "ForwardList": "Forward List",
+        "SelectedRecipients": "Selected Recipients"
+    },
+    "email": {
+        "Reply": "Reply",
+        "Forward": "Forward",
+        "From": "From:",
+        "Attachments": "Attachments:",
+        "Subject": "Subject:",
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "deleteForMe": "Delete for me",
+        "deleteForEveryone": "Delete for everyone",
+        "to": "To:",
+        "me": "Me"
+    },
+    "archived": {
+        "title": "Archived",
+        "loading_more": "Loading more...",
+        "empty": "No archived messages",
+        "unarchive": "Unarchive",
+        "archive": "Archive"
+    },
+    "common": {
+        "archive": "Archive",
+        "unarchive": "Unarchive",
+        "delete": "Delete"
+    },
+    "starred": {
+        "title": "Starred",
+        "loading_more": "Loading more...",
+        "empty": "No starred messages",
+        "star": "Star",
+        "unstar": "Unstar"
+    },
+    "login": {
+        "title": "Sign in",
+        "emailLabel": "Email Address",
+        "emailRequired": "Email is required",
+        "invalidEmail": "Invalid email format",
+        "passwordLabel": "Password",
+        "passwordRequired": "Password is required",
+        "passwordMinLength": "Password must be at least 6 characters",
+        "signIn": "Sign In",
+        "helpTitle": "Login Help",
+        "helpText": "If this is your first time logging in, please use your National ID as your password. You will be prompted to change your password after successful login.",
+        "contactAdmin": "Contact Support",
+        "needHelp": "Need help? Contact your administrator for assistance",
+        "loginError": "Login failed. Please check your credentials."
+    },
+    "support": {
+        "title": "Contact Support",
+        "description": "Our support team will review your request and respond within 24 hours. For urgent matters, please contact your department administrator directly.",
+        "fullName": "Full Name",
+        "nameRequired": "Full name is required",
+        "nationalId": "National ID",
+        "nationalIdRequired": "National ID is required",
+        "emailAddress": "Email Address",
+        "emailRequired": "Email is required",
+        "invalidEmail": "Invalid email address",
+        "problemDescription": "Problem Description",
+        "descriptionRequired": "Please describe your problem",
+        "descriptionMinLength": "Description must be at least 20 characters",
+        "backToLogin": "Back to Login",
+        "submitRequest": "Submit Request",
+        "submitError": "Failed to send support request"
+    },
+    "changePassword": {
+        "title": "Change Password",
+        "firstTimeTitle": "First Time Login",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "currentRequired": "Current password is required",
+        "newRequired": "New password is required",
+        "confirmRequired": "Please confirm your new password",
+        "passwordMismatch": "Passwords do not match",
+        "passwordRequirements": "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character",
+        "changePasswordButton": "Change Password",
+        "changingPassword": "Changing Password...",
+        "submitError": "Failed to change password. Please try again."
+    },
+    "Draft": {
+        "edit": "Edit Draft",
+        "new": "New Draft",
+        "close": "Close",
+        "subject": "Subject",
+        "subjectRequired": "Subject is required",
+        "subjectTooLong": "Subject must be less than 100 characters",
+        "subjectPlaceholder": "Enter subject",
+        "message": "Message",
+        "messageRequired": "Message is required",
+        "messagePlaceholder": "Enter your message",
+        "attachments": "Attachments",
+        "addFiles": "Add Files",
+        "remove": "Remove",
+        "cancel": "Cancel",
+        "save": "Save Draft",
+        "send": "Send",
+        "saved": "Draft saved successfully",
+        "saveFailed": "Failed to save draft",
+        "sent": "Email sent successfully",
+        "sendFailed": "Failed to send email",
+        "autoSaved": "Draft auto-saved",
+        "autoSaveFailed": "Failed to auto-save draft"
+    }
 }

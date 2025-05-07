@@ -6,20 +6,20 @@ import enTranslations from "./locales/en.json";
 
 // Get browser language
 const getBrowserLanguage = () => {
-  const browserLang = navigator.language.split("-")[0]; // Get primary language code
-  return ["en", "ar"].includes(browserLang) ? browserLang : "en"; // Default to 'en' if not supported
+    const browserLang = navigator.language.split("-")[0]; // Get primary language code
+    return ["en", "ar"].includes(browserLang) ? browserLang : "en"; // Default to 'en' if not supported
 };
 
 i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: enTranslations },
-    ar: { translation: arTranslations },
-  },
-  lng: getBrowserLanguage(),
-  fallbackLng: "en",
-  interpolation: {
-    escapeValue: false,
-  },
+    resources: {
+        en: { translation: enTranslations },
+        ar: { translation: arTranslations },
+    },
+    lng: getBrowserLanguage(),
+    fallbackLng: "en",
+    interpolation: {
+        escapeValue: false,
+    },
 });
 
 // Update document direction based on language
