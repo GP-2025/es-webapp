@@ -17,6 +17,7 @@ import DeleteConfirmationModal from "./DeleteConfim";
 import EmailMessage from "./EmailMessage";
 import EmailHeader from "./Header";
 import Replay from "./Replay";
+import { getCookie } from "../../utils/cookieUtils";
 
 const EmailDetail = ({
     email,
@@ -126,7 +127,7 @@ const EmailDetail = ({
 
     const handleDeleteMessage = async (type) => {
         try {
-            const token = localStorage.getItem("token");
+            const token = getCookie("token");
             if (type === "forMe") {
                 await deleteMessageForMe(confirmModal.messageId, token);
             } else {
@@ -142,7 +143,7 @@ const EmailDetail = ({
 
     const handleConversationDelete = async () => {
         try {
-            const token = localStorage.getItem("token");
+            const token = getCookie("token");
             await deleteConversation(email.id, token);
             onDelete && onDelete(email.id);
             onGoBack && onGoBack();

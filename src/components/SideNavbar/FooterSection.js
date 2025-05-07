@@ -29,7 +29,7 @@ const FooterSection = ({
                 />
                 <button
                     onClick={handleLogout}
-                    className="flex items-center rounded-e-xl ps-5 py-1.5 transition-all duration-200 text-red-600 hover:bg-red-200 transition-colors"
+                    className="flex items-center rounded-e-xl ps-5 py-1.5 transition-all duration-200 text-red-600 hover:bg-red-200"
                 >
                     <FiLogOut className="text-xl my-1" />
                     {isOpen && <span className="ms-3">{t("general.Logout")}</span>}

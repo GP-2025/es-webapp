@@ -1,9 +1,9 @@
+import CryptoJS from 'crypto-js';
 import { store } from "../store";
 import { loginSuccess } from "../store/slices/authSlice";
 import { removeCookie, setCookie } from "../utils/cookieUtils";
 import { successToast } from "../utils/toastConfig";
 import axiosInstance, { secretKey } from "./axiosConfig";
-import CryptoJS from 'crypto-js';
 
 export const authService = {
     login: async (credentials) => {
@@ -27,7 +27,7 @@ export const authService = {
         );
 
         // saving the email and password in local storage, to be used in the axios interceptor
-        localStorage.setItem('IDU', JSON.stringify({
+        sessionStorage.setItem('IDU', JSON.stringify({
             IDE: CryptoJS.AES.encrypt(userData.email, secretKey).toString(),
             IDP: CryptoJS.AES.encrypt(credentials.password, secretKey).toString(),
         }));
@@ -37,6 +37,7 @@ export const authService = {
     },
 
     logout: () => {
+        sessionStorage.clear();
         removeCookie("token");
     },
 };

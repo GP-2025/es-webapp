@@ -9,6 +9,7 @@ import ComposeButton from "./ComposeButton";
 import FooterSection from "./FooterSection";
 import NavigationItems from "./NavigationItems";
 import UserProfile from "./UserProfile";
+import { successToast } from "../../utils/toastConfig";
 
 const SideNavbar = ({ children }) => {
     const { t, i18n } = useTranslation();
@@ -27,8 +28,8 @@ const SideNavbar = ({ children }) => {
     };
 
     const handleLogout = () => {
-        dispatch(logout());
-        navigate("/login");
+        navigate("/logout");
+        successToast("Logged out successfully");
     };
 
     return (
