@@ -61,6 +61,10 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
             return emailToIdMap;
         }
         const map = mapEmailsToIds(Contacts);
+        
+        console.log("map", map)
+        console.log("formContent.recipients", formContent.recipients)
+
         if (isClosingRef.current || isSaving) return;
 
         isClosingRef.current = true;
@@ -177,7 +181,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
         open && (
             <div className="select-none fixed inset-0 z-[999] h-screen w-screen flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
                 <div
-                    className="flex justify-center items-center w-full max-w-screen-md mx-auto rounded-xl mx-2 my-2 overflow-hidden"
+                    className="flex justify-center items-center w-full max-w-screen-md mx-auto md:rounded-xl lg:rounded-xl sm:mx-2 my-2 overflow-hidden"
                     dir={isRTL ? "rtl" : "ltr"}
                     lang={i18n.language}
                     onClick={handleClickOutside}
@@ -222,7 +226,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
 
                                     {/* Subject Field */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                                        <label className="text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                                             <MdSubject className="w-5 h-5 text-gray-500" />
                                             {t("Compose.subject")}
                                         </label>
@@ -257,7 +261,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
 
                                     {/* Message Body Field */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+                                        <label className="text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
                                             <MdMessage className="w-5 h-5 text-gray-500" />
                                             {t("Compose.body")}
                                         </label>
@@ -293,7 +297,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
 
                                     {/* Attachments Section */}
                                     <div className="space-y-2">
-                                        <label className="block text-sm font-medium text-gray-700 flex items-center gap-2">
+                                        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                                             <MdAttachFile className="w-5 h-5 text-gray-500" />
                                             {t("Compose.attachments")}
                                         </label>
@@ -360,13 +364,13 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                             {/* Footer - Fixed */}
                             <div className="px-6 py-4 border-t border-gray-200">
                                 <div className="flex justify-end gap-3">
-                                    <button
+                                    {/* <button
                                         type="button"
                                         onClick={handleClose}
                                         className="px-5 py-2.5 text-gray-700 bg-gray-300 hover:bg-gray-400 rounded-md transition-colors duration-100"
                                     >
                                         {t("Compose.Cancel")}
-                                    </button>
+                                    </button> */}
                                     <button
                                         type="submit"
                                         form="compose-form"
