@@ -98,9 +98,8 @@ const DraftPage = () => {
 
   return (
     <div
-      className={`flex flex-col overflow-hidden ${isRTL ? "rtl" : "ltr"}`}
+      className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
       dir={isRTL ? "rtl" : "ltr"}
-      style={{ maxHeight: "calc(100vh - 4rem)" }}
     >
       <AnimatePresence mode="wait">
         {!currentEmail ? (
@@ -109,10 +108,10 @@ const DraftPage = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex-grow overflow-y-auto"
+            className="flex-grow"
           >
-            <div className="sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-xl">
-              <div className="flex items-center gap-2">
+            <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
+              <div className="select-none flex items-center gap-2">
                 <File className="w-6 h-6 text-yellow-600" />
                 <h1 className="text-2xl font-bold">{t("draft.draft")}</h1>
               </div>
@@ -127,8 +126,8 @@ const DraftPage = () => {
                 {t("draft.empty")}
               </div>
             ) : (
-              <div className="px-4">
-                <ul className="space-y-2">
+              <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                <ul className="">
                   {emails.map((email) => (
                     <li key={email.id}>
                       <EmailListItem

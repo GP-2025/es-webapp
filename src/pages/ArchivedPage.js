@@ -160,9 +160,8 @@ const ArchivedPage = ({ messages }) => {
 
   return (
     <div
-      className={`flex flex-col overflow-hidden ${isRTL ? "rtl" : "ltr"}`}
+      className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
       dir={isRTL ? "rtl" : "ltr"}
-      style={{ maxHeight: "calc(100vh - 4rem)" }}
     >
       {error ? (
         <div className="text-red-500 text-center p-4">{error}</div>
@@ -174,36 +173,31 @@ const ArchivedPage = ({ messages }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex-grow overflow-y-auto"
+              className="flex-grow"
             >
-              <div className="sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-xl">
-                <div className="flex items-center gap-2">
+              <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
+                <div className="select-none flex items-center gap-2">
                   <Archive className="w-6 h-6 text-gray-600" />
                   <h1 className="text-2xl font-bold">{t("archived.title")}</h1>
                 </div>
               </div>
-              <div className="px-4">
-                {emails.length === 0 && !isLoading ? (
-                  <div className="text-center text-gray-500 mt-8">
-                    {t("archived.empty")}
-                  </div>
-                ) : (
-                  <ul className="space-y-3">
-                    {emails.map((email) => (
-                      <li key={email.id} className="email-item">
-                        <EmailListItem
-                          page="archived"
-                          email={email}
-                          onSelect={handleEmailSelect}
-                          isSelected={currentEmail?.id === email.id}
-                          onArchive={handleUnarchive}
-                          isArchived={true}
-                          isSent={email.senderEmail === user.email}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                )}
+
+              <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                <ul className="">
+                  {emails.map((email) => (
+                    <li key={email.id} className="email-item">
+                      <EmailListItem
+                        page="archived"
+                        email={email}
+                        isArchived={true}
+                        isSelected={currentEmail?.id === email.id}
+                        onSelect={handleEmailSelect}
+                        onArchive={handleUnarchive}
+                        isSent={email.senderEmail === user.email}
+                      />
+                    </li>
+                  ))}
+                </ul>
 
                 {hasMore && (
                   <div

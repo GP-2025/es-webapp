@@ -8,7 +8,7 @@ import EmailMetadata from "./EmailMetadata";
 import EmailPreview from "./EmailPreview";
 
 const EmailListItem = React.memo(
-  ({ email, onSelect, isSelected, page, isSent }) => {
+  ({ email, onSelect, isSelected, page, isSent, isArchived, isTrash }) => {
     const { i18n } = useTranslation();
     const isRTL = i18n.dir() === "rtl";
     const isUnread = !email.read;
@@ -24,7 +24,6 @@ const EmailListItem = React.memo(
         hover:bg-gray-300
         border-b border-gray-300
         cursor-pointer
-        ${isSelected ? "ring-2 ring-blue-500" : ""}
       `;
     };
 
@@ -39,7 +38,7 @@ const EmailListItem = React.memo(
         dir={isRTL ? "rtl" : "ltr"}
       >
         <div className="flex sm:flex-row flex-col md:items-center lg:items-center w-full">
-          <div className="flex-shrink-0">
+          <div className={`flex-shrink-0 ${isArchived || isTrash ? 'hidden' : ''}`}>
             <EmailAvatar
               senderPictureURL={email.senderPictureURL}
               receiverPictureURL={email.receiverPictureURL}
@@ -57,15 +56,15 @@ const EmailListItem = React.memo(
             isUnread={isUnread}
             page={page}
             isSent={isSent}
+            isArchived={isArchived}
+            isTrash={isTrash}
           />
-          <div className="flex ms-auto">
-            <EmailMetadata
-              attachments={email.attachments}
-              hasDraft={email.hasDraft}
-            />
 
+          <div className="flex ms-auto">
+            <EmailMetadata attachments={email.attachments} hasDraft={email.hasDraft}/>
             <EmailDateTime date={email.date} />
           </div>
+
         </div>
       </motion.div>
     );

@@ -1,3 +1,4 @@
+import { NullLogger } from "@microsoft/signalr";
 import axiosInstance from "./axiosConfig";
 
 export const conversationsService = {

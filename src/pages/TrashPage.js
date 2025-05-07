@@ -113,9 +113,8 @@ const TrashPage = () => {
 
   return (
     <div
-      className={`flex flex-col overflow-hidden ${isRTL ? "rtl" : "ltr"}`}
+      className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
       dir={isRTL ? "rtl" : "ltr"}
-      style={{ maxHeight: "calc(100vh - 4rem)" }}
     >
       {error ? (
         <div className="text-red-500 text-center p-4">{error}</div>
@@ -126,21 +125,22 @@ const TrashPage = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex-grow overflow-y-auto"
+            className="flex-grow"
           >
-            <div className="sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-xl">
-              <div className="flex items-center gap-2">
+            <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
+            <div className="select-none flex items-center gap-2">
                 <Trash2 className="w-6 h-6 text-red-500" />
                 <h1 className="text-2xl font-bold">{t("trash.title")}</h1>
               </div>
             </div>
-            <div className="px-4">
+
+            <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
               {isLoading && emails.length === 0 ? (
                 <div className="flex justify-center items-center h-32">
                   <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500" />
                 </div>
               ) : (
-                <ul className="space-y-3">
+                <ul className="">
                   {emails.map((email) => (
                     <li key={email.id} className="email-item">
                       <EmailListItem
@@ -149,6 +149,7 @@ const TrashPage = () => {
                         onSelect={handleEmailSelect}
                         isSelected={currentEmail?.id === email.id}
                         isSent={email.senderEmail == user.email}
+                        isTrash={true}
                       />
                     </li>
                   ))}

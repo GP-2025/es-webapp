@@ -21,6 +21,9 @@ const SentPage = ({ messages }) => {
   const [totalCount, setTotalCount] = useState(0);
   const pageSize = 10;
 
+  console.log("emails", emails);
+  
+
   // Add intersection observer
   const { ref: loadMoreRef, inView } = useInView({
     threshold: 0.1,
@@ -169,11 +172,11 @@ const SentPage = ({ messages }) => {
       setError(error.message);
     }
   };
+
   return (
     <div
-      className={`flex flex-col overflow-hidden ${isRTL ? "rtl" : "ltr"}`}
+      className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
       dir={isRTL ? "rtl" : "ltr"}
-      style={{ maxHeight: "calc(100vh - 4rem)" }}
     >
       {error ? (
         <div className="text-red-500 text-center p-4">{error}</div>
@@ -187,20 +190,21 @@ const SentPage = ({ messages }) => {
               exit={{ opacity: 0 }}
               className="flex-grow overflow-y-auto"
             >
-              <div className="sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b rounded-xl">
-                <div className="flex items-center gap-2">
-                  <Send className="w-6 h-6 text-purple-600" />
+              <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
+                <div className="select-none flex items-center gap-2">
+                  <Send className="w-6 h-6 text-blue-600" />
                   <h1 className="text-2xl font-bold">{t("sent.title")}</h1>
                 </div>
               </div>
-              <div className="px-4">
-                <ul className="space-y-3">
+              <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                <ul className="">
                   {emails.map((email) => (
                     <li key={email.id} className="email-item">
                       <EmailListItem
                         page="sent"
                         email={email}
                         onSelect={handleEmailSelect}
+                        onArchive={handleArchive}
                         isSelected={currentEmail?.id === email.id}
                         isSent={true}
                       />
@@ -210,10 +214,7 @@ const SentPage = ({ messages }) => {
 
                 {/* Loading indicator */}
                 {hasMore && (
-                  <div
-                    ref={loadMoreRef}
-                    className="h-10 flex items-center justify-center"
-                  >
+                  <div ref={loadMoreRef} className="h-10 flex items-center justify-center">
                     {isLoading ? (
                       <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500" />
                     ) : (
