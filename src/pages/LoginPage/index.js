@@ -74,7 +74,7 @@ const LoginPage = () => {
         }}>  
       </div> */}
 
-      <div className="z-[999] bg-white border border-gray-200 rounded-lg max-w-sm md:max-w-md lg:max-w-md w-full flex flex-col md:flex-row">
+      <div className="z-[999] bg-white border border-gray-300 rounded-lg max-w-sm md:max-w-md lg:max-w-md w-full flex flex-col md:flex-row">
         <div className="w-full p-6 items-center">
           <div className="flex flex-col items-center">
             <img src="/uni-logo.png" className="w-16 h-16 items-center justify-center mb-6" />
@@ -102,10 +102,10 @@ const LoginPage = () => {
                           type="text"
                           placeholder="your email"
                           className={`w-full px-3 py-2 focus:outline-none border ${errors.email ? "border-red-500" : "border-gray-300"
-                            } rounded-lg pl-10`}
+                            } rounded-lg ps-10`}
                           {...field}
                         />
-                        <div className="absolute left-3 top-3 text-gray-400">
+                        <div className="absolute start-3 top-3 text-gray-400">
                           <User size={20} />
                         </div>
                       </div>
@@ -140,14 +140,14 @@ const LoginPage = () => {
                           className={`w-full px-3 py-2 focus:outline-none border ${errors.password
                               ? "border-red-500"
                               : "border-gray-300"
-                            } rounded-lg pl-10`}
+                            } rounded-lg ps-10`}
                           {...field}
                         />
-                        <div className="absolute left-3 top-3 text-gray-400">
+                        <div className="absolute start-3 top-3 text-gray-400">
                           <Lock size={20} />
                         </div>
                         <div
-                          className="absolute right-3 top-3 text-gray-400 cursor-pointer"
+                          className="absolute end-3 top-3 text-gray-400 cursor-pointer"
                           onMouseEnter={(e) =>
                             setHelpPopoverAnchor(e.currentTarget)
                           }

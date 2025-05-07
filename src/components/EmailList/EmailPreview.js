@@ -1,9 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-const EmailPreview = ({ email, isUnread, page, isSent }) => {
+const EmailPreview = ({ email, isUnread, page, isSent, isArchived, isTrash }) => {
   const { t } = useTranslation();
-  // console.log("EmailPreview -> email", isSent, email);
   return (
     <div className={`me-auto ${isUnread && page !== "trash" ? "font-bold" : ""}`}>
       <div className="lg:flex md:flex-row flex-col items-center">
@@ -16,7 +15,7 @@ const EmailPreview = ({ email, isUnread, page, isSent }) => {
               </>
               : (
                 <>
-                  {email.sender}
+                  {isArchived || isTrash ? t("email.From") : ""} {email.sender}
                 </>
               )}
           </p>

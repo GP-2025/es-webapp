@@ -183,11 +183,11 @@ const InboxPage = ({ messages }) => {
   // Responsive layout with RTL support
   return (
     <div
-      className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg ${isRTL ? "rtl" : "ltr"}`}
+      className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       {error ? (
-        <div className="text-red-500 text-center">{error}</div>
+        <div className="text-red-500 text-center p-4">{error}</div>
       ) : (
         <AnimatePresence mode="wait">
           {!currentEmail ? (
@@ -207,29 +207,24 @@ const InboxPage = ({ messages }) => {
 
               <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
                 <ul className="">
-                  {emails.map((email) => {
-                    return (
-                      <li key={email.id} className="email-item">
-                        <EmailListItem
-                          email={email}
-                          onSelect={handleEmailSelect}
-                          isSelected={currentEmail?.id === email.id}
-                          onArchive={handleArchive}
-                          isArchived={false}
-                          page="inbox"
-                          isSent={false}
-                        />
-                      </li>
-                    );
-                  })}
+                  {emails.map((email) => (
+                    <li key={email.id} className="email-item">
+                      <EmailListItem
+                        page="inbox"
+                        email={email}
+                        onSelect={handleEmailSelect}
+                        isSelected={currentEmail?.id === email.id}
+                        onArchive={handleArchive}
+                        isArchived={false}
+                        isSent={false}
+                      />
+                    </li>
+                  ))}
                 </ul>
 
                 {/* Loading indicator */}
                 {hasMore && (
-                  <div
-                    ref={loadMoreRef}
-                    className="h-10 flex items-center justify-center"
-                  >
+                  <div ref={loadMoreRef} className="h-10 flex items-center justify-center">
                     {isLoading ? (
                       <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500" />
                     ) : (

@@ -141,7 +141,7 @@ const EmailLookup = ({ control, errors }) => {
 
               <div
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="absolute inset-y-0 right-0 flex items-center px-2.5 cursor-pointer"
+                className="absolute inset-y-0 end-0 flex items-center px-2.5 cursor-pointer"
               >
                 {isDropdownOpen ? (
                   <ChevronUp className="h-5 w-5 text-gray-400" />
@@ -161,9 +161,7 @@ const EmailLookup = ({ control, errors }) => {
                       }
                     >
                       <div
-                        className={`flex justify-between ${
-                          language === "ar" ? "flex-row-reverse" : ""
-                        }`}
+                        className={`flex justify-between `}
                       >
                         <span className="font-medium truncate">
                           {option.name}

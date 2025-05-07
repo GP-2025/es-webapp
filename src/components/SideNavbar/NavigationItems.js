@@ -19,16 +19,16 @@ const NavigationItems = ({ isOpen, t, isRTL }) => {
       color: "text-blue-600",
     },
     {
-      text: t("starred.title"),
-      icon: <FiStar />,
-      path: "/home/starred",
-      color: "text-yellow-600",
-    },
-    {
       text: t("sent.title"),
       icon: <FiSend />,
       path: "/home/sent",
       color: "text-blue-600",
+    },
+    {
+      text: t("starred.title"),
+      icon: <FiStar />,
+      path: "/home/starred",
+      color: "text-yellow-600",
     },
     {
       text: t("draft.draft"),
