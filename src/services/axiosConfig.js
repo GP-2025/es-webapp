@@ -52,7 +52,20 @@ const isTokenExpired = (token) => {
 	}
 };
 
-// Refresh token from login endpoint function
+// is token cookie expired
+const isAccessTokenExpired = (token) => {
+	if (!token) return true;
+	try {
+		const decodedToken = jwtDecode(token);
+		const currentTime = Date.now() / 1000;
+		// 60 seconds before the token expires
+		return currentTime > (decodedToken.exp - 60);
+	} catch (error) {
+		return true;
+	}
+};
+
+// refresh token from login endpoint function
 const refreshToken = async () => {
 	const IDU = JSON.parse(localStorage.getItem('IDU'));
 	const response = await fetch(process.env.REACT_APP_API_BASE_URL + "/Auth/Login", {
@@ -79,6 +92,12 @@ const refreshToken = async () => {
 // Request interceptor
 axiosInstance.interceptors.request.use(
 	async (config) => {
+		// same the normal isTokenExpired but for checks for the expire time
+		// of he access token 60 seconds before its actually expires
+		if (window.location.pathname != "/login" && isAccessTokenExpired(getCookie("token")))
+				await refreshToken();
+
+		// get the token from the cookie
 		const token = getCookie("token");
 
 		// Check if token exists and is expired
@@ -92,14 +111,10 @@ axiosInstance.interceptors.request.use(
 					config.headers["Authorization"] = `Bearer ${newToken}`;
 				} catch (error) {
 					// If refresh fails, logout user
-					console.log("(token is expired) refreshing token failed.");
 					store.dispatch(logout());
 					removeCookie("token");
-					
-					errorToast("Session expired. Please log in again.");
-					await new Promise(resolve => setTimeout(resolve, 3000)); // Sleep for 3 seconds
-					
 					window.location.href = "/login";
+					errorToast("Session expired. Please log in again.");
 					return Promise.reject(error);
 				} finally {
 					isRefreshing = false;

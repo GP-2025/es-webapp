@@ -65,45 +65,37 @@ const EmailHeader = ({
     };
 
     return (
-        <div className="sticky top-0 bg-white z-10 p-3.5 md:4.5 lg:p-6 border-b border-gray-300 rounded-t-lg">
+        <div className="sticky top-0 bg-white z-10 border-b border-gray-300 rounded-t-lg">
             {/* Top Actions Bar */}
-            <div className="flex items-center justify-between mb-2">
-                <button
+            <div className="flex items-center justify-between p-3 pe-4 border-b border-gray-300">
+                <button className="p-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
                     onClick={onGoBack}
-                    className="p-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
                 >
-                    <ArrowRight
-                        className={`
-              w-5 h-5 text-gray-600
-              ${isRTL ? "" : "rotate-180"}
-            `}
-                    />
+                    <ArrowRight className={` w-5 h-5 text-gray-600 ${isRTL ? "" : "rotate-180"} `} />
                 </button>
 
                 <div className="flex items-center gap-1 md:gap-3 lg:gap-4">
                     <button
                         onClick={onReply}
                         className="flex items-center gap-2 p-2 text-blue-600 
-              hover:bg-blue-100 rounded-lg transition-all duration-100
-              text-sm font-medium"
+                            hover:bg-blue-100 rounded-lg transition-all duration-100
+                            text-sm font-medium"
                     >
                         <Reply className="w-5 h-5" />
                         <span className="hidden sm:inline">{t("email.Reply")}</span>
                     </button>
 
-                    <button
+                    <button className="flex items-center gap-2 p-2 text-emerald-600
+                        hover:bg-emerald-100 rounded-lg transition-all duration-100
+                        text-sm font-medium"
                         onClick={onForward}
-                        className="flex items-center gap-2 p-2 text-emerald-600
-              hover:bg-emerald-100 rounded-lg transition-all duration-100
-              text-sm font-medium"
                     >
                         <ForwardIcon className="w-5 h-5" />
                         <span className="hidden sm:inline">{t("email.Forward")}</span>
                     </button>
 
-                    <button
+                    <button className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
                         onClick={() => onArchive(email.id)}
-                        className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
                         title={isArchived ? t("common.unarchive") : t("common.archive")}
                     >
                         {isArchived ? (
@@ -113,20 +105,15 @@ const EmailHeader = ({
                         )}
                     </button>
 
-                    <button
+                    <button className="p-2 hover:bg-yellow-100 rounded-lg transition-colors"
                         onClick={() => onToggleStar(email.id)}
-                        className="p-2 hover:bg-yellow-100 rounded-lg transition-colors"
                         title={isStarred ? t("starred.unstar") : t("starred.star")}
                     >
-                        <Star
-                            className={`w-5 h-5 ${isStarred ? "text-yellow-400 fill-yellow-400" : "text-yellow-400"
-                                }`}
-                        />
+                        <Star className={`w-5 h-5 ${isStarred ? "text-yellow-400 fill-yellow-400" : "text-yellow-400"} `} />
                     </button>
 
-                    <button
+                    <button className="p-2 hover:bg-red-100 rounded-lg transition-colors"
                         onClick={() => onDelete(email.id)}
-                        className="p-2 hover:bg-red-100 rounded-lg transition-colors"
                         title={t("common.delete")}
                     >
                         <Trash2 className="w-5 h-5 text-red-500" />
@@ -135,7 +122,7 @@ const EmailHeader = ({
             </div>
 
             {/* Email Info Section */}
-            <div className="space-y-3">
+            <div className="p-3.5 md:4.5 lg:p-6 space-y-3">
                 <div className="ms-6 md:ms-[75px] lg:ms-[75px]">
                     <h1 className="text-2xl font-bold text-gray-900 leading-tight">
                         {email.subject}

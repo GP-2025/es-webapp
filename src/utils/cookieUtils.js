@@ -1,4 +1,4 @@
-const setCookie = (name, value, minutes = 14) => {
+const setCookie = (name, value, minutes = 30) => {
     const expires = new Date();
     // Default: Expires in 14 minutes (api token time expires in 15 minutes)
     expires.setTime(expires.getTime() + minutes * 60 * 1000);
