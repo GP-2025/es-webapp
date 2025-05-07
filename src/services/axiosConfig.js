@@ -5,7 +5,7 @@ import { logout } from "../store/slices/authSlice";
 import { getCookie, removeCookie, setCookie } from "../utils/cookieUtils";
 import { errorToast } from "../utils/toastConfig";
 import { authService } from "./authService";
-
+import CryptoJS from 'crypto-js';
 
 // Create axios instance for refresh token requests
 const refreshAxios = axios.create({
@@ -56,10 +56,6 @@ const isTokenExpired = (token) => {
 const refreshToken = async () => {
 	try {
 		const oldToken = getCookie("token");
-		const userData = localStorage.getItem('user');
-		if (userData) {
-			const user = JSON.parse(userData);
-		}
 		const response = await refreshAxios.get("/Auth/Refresh", {
 			headers: {
 				accept: "text/plain",
@@ -93,6 +89,22 @@ const refreshToken = async () => {
 // Request interceptor
 axiosInstance.interceptors.request.use(
 	async (config) => {
+		// !temppppppppppppppppppppppppppppp
+		const IDU = JSON.parse(localStorage.getItem('IDU'));
+		const data = {
+			email: CryptoJS.AES.decrypt(IDU.IDE, secretKey).toString(CryptoJS.enc.Utf8),
+            password: CryptoJS.AES.decrypt(IDU.IDP, secretKey).toString(CryptoJS.enc.Utf8),
+		};
+		const response = await authService.login(data);
+		console.log("response", response)
+		// if (response.accessToken) {
+		// 	setCookie("token", response.accessToken)
+		// 	console.log("response.accessToken", response.accessToken)
+		// 	window.location.href = "/welcometohelloworld";
+		// }
+
+		// !temppppppppppppppppppppppppppppp
+
 		const token = getCookie("token");
 
 		// Check if token exists and is expired
@@ -100,15 +112,16 @@ axiosInstance.interceptors.request.use(
 			if (!isRefreshing) {
 				isRefreshing = true;
 				try {
-					// 1- trying to refresh the token
-					const newToken = await refreshToken();
-					config.headers["Authorization"] = `Bearer ${newToken}`;
+					// // 1- trying to refresh the token
+					// const newToken = await refreshToken();
+					// config.headers["Authorization"] = `Bearer ${newToken}`;
 
 					// 2- if the token is expired and refreshToken is not working so we need to login again
 					const user = JSON.parse(getCookie("user"));
 					const data = { email: user.email, password: atob(user.IdP) };
 					const response = await authService.login(data);
-					if (response.accessToken) setCookie("token", response.accessToken)
+					if (response.accessToken)
+						setCookie("token", response.accessToken)
 				} catch (error) {
 					// If refresh fails, logout user
 					store.dispatch(logout());
@@ -194,4 +207,6 @@ axiosInstance.interceptors.response.use(
 	}
 );
 
+// encryption key
+export const secretKey = process.env.REACT_APP_SECRET_KEY
 export default axiosInstance;

@@ -1,8 +1,9 @@
-import axiosInstance from "./axiosConfig";
 import { store } from "../store";
 import { loginSuccess } from "../store/slices/authSlice";
+import { removeCookie, setCookie } from "../utils/cookieUtils";
 import { successToast } from "../utils/toastConfig";
-import { setCookie, removeCookie } from "../utils/cookieUtils";
+import axiosInstance, { secretKey } from "./axiosConfig";
+import CryptoJS from 'crypto-js';
 
 export const authService = {
     login: async (credentials) => {
@@ -22,9 +23,14 @@ export const authService = {
                 departmentName: userData.departmentName,
                 collegeName: userData.collegeName,
                 nationalId: userData.nationalId,
-                IdP: btoa(credentials.password),
             })
         );
+
+        // saving the email and password in local storage, to be used in the axios interceptor
+        localStorage.setItem('IDU', JSON.stringify({
+            IDE: CryptoJS.AES.encrypt(userData.email, secretKey).toString(),
+            IDP: CryptoJS.AES.encrypt(credentials.password, secretKey).toString(),
+        }));
 
         successToast(`Welcome back, ${userData.name}!`);
         return userData;
