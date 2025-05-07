@@ -170,7 +170,7 @@ const ArchivedPage = ({ messages }) => {
 
                                     {/* Pagination Controls */}
                                     <div className="flex items-center gap-2">
-                                        <span className="hidden md:block lg:block text-sm py-1.5 px-4 rounded-lg border border-gray-300">
+                                        <span className="hidden md:block lg:block text-gray-500 text-sm py-1.5 px-4 rounded-lg border border-gray-300">
                                             {(pageNumber - 1) * pageSize + 1} - {Math.min(pageNumber * pageSize, totalCount)} {t("pagination.of")} {totalCount}
                                         </span>
 

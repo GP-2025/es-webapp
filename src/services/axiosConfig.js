@@ -52,59 +52,33 @@ const isTokenExpired = (token) => {
 	}
 };
 
-// Refresh token function
+// Refresh token from login endpoint function
 const refreshToken = async () => {
-	try {
-		const oldToken = getCookie("token");
-		const response = await refreshAxios.get("/Auth/Refresh", {
-			headers: {
-				accept: "text/plain",
-				Authorization: `Bearer ${oldToken}`,
-				"Content-Type": "application/json",
-				"X-Requested-With": "XMLHttpRequest",
-			},
-		});
-
-		// Check if response contains the new token
-		if (!response.data) {
-			throw new Error("No token received from refresh endpoint");
-		}
-
-		const newToken = response.data;
-		setCookie("token", newToken);
-		return newToken;
-
-	} catch (error) {
-		console.error("Refresh Token Error:", error);
-		if (error.response?.status === 404) {
-			console.error(
-				"Refresh endpoint not found. Please check the API URL and path"
-			);
-		}
-		throw error;
+	const IDU = JSON.parse(localStorage.getItem('IDU'));
+	const response = await fetch(process.env.REACT_APP_API_BASE_URL + "/Auth/Login", {
+		method: "POST",
+		headers: {
+			accept: "text/plain",
+			"Content-Type": "application/json",
+			"X-Requested-With": "XMLHttpRequest",
+		},
+		body: JSON.stringify({
+			email: CryptoJS.AES.decrypt(IDU.IDE, secretKey).toString(CryptoJS.enc.Utf8),
+			password: CryptoJS.AES.decrypt(IDU.IDP, secretKey).toString(CryptoJS.enc.Utf8),
+		})
+	});
+	const data = await response.json();
+	if (response.ok) {
+		const token = data.accessToken;
+		console.log("token refreshed from login endpoint:", token);
+		setCookie("token", token);
+		return token;
 	}
 };
-
 
 // Request interceptor
 axiosInstance.interceptors.request.use(
 	async (config) => {
-		// !temppppppppppppppppppppppppppppp
-		const IDU = JSON.parse(localStorage.getItem('IDU'));
-		const data = {
-			email: CryptoJS.AES.decrypt(IDU.IDE, secretKey).toString(CryptoJS.enc.Utf8),
-            password: CryptoJS.AES.decrypt(IDU.IDP, secretKey).toString(CryptoJS.enc.Utf8),
-		};
-		const response = await authService.login(data);
-		console.log("response", response)
-		// if (response.accessToken) {
-		// 	setCookie("token", response.accessToken)
-		// 	console.log("response.accessToken", response.accessToken)
-		// 	window.location.href = "/welcometohelloworld";
-		// }
-
-		// !temppppppppppppppppppppppppppppp
-
 		const token = getCookie("token");
 
 		// Check if token exists and is expired
@@ -112,22 +86,20 @@ axiosInstance.interceptors.request.use(
 			if (!isRefreshing) {
 				isRefreshing = true;
 				try {
-					// // 1- trying to refresh the token
-					// const newToken = await refreshToken();
-					// config.headers["Authorization"] = `Bearer ${newToken}`;
-
-					// 2- if the token is expired and refreshToken is not working so we need to login again
-					const user = JSON.parse(getCookie("user"));
-					const data = { email: user.email, password: atob(user.IdP) };
-					const response = await authService.login(data);
-					if (response.accessToken)
-						setCookie("token", response.accessToken)
+					// trying to refresh the token
+					console.log("(token is expired) refreshing token...");
+					const newToken = await refreshToken();
+					config.headers["Authorization"] = `Bearer ${newToken}`;
 				} catch (error) {
 					// If refresh fails, logout user
+					console.log("(token is expired) refreshing token failed.");
 					store.dispatch(logout());
 					removeCookie("token");
-					window.location.href = "/login";
+					
 					errorToast("Session expired. Please log in again.");
+					await new Promise(resolve => setTimeout(resolve, 3000)); // Sleep for 3 seconds
+					
+					window.location.href = "/login";
 					return Promise.reject(error);
 				} finally {
 					isRefreshing = false;

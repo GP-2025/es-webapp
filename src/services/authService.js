@@ -10,7 +10,7 @@ export const authService = {
         const response = await axiosInstance.post("/Auth/LogIn", credentials);
         const userData = response.data;
 
-        setCookie("token", userData.accessToken, 15);
+        setCookie("token", userData.accessToken);
 
         store.dispatch(
             loginSuccess({

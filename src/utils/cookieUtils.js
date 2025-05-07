@@ -1,6 +1,7 @@
-const setCookie = (name, value, days = 15) => {
+const setCookie = (name, value, minutes = 14) => {
     const expires = new Date();
-    expires.setTime(expires.getTime() + days * 60 * 1000);
+    // Default: Expires in 14 minutes (api token time expires in 15 minutes)
+    expires.setTime(expires.getTime() + minutes * 60 * 1000);
     document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
 };
 
@@ -19,4 +20,4 @@ const removeCookie = (name) => {
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
 };
 
-export { setCookie, getCookie, removeCookie };
+export { getCookie, removeCookie, setCookie };

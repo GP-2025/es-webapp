@@ -104,7 +104,7 @@ const DraftPage = () => {
 
                                 {/* Pagination Controls */}
                                 <div className="flex items-center gap-2">
-                                    <span className="hidden md:block lg:block text-sm py-1.5 px-4 rounded-lg border border-gray-300">
+                                    <span className="hidden md:block lg:block text-gray-500 text-sm py-1.5 px-4 rounded-lg border border-gray-300">
                                         {(pageNumber - 1) * pageSize + 1} - {Math.min(pageNumber * pageSize, totalCount)} {t("pagination.of")} {totalCount}
                                     </span>
 
@@ -140,11 +140,11 @@ const DraftPage = () => {
                         </div>
 
                         {isLoading && emails.length === 0 ? (
-                            <div className="flex justify-center items-center h-64">
+                            <div className="flex justify-center items-center h-64 overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
                                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
                             </div>
                         ) : emails.length === 0 ? (
-                            <div className="text-center py-8 text-gray-500">
+                            <div className="text-center py-8 text-gray-500 overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
                                 {t("draft.empty")}
                             </div>
                         ) : (
