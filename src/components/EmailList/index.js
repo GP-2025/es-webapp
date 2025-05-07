@@ -8,67 +8,67 @@ import EmailMetadata from "./EmailMetadata";
 import EmailPreview from "./EmailPreview";
 
 const EmailListItem = React.memo(
-  ({ email, onSelect, isSelected, page, isSent, isArchived, isTrash }) => {
-    const { i18n } = useTranslation();
-    const isRTL = i18n.dir() === "rtl";
-    const isUnread = !email.read;
+    ({ email, onSelect, isSelected, page, isSent, isArchived, isTrash }) => {
+        const { i18n } = useTranslation();
+        const isRTL = i18n.dir() === "rtl";
+        const isUnread = !email.read;
 
-    const handleClick = () => {
-      onSelect(email.id);
-    };
+        const handleClick = () => {
+            onSelect(email.id);
+        };
 
-    const getLayoutClasses = () => {
-      return `
+        const getLayoutClasses = () => {
+            return `
         flex items-center px-4 py-2
         ${isUnread ? "bg-blue-100 font-bold" : "bg-white"}
         hover:bg-gray-300
         border-b border-gray-300
         cursor-pointer
       `;
-    };
+        };
 
-    return (
-      <motion.div
-        layout
-        initial={{ opacity: 0, scale: 1 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 1 }}
-        className={getLayoutClasses()}
-        onClick={handleClick}
-        dir={isRTL ? "rtl" : "ltr"}
-      >
-        <div className="flex sm:flex-row flex-col md:items-center lg:items-center w-full">
-          <div className={`flex-shrink-0 ${isArchived || isTrash ? 'hidden' : ''}`}>
-            <EmailAvatar
-              senderPictureURL={email.senderPictureURL}
-              receiverPictureURL={email.receiverPictureURL}
-              alt={isSent ? email.recipient : email.sender}
-              isSent={isSent}
-            />
-          </div>
+        return (
+            <motion.div
+                layout
+                initial={{ opacity: 0, scale: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1 }}
+                className={getLayoutClasses()}
+                onClick={handleClick}
+                dir={isRTL ? "rtl" : "ltr"}
+            >
+                <div className="flex sm:flex-row flex-col md:items-center lg:items-center w-full">
+                    <div className={`flex-shrink-0 ${isArchived || isTrash ? 'hidden' : ''}`}>
+                        <EmailAvatar
+                            senderPictureURL={email.senderPictureURL}
+                            receiverPictureURL={email.receiverPictureURL}
+                            alt={isSent ? email.recipient : email.sender}
+                            isSent={isSent}
+                        />
+                    </div>
 
-          <div className="hidden lg:flex flex-shrink-0 text-gray-500 me-4">
-            {isUnread ? <Mail size={20} /> : <MailOpen size={20} />}
-          </div>
+                    <div className="hidden lg:flex flex-shrink-0 text-gray-500 me-4">
+                        {isUnread ? <Mail size={20} /> : <MailOpen size={20} />}
+                    </div>
 
-          <EmailPreview
-            email={email}
-            isUnread={isUnread}
-            page={page}
-            isSent={isSent}
-            isArchived={isArchived}
-            isTrash={isTrash}
-          />
+                    <EmailPreview
+                        email={email}
+                        isUnread={isUnread}
+                        page={page}
+                        isSent={isSent}
+                        isArchived={isArchived}
+                        isTrash={isTrash}
+                    />
 
-          <div className="flex ms-auto">
-            <EmailMetadata attachments={email.attachments} hasDraft={email.hasDraft}/>
-            <EmailDateTime date={email.date} />
-          </div>
+                    <div className="flex ms-auto">
+                        <EmailMetadata attachments={email.attachments} hasDraft={email.hasDraft} />
+                        <EmailDateTime date={email.date} />
+                    </div>
 
-        </div>
-      </motion.div>
-    );
-  }
+                </div>
+            </motion.div>
+        );
+    }
 );
 
 EmailListItem.displayName = "EmailListItem";

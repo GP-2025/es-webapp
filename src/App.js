@@ -20,49 +20,49 @@ import StarredPage from "./pages/StarredPage";
 import SupportPage from "./pages/SupportPage";
 
 function App() {
-  const {  messages } = SignalRConnection();
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>  
-          {/* Authenticated Routes */}
-          <Route path="/*" element={<LoginPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/login/*" element={<AuthGuard firsttime={true} />}>
-            <Route path="firsttime" element={<ChangePassword isFirstTime={true} />}/>
-          </Route>
-          <Route path="/support" element={<SupportPage />} />
+    const { messages } = SignalRConnection();
+    return (
+        <>
+            <BrowserRouter>
+                <Routes>
+                    {/* Authenticated Routes */}
+                    <Route path="/*" element={<LoginPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/login/*" element={<AuthGuard firsttime={true} />}>
+                        <Route path="firsttime" element={<ChangePassword isFirstTime={true} />} />
+                    </Route>
+                    <Route path="/support" element={<SupportPage />} />
 
-          {/* Public Routes */}
-          <Route path="/home/*" element={<AuthGuard />}>
-            <Route path="inbox" element={<InboxPage messages={messages} />} />
-            <Route path="drafts" element={<DraftPage messages={messages} />} />
-            <Route path="starred" element={<StarredPage messages={messages} />} />
-            <Route path="archived" element={<ArchivedPage messages={messages} />} />
-            <Route path="trash" element={<TrashPage messages={messages} />} />
-            <Route path="sent" element={<SentPage messages={messages} />} />
-            <Route path="search" element={<SearchPage messages={messages} />} />
-            <Route path="searchList" element={<SearchListPage messages={messages} />} />
-            <Route path="settings" element={<ChangePassword isFirstTime={false} />} />
-            <Route path="*" element={<InboxPage messages={messages} />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-      
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-    </>
-  );
+                    {/* Public Routes */}
+                    <Route path="/home/*" element={<AuthGuard />}>
+                        <Route path="inbox" element={<InboxPage messages={messages} />} />
+                        <Route path="drafts" element={<DraftPage messages={messages} />} />
+                        <Route path="starred" element={<StarredPage messages={messages} />} />
+                        <Route path="archived" element={<ArchivedPage messages={messages} />} />
+                        <Route path="trash" element={<TrashPage messages={messages} />} />
+                        <Route path="sent" element={<SentPage messages={messages} />} />
+                        <Route path="search" element={<SearchPage messages={messages} />} />
+                        <Route path="searchList" element={<SearchListPage messages={messages} />} />
+                        <Route path="settings" element={<ChangePassword isFirstTime={false} />} />
+                        <Route path="*" element={<InboxPage messages={messages} />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+        </>
+    );
 }
 
 export default App;

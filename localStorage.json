@@ -8,7 +8,8 @@
         "signatureURL": "Empty",
         "departmentName": null,
         "collegeName": "Faculty of Computers & AI",
-        "nationalId": "03239847237458"
+        "nationalId": "03239847237458",
+        "IdP": ""
     },
     "isAuthenticated": "true",
     "_persist": {

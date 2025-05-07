@@ -5,19 +5,19 @@ import { authService } from "../../services/authService";
 import { errorToast, successToast } from "../../utils/toastConfig";
 
 export const loginUser = createAsyncThunk(
-  "auth/loginUser",
-  async (credentials, { dispatch }) => {
-    try {
-      dispatch(loginStart());
-      const response = await authService.login(credentials);
-      dispatch(loginSuccess(response));
-      successToast("Login successful");
-      return response;
-    } catch (error) {
-      const errorMessage = error.response?.data?.message || "Login failed";
-      dispatch(loginFailure(errorMessage));
-      errorToast(errorMessage);
-      throw error;
+    "auth/loginUser",
+    async (credentials, { dispatch }) => {
+        try {
+            dispatch(loginStart());
+            const response = await authService.login(credentials);
+            dispatch(loginSuccess(response));
+            successToast("Login successful");
+            return response;
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || "Login failed";
+            dispatch(loginFailure(errorMessage));
+            errorToast(errorMessage);
+            throw error;
+        }
     }
-  }
 );
