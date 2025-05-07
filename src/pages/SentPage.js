@@ -196,6 +196,7 @@ const SentPage = ({ messages }) => {
                   <h1 className="text-2xl font-bold">{t("sent.title")}</h1>
                 </div>
               </div>
+              
               <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
                 <ul className="">
                   {emails.map((email) => (
@@ -213,7 +214,7 @@ const SentPage = ({ messages }) => {
                 </ul>
 
                 {/* Loading indicator */}
-                {hasMore && (
+                {/* {hasMore && (
                   <div ref={loadMoreRef} className="h-10 flex items-center justify-center">
                     {isLoading ? (
                       <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500" />
@@ -221,7 +222,7 @@ const SentPage = ({ messages }) => {
                       t("sent.loading_more")
                     )}
                   </div>
-                )}
+                )} */}
               </div>
             </motion.div>
           ) : (
