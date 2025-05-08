@@ -10,11 +10,11 @@ const AuthGuard = ({ fristtime = false }) => {
     const { isAuthenticated } = useSelector((state) => state.auth);
     const location = useLocation();
     const token = getCookie("token");
-    const token2 = getCookie("token2");
 
     // Allow access to firsttimelogin without a token
-    if (location.pathname === "/login/firsttime" && token2.length > 0) {
-        return <Outlet />;
+    if (window.location.pathname === "/login/firsttime" && token.length > 0) {
+        return window.location.href = "/"
+        // <Outlet />;
     }
 
     if (!isAuthenticated || !token) {

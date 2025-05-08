@@ -3,16 +3,19 @@ import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { authService } from "../../services/authService";
 import { getCookie, setCookie } from "../../utils/cookieUtils";
+
+import ChangePassword from "../ChangePassword";
+import { WindowSharp } from "@mui/icons-material";
 
 const LoginPage = () => {
     const navigate = useNavigate();
     
     // checking if user is already logged in.
     useEffect(() => {
-        const token = getCookie("token");
-        if (token) {
+        if (getCookie("token") && !getCookie("isFirstTimeCookie")) {
             navigate("/home/inbox", { replace: true });
         }
     }, [navigate]);
@@ -47,11 +50,15 @@ const LoginPage = () => {
             const response = await authService.login(data);
 
             if (response.accessToken) {
+                document.getElementById("email").value = "";
+                document.getElementById("password").value = "";
+                setCookie("token", response.accessToken);
                 if (data.password === response.nationalId) {
-                    setCookie("token2", response.accessToken);
-                    navigate("/login/firsttime");
+                    // loading the change password component below
+                    // if the user is logging in for the first time
+                    // or if the the national id is the password
+                    navigate("/home/settings");
                 } else {
-                    setCookie("token", response.accessToken);
                     navigate("/home/inbox");
                 }
             }
@@ -65,22 +72,7 @@ const LoginPage = () => {
     }
 
     return (
-        // <div dir="ltr" className="min-h-screen flex items-center justify-center">
         <div dir="ltr" className="min-h-screen flex items-center justify-center bg-gray-200">
-            {/* just for the background */}
-            {/* <div className="absolute z-[10]"
-        style={{
-          width: '100%',
-          height: '100%',
-          backgroundImage: 'url(/back.jpeg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed',
-          opacity: '0.9',
-        }}>  
-      </div> */}
-
             <div className="z-[999] bg-white border border-gray-300 rounded-lg max-w-sm md:max-w-md lg:max-w-md w-full flex flex-col md:flex-row">
                 <div className="w-full p-6 items-center">
                     <div className="flex flex-col items-center">

@@ -31,9 +31,9 @@ function App() {
                     {/* Authenticated Routes */}
                     <Route path="/*" element={<LoginPage />} />
                     <Route path="/login" element={<LoginPage />} />
-                    <Route path="/login/*" element={<AuthGuard firsttime={true} />}>
+                    {/* <Route path="/login/*" element={<AuthGuard firsttime={true} />}>
                         <Route path="firsttime" element={<ChangePassword isFirstTime={true} />} />
-                    </Route>
+                    </Route> */}
                     <Route path="/support" element={<SupportPage />} />
                     <Route path="/logout" element={<Logout />} />
                     

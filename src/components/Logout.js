@@ -8,7 +8,6 @@ const Logout = () => {
     useEffect(() => {
         sessionStorage.clear();
         removeCookie("token");
-        removeCookie("token2");
         navigate("/login", { replace: true });
     }, [navigate]);
 };

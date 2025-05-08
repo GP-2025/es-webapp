@@ -140,8 +140,10 @@
         "passwordRequirements": "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character",
         "changePasswordButton": "Change Password",
         "changingPassword": "Changing Password...",
+        "currentPasswordError": "Current password is incorrect",
         "submitError": "Failed to change password. Please try again.",
-        "submitError2": "Failed to change password. Make sure you typed the current password correctly, and try again."
+        "submitError2": "Failed to change password. Make sure you typed the current password correctly, and try again.",
+        "successMessage": "Password changed successfully. Please log in with your new password."
     },
     "Draft": {
         "edit": "Edit Draft",

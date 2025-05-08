@@ -1,7 +1,9 @@
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import React, { memo, useCallback, useState } from "react";
+import { FiSettings } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 import { accountService } from "../services/accountService";
+import { removeCookie } from "../utils/cookieUtils";
 
 // Extracted form validation logic
 const PASSWORD_REGEX =
@@ -138,9 +140,9 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
             await accountService.changePassword({
                 oldPassword,
                 newPassword,
-            });
+            })
 
-            // Reset all password states
+            // reset all password states
             setOldPassword("");
             setNewPassword("");
             setConfirmPassword("");
@@ -154,80 +156,90 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
     };
 
     return (
-        <div
-            className={`max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg ${isRTL ? "rtl" : "ltr"
-                }`}
+        <div className={`bg-blue-100 -ms-1 flex flex-col border border-gray-300 rounded-t-lg h-[calc(100vh-69px)]`}
+            dir={isRTL ? "rtl" : "ltr"}
         >
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                {isFirstTime
-                    ? t("changePassword.firstTimeTitle")
-                    : t("changePassword.title")}
-            </h2>
+            <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
+                <div className="select-none flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <FiSettings className="w-6 h-6 text-gray-600" />
+                        <h1 className="text-2xl font-bold ">{t("general.Settings")}</h1>
+                    </div>
+                </div>
+            </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <PasswordInput
-                    name="oldPassword"
-                    label={t("changePassword.currentPassword")}
-                    value={oldPassword}
-                    onChange={handleOldPasswordChange}
-                    showPassword={showPasswords.oldPassword}
-                    onToggleVisibility={toggleOldPassword}
-                    error={errors.oldPassword && t(errors.oldPassword)}
-                />
-                <PasswordInput
-                    name="newPassword"
-                    label={t("changePassword.newPassword")}
-                    value={newPassword}
-                    onChange={handleNewPasswordChange}
-                    showPassword={showPasswords.newPassword}
-                    onToggleVisibility={toggleNewPassword}
-                    error={errors.newPassword && t(errors.newPassword)}
-                />
-                <PasswordInput
-                    name="confirmPassword"
-                    label={t("changePassword.confirmPassword")}
-                    value={confirmPassword}
-                    onChange={handleConfirmPasswordChange}
-                    showPassword={showPasswords.confirmPassword}
-                    onToggleVisibility={toggleConfirmPassword}
-                    error={errors.confirmPassword && t(errors.confirmPassword)}
-                />
+            <div className={`max-w-md mx-auto mt-10 p-3 md:p-6 lg:p-6 bg-white rounded-xl shadow-lg ${isRTL ? "rtl" : "ltr"}`} >
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                    {isFirstTime
+                        ? t("changePassword.firstTimeTitle")
+                        : t("changePassword.title")}
+                </h2>
 
-                {errors.submit && (
-                    <p className="text-red-500 text-sm mb-4"> {t("changePassword.submitError2")} </p>
-                )}
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <PasswordInput
+                        name="oldPassword"
+                        label={t("changePassword.currentPassword")}
+                        value={oldPassword}
+                        onChange={handleOldPasswordChange}
+                        showPassword={showPasswords.oldPassword}
+                        onToggleVisibility={toggleOldPassword}
+                        error={errors.oldPassword && t(errors.oldPassword)}
+                    />
+                    <PasswordInput
+                        name="newPassword"
+                        label={t("changePassword.newPassword")}
+                        value={newPassword}
+                        onChange={handleNewPasswordChange}
+                        showPassword={showPasswords.newPassword}
+                        onToggleVisibility={toggleNewPassword}
+                        error={errors.newPassword && t(errors.newPassword)}
+                    />
+                    <PasswordInput
+                        name="confirmPassword"
+                        label={t("changePassword.confirmPassword")}
+                        value={confirmPassword}
+                        onChange={handleConfirmPasswordChange}
+                        showPassword={showPasswords.confirmPassword}
+                        onToggleVisibility={toggleConfirmPassword}
+                        error={errors.confirmPassword && t(errors.confirmPassword)}
+                    />
 
-                <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200
-                   disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                >
-                    {isLoading ? (
-                        <span className="flex items-center justify-center">
-                            <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
-                                <circle
-                                    className="opacity-25"
-                                    cx="12"
-                                    cy="12"
-                                    r="10"
-                                    stroke="currentColor"
-                                    strokeWidth="4"
-                                    fill="none"
-                                />
-                                <path
-                                    className="opacity-75"
-                                    fill="currentColor"
-                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                />
-                            </svg>
-                            {t("changePassword.changingPassword")}
-                        </span>
-                    ) : (
-                        t("changePassword.changePasswordButton")
+                    {errors.submit && (
+                        <p className="text-red-500 text-sm mb-4"> {t("changePassword.submitError2")} </p>
                     )}
-                </button>
-            </form>
+
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200
+                   disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    >
+                        {isLoading ? (
+                            <span className="flex items-center justify-center">
+                                <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                                    <circle
+                                        className="opacity-25"
+                                        cx="12"
+                                        cy="12"
+                                        r="10"
+                                        stroke="currentColor"
+                                        strokeWidth="4"
+                                        fill="none"
+                                    />
+                                    <path
+                                        className="opacity-75"
+                                        fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                    />
+                                </svg>
+                                {t("changePassword.changingPassword")}
+                            </span>
+                        ) : (
+                            t("changePassword.changePasswordButton")
+                        )}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

@@ -199,7 +199,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                 </h3>
                                 <button
                                     onClick={handleClose}
-                                    className="p-2 hover:bg-gray-200 rounded-full"
+                                    className="p-2 hover:bg-gray-200 rounded-xl"
                                     aria-label={t("Compose.close")}
                                 >
                                     <svg
