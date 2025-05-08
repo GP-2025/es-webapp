@@ -349,8 +349,8 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                         {attachments.length > 0 && (
                                             <ul className="mt-4 divide-y divide-gray-100">
                                                 {attachments.map((file, index) => (
-                                                    <li key={index} className="flex items-center mb-3 space-x-3">
-                                                        <span className="flex items-center text-sm text-gray-600">
+                                                    <li key={index} className="flex items-center mb-3">
+                                                        <span className="flex items-center text-sm text-gray-600 me-3">
                                                             <svg
                                                                 className="w-4 h-4 mr-2 text-gray-400"
                                                                 fill="currentColor"

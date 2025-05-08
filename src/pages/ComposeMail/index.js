@@ -56,7 +56,7 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
         fetchContacts();
     }, []);
 
-    
+
     const handleDraftDelete = async () => {
         try {
             const token = getCookie("token");
@@ -94,34 +94,34 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                 return emailToIdMap;
             }
             const map = mapEmailsToIds(Contacts);
-            
+
             // validate attachments
             const validAttachments = attachments.filter((file) => {
                 return file instanceof File || file instanceof Blob;
             });
-            
+
             // for each recipient, check if it exists in the map
             // compose an email for each recipient
             data.recipients.forEach(async (recipient, index) => {
                 if (!map[recipient])
                     errorToast(t("Compose.recipientInvalid") + " " + recipient);
-                
+
                 const emailData = {
                     receiverId: map[recipient],
                     subject: data.subject,
                     content: data.body,
                     attachments: validAttachments,
                 }
-                
+
                 // adding the id of the draft email for index zero compose
                 // only: to remove the draft email from draft conversations
                 if (index === 0) emailData.id = email.id;
-                
+
                 await composeEmail(emailData);
 
                 successToast(t("Compose.sent") + " " + recipient);
             });
-            
+
             submitButton.classList.add("cursor-wait");
             submitButton.disabled = true;
 
@@ -145,7 +145,7 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
     };
 
     return (
-        <div className="h-[calc(100vh-4rem)] flex flex-col bg-white rounded-t-lg">
+        <div className="flex flex-col bg-white rounded-t-lg">
             {/* Fixed Header */}
             <div className="sticky top-0 z-10 flex items-center border-b border-gray-300 px-4 py-3">
                 <div className="flex items-center">
@@ -175,7 +175,7 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="bg-white p-4 md:p-5 lg:p-6 mb-[220px]">
+                    <div className="bg-white p-4 md:p-5 lg:p-6 h-[calc(100vh-130px)]">
                         {/* Recipients Field */}
                         <EmailLookup control={control} errors={errors} />
 
@@ -289,10 +289,10 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                             </div>
 
                             {attachments.length > 0 && (
-                                <ul className="mt-4 divide-y divide-gray-100">
+                                <ul className="mt-4 divide-y divide-gray-100 pb-[130px]">
                                     {attachments.map((file, index) => (
-                                        <li key={index} className="flex items-center mb-3 space-x-3">
-                                            <span className="flex items-center text-sm text-gray-600">
+                                        <li key={index} className="flex items-center mb-3">
+                                            <span className="flex items-center text-sm text-gray-600 me-3">
                                                 <svg
                                                     className="w-4 h-4 mr-2 text-gray-400"
                                                     fill="currentColor"
@@ -317,11 +317,13 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                     </div>
 
                     {/* Fixed Footer */}
-                    <div className="bg-white border-t border-e border-gray-300 p-4 fixed bottom-0 w-full flex justify-end space-x-3">
+                    <div className="bg-white border-t border-gray-300 p-4 fixed bottom-0 flex w-full justify-end space-x-3">
                         <button
                             id="submit-button"
                             type="submit"
-                            className={`px-8 py-2.5 rounded-md font-medium text-white shadow-sm ${"bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"} transition-colors`}
+                            className={`px-10 py-3 rounded-md font-medium text-white shadow-sm
+                            bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2
+                            focus:ring-offset-2 focus:ring-blue-500 transition-colors`}
                         >
                             {t("Compose.send")}
                         </button>
