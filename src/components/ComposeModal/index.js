@@ -227,8 +227,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                     {initialCompose ? t("Compose.edit") : t("Compose.Compose")}
                                 </h3>
                                 <button
-                                    // onClick={closeModal}
-                                    onClick={handleClose}
+                                    onClick={closeModal}
                                     className="p-2 hover:bg-gray-300 transition-all duration-100 rounded-lg"
                                     aria-label={t("Compose.close")}
                                 >
@@ -398,7 +397,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                         onClick={handleClose}
                                         className="px-5 py-2.5 text-gray-700 bg-gray-300 hover:bg-gray-400 rounded-md transition-colors duration-100"
                                     >
-                                        {t("Compose.Cancel")}
+                                        {t("Compose.saveDraft")}
                                     </button>
                                     <button
                                         type="submit"
