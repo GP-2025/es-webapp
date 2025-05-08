@@ -40,16 +40,19 @@
         "remove": "Remove",
         "send": "Send",
         "Cancel": "Cancel",
+        "saveDraft": "Save as Draft",
         "Recipients": "Recipients",
         "duplicate": "File already attached",
         "Attach": "Attach",
         "file": "File",
-        "saved": "Email sent successfully",
+        "saved": "Email saved successfully",
         "saveFailed": "Email failed to save",
         "fail": "Failed to send email",
         "sent": "Email sent successfully",
+        "sentTo": "Email sent successfully to",
         "draft": "Email saved automatically to draft",
-        "recipientRequired": "At least one recipient is required"
+        "recipientRequired": "At least one recipient is required",
+        "recipientInvalid": "Invalid recipient email address"
     },
     "general": {
         "Compose": "Compose",

@@ -83,7 +83,6 @@ export const saveDraft = async (content, conversationId, attachments) => {
 };
 
 export const composeEmail = async (emailData) => {
-    // console.log(emailData, "emaillldata");
     const formData = new FormData();
     emailData.id && formData.append("id", emailData.id);
     formData.append("Subject", emailData.subject);

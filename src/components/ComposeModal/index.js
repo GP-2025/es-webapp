@@ -49,6 +49,14 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
         setIsSaving(false);
     }, [reset]);
 
+    // Close modal function
+    const closeModal = useCallback(() => {
+        if (isClosingRef.current || isSaving) return;
+        isClosingRef.current = true;
+        cleanup();
+        onClose();
+    }, [isDirty, isSaving, cleanup, onClose]);
+
     // Modal close handler with proper cleanup
     const handleClose = useCallback(async () => {
         function mapEmailsToIds(contacts) {
@@ -74,7 +82,8 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                 setIsSaving(true);
                 await conversationsService.composeDraft(
                     formContent.subject,
-                    map[formContent.recipients],
+                    // map[formContent.recipients],
+                    "",
                     formContent.body,
                     attachments.filter(
                         (file) => file instanceof File || file instanceof Blob
@@ -99,13 +108,14 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
     useEffect(() => {
         const handleEscape = (event) => {
             if (event.key === "Escape" && open) {
+                // closeModal();
                 handleClose();
             }
         };
 
         document.addEventListener("keydown", handleEscape);
         return () => document.removeEventListener("keydown", handleEscape);
-    }, [open, handleClose]);
+    }, [open, closeModal, handleClose]);
 
     useEffect(() => {
         const fetchContacts = async () => {
@@ -130,9 +140,13 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
         [handleClose]
     );
 
-    // Form submission handler
+    // form submission handler
     const onSubmit = async (data) => {
         try {
+            const submitButton = document.getElementById("submit-button");
+            submitButton.classList.add("cursor-wait");
+            submitButton.disabled = true;
+
             function mapEmailsToIds(contacts) {
                 const emailToIdMap = {};
                 contacts.forEach((contact) => {
@@ -143,24 +157,39 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                 return emailToIdMap;
             }
             const map = mapEmailsToIds(Contacts);
-            // Validate attachments
+            
+            // validate attachments
             const validAttachments = attachments.filter((file) => {
-                // Add any file validation logic here if needed
                 return file instanceof File || file instanceof Blob;
             });
-            // console.log(map[data.recipients[0]], "data");
-            const emailData = {
-                subject: data.subject,
-                receiverId: map[data.recipients[0]], // Assuming single recipient for now
-                content: data.body,
-                attachments: validAttachments,
-            };
+            
+            console.log("data", data)
+            console.log("emailToIdMap", map)
+            console.log("validAttachments", validAttachments)
+            
+            // for each recipient, check if it exists in the map
+            // compose an email for each recipient
+            data.recipients.forEach(async (recipient) => {
+                if (!map[recipient])
+                    errorToast(t("Compose.recipientInvalid") +" "+ recipient);
 
-            await composeEmail(emailData);
-            successToast(t("Compose.saved"));
+                await composeEmail({
+                    receiverId: map[recipient],
+                    subject: data.subject,
+                    content: data.body,
+                    attachments: validAttachments,
+                });
+
+                successToast(t("Compose.sent") +" "+ recipient);
+            });
+            
+            submitButton.classList.add("cursor-wait");
+            submitButton.disabled = true;
+
             onClose();
             reset();
             setAttachments([]);
+
         } catch (error) {
             errorToast(error.message || t("Compose.sendFailed"));
         }
@@ -198,6 +227,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                     {initialCompose ? t("Compose.edit") : t("Compose.Compose")}
                                 </h3>
                                 <button
+                                    // onClick={closeModal}
                                     onClick={handleClose}
                                     className="p-2 hover:bg-gray-200 rounded-xl"
                                     aria-label={t("Compose.close")}
@@ -373,11 +403,14 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                     </button> */}
                                     <button
                                         type="submit"
+                                        id="submit-button"
                                         form="compose-form"
                                         className="px-5 py-2.5 text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-md hover:shadow-lg flex items-center gap-2 transition-colors duration-100"
                                     >
-                                        {t("Compose.send")}
-                                        <MdSend className="w-5 h-5" />
+                                        <span> {t("Compose.send")} </span>
+                                        <MdSend
+                                            className={`w-5 h-5 ${isRTL ? "transform rotate-180" : ""}`}
+                                        />
                                     </button>
                                 </div>
                             </div>
