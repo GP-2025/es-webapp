@@ -9,10 +9,13 @@ import { getCookie, setCookie } from "../../utils/cookieUtils";
 
 import ChangePassword from "../ChangePassword";
 import { WindowSharp } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.dir() === "rtl";    
+
     // checking if user is already logged in.
     useEffect(() => {
         if (getCookie("token") && !getCookie("isFirstTimeCookie")) {
@@ -221,9 +224,8 @@ const LoginPage = () => {
                             </button>
 
                             <div>
-                                <p className="text-center text-gray-500 text-sm hover:text-gray-600 hover:underline cursor-pointer"
-                                    onClick={() => navigate("/support")}>
-                                    Need help? Contact our support team.
+                                <p className="text-center text-gray-500 text-sm">
+                                    {t("general.loginHelp")}
                                 </p>
                             </div>
 

@@ -57,7 +57,8 @@
         "Settings": "Settings",
         "ChangePassword": "Change Password",
         "Language": "Language",
-        "FirstTimeLogin": "First Time Login - Change Password"
+        "FirstTimeLogin": "First Time Login - Change Password",
+        "loginHelp": "Need help? Contact your College Admin."
     },
     "forward": {
         "ForwardList": "Forward List",
