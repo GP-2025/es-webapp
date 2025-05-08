@@ -254,7 +254,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                             rules={{
                                                 required: t("Compose.reqsubject"),
                                                 maxLength: {
-                                                    value: 150,
+                                                    value: 100,
                                                     message: t("Compose.lensubject"),
                                                 },
                                             }}

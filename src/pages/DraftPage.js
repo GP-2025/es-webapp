@@ -30,7 +30,6 @@ const DraftPage = () => {
                 page,
                 pageSize
             );
-            console.log(response.data)
 
             const transformedEmails = response.data.map((email) => ({
                 id: email.id,
@@ -48,7 +47,7 @@ const DraftPage = () => {
                 senderPictureURL: email.senderPictureURL || "Empty",
                 receiverPictureURL: email.receiverPictureURL || "Empty",
             }));
-            console.log("transformedEmails", transformedEmails)
+            
             setEmails(transformedEmails);
             setTotalCount(response.count);
         } catch (err) {

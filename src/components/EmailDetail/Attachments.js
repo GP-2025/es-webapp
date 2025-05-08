@@ -7,8 +7,8 @@ const EmailAttachments = ({ attachments }) => {
 
     return (
         attachments && (
-            <div className="my-4">
-                <div className="flex items-center justify-start text-gray-700 mb-1 gap-1 pt-2">
+            <div className="mt-5">
+                <div className="flex items-center justify-start text-gray-700 mb-1 gap-1">
                     <h3 className="flex text-xs md:text-sm lg:text-base font-semibold justify-center items-center">
                         {attachments.length} {t("email.Attachments")}
                     </h3>

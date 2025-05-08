@@ -13,7 +13,7 @@ import DeleteMenu from "./DeleteMenu";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
-const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
+const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal, isLastMessage }) => {
     const user = useSelector((state) => state.auth.user);
     const { t, i18n } = useTranslation();
     const isRTL = i18n.dir() === "rtl";
@@ -48,8 +48,8 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
     };
 
     return (
-        <div className="bg-white border-b border-gray-300">
-            <div className="p-3.5 md:p-4.5 lg:px-6 lg:py-5">
+        <div className={`bg-white max-h-none ${ isLastMessage==true ? "pb-20" : "border-b border-gray-300" }`}>
+            <div className="p-3.5 md:p-4.5 lg:px-6 lg:py-5 max-h-none">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row lg:flex-row justify-between">
                     <div className="flex items-start me-auto">
@@ -109,7 +109,7 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
 
                 {/* Message Body */}
                 <div className="
-                    break-words whitespace-pre-wrap overflow-hidden max-w-none
+                    break-words whitespace-pre-wrap overflow-hidden max-h-none
                     mt-4 text-gray-800 text-sm sm:text-base prose prose-sm"
                 >
                     {message.body}

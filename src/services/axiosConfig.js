@@ -95,7 +95,11 @@ axiosInstance.interceptors.request.use(
 	async (config) => {
 		// same the normal isTokenExpired but for checks for the expire time
 		// of the access token before its actually expires
-		if (window.location.pathname != "/login")
+		if (
+				window.location.pathname != "/login/" ||
+				window.location.pathname != "/login" ||
+				window.location.pathname != "/"
+			)
 			if (isAccessTokenExpired(getCookie("token")))
 				await refreshToken();
 

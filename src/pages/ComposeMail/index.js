@@ -18,7 +18,6 @@ import { errorToast, successToast } from "../../utils/toastConfig";
 
 
 const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
-    console.log("email.attachments", email.attachments)
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     const navigate = useNavigate(); // Initialize navigate
@@ -96,9 +95,23 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
             const map = mapEmailsToIds(Contacts);
 
             // validate attachments
-            const validAttachments = attachments.filter((file) => {
+            var updated_attachments = attachments.map((attachment) => {
+                if (attachment.fileURL && attachment.name && attachment.size) {
+                    // return new File([attachment.fileURL], attachment.name, { type: attachment.type || "application/octet-stream" });
+
+                    return null;
+                    // return null because it is uploaded on backend server already
+                }
+                return attachment;
+            });
+
+            const validAttachments = updated_attachments.filter((file) => {
                 return file instanceof File || file instanceof Blob;
             });
+
+            console.log("attachments", attachments)
+            console.log("updated_attachments", updated_attachments)
+            console.log("validAttachments", validAttachments)
 
             // for each recipient, check if it exists in the map
             // compose an email for each recipient
@@ -159,7 +172,15 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                         {t("Compose.Email")}
                     </h1>
                 </div>
-                <div className="ms-auto">
+                <div className="ms-auto flex gap-4">
+                    {/* <button
+                        id="submit-button"
+                        type="submit"
+                        className="flex items-center gap-2 px-6 py-2 text-blue-700 bg-blue-200 hover:bg-blue-300
+                                rounded-lg transition-all duration-100 text-sm font-medium"
+                    >
+                        {t("Compose.send")}
+                    </button> */}
                     <button
                         className="flex items-center gap-2 p-2 text-red-600 bg-red-100 hover:bg-red-200
                                 rounded-lg transition-all duration-100 text-sm font-medium"
@@ -173,9 +194,9 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
             </div>
 
             {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto pb-[200px]">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="bg-white p-4 md:p-5 lg:p-6 h-[calc(100vh-130px)]">
+                    <div className="bg-white p-4 md:p-5 lg:p-6">
                         {/* Recipients Field */}
                         <EmailLookup control={control} errors={errors} />
 
@@ -289,7 +310,7 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                             </div>
 
                             {attachments.length > 0 && (
-                                <ul className="mt-4 divide-y divide-gray-100 pb-[130px]">
+                                <ul className="mt-4 divide-y divide-gray-100">
                                     {attachments.map((file, index) => (
                                         <li key={index} className="flex items-center mb-3">
                                             <span className="flex items-center text-sm text-gray-600 me-3">
@@ -300,7 +321,11 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                                                 >
                                                     <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
                                                 </svg>
-                                                {file.name}
+                                                {
+                                                    file.fileURL
+                                                        ? <a className="hover:underline" target="_blank" href={`${file.fileURL}`}>{file.name}</a>
+                                                        : file.name
+                                                }
                                             </span>
                                             <button
                                                 type="button"
@@ -314,20 +339,21 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                                 </ul>
                             )}
                         </div>
+                        <div className="bg-white pt-4 border-t border-gray-300 flex w-full justify-end">
+                            <button
+                                id="submit-button"
+                                type="submit"
+                                className={`px-10 py-3 rounded-md font-medium text-white shadow-sm
+                                bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2
+                                focus:ring-offset-2 focus:ring-blue-500 transition-colors`}
+                            >
+                                {t("Compose.send")}
+                            </button>
+                        </div>
                     </div>
 
+                    
                     {/* Fixed Footer */}
-                    <div className="bg-white border-t border-gray-300 p-4 fixed bottom-0 flex w-full justify-end space-x-3">
-                        <button
-                            id="submit-button"
-                            type="submit"
-                            className={`px-10 py-3 rounded-md font-medium text-white shadow-sm
-                            bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2
-                            focus:ring-offset-2 focus:ring-blue-500 transition-colors`}
-                        >
-                            {t("Compose.send")}
-                        </button>
-                    </div>
                 </form>
             </div>
             <DeleteConfirmationModal

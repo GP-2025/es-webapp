@@ -43,26 +43,7 @@ const EmailDetail = ({
     const [isLoading, setIsLoading] = useState(true);
     const emailDetailRef = useRef(null);
     const isOpen = useSelector((state) => state.auth.sidebarOpen);
-    const [menuOpen, setMenuOpen] = useState(null);
-    
-    const emailHeaderRef = useRef(null);
-    const [headerHeight, setHeaderHeight] = useState(0);
-
-    useEffect(() => {
-        if (emailHeaderRef.current) {
-        setHeaderHeight(emailHeaderRef.current.offsetHeight);
-        }
-
-        // Optional: Recalculate on window resize
-        const handleResize = () => {
-            if (emailHeaderRef.current) {
-                setHeaderHeight(emailHeaderRef.current.offsetHeight);
-            }
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    const [menuOpen, setMenuOpen] = useState(null);    
 
     const [confirmModal, setConfirmModal] = useState({
         open: false,
@@ -94,13 +75,12 @@ const EmailDetail = ({
                         size: att.size,
                     })) || [],
             };
-            // console.log(newMessage, "new message in details");
+            
             // Append the new message to the conversation
             setConversation((prev) => ({
                 ...prev,
                 messages: [newMessage, ...prev.messages],
             }));
-            // console.log("setConversation,indetails");
         }
     }, [messages]);
 
@@ -202,7 +182,6 @@ const EmailDetail = ({
     };
 
     const handleDeletePermanentlyClick = () => {
-        console.log("||||||| welcome back to trash ||||||||||||||")
         setConfirmModal({
             open: true,
             type: "permanent_delete",
@@ -256,30 +235,26 @@ const EmailDetail = ({
                     isTrash={isTrash}
                     onToggleStar={onToggleStar}
                     className="sticky top-0 z-10 bg-white"
-                    ref={emailHeaderRef}
                 />
 
-                <div
-                    className="overflow-auto"
-                    style={{
-                        // height: `calc(100vh - ${emailDetailRef.current?.offsetHeight || 0}px)`,
-                        // height: `calc(100vh)`,
-                        // maxHeight: `calc(100vh - ${headerHeight}px)`,
-
-                    }}
+                <div className="overflow-auto
+                    h-[calc(100vh-330px)]
+                    md:h-[calc(100vh-300px)]
+                    lg:h-[calc(100vh-300px)]"
                 >
                     {isLoading ? (
                         <div className="flex justify-center py-8">
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
                         </div>
                     ) : (
-                        conversation?.messages.map((message) => (
+                        conversation?.messages.map((message, index) => (    
                             <EmailMessage
                                 key={message.id}
                                 message={message}
                                 menuOpen={menuOpen}
                                 setMenuOpen={setMenuOpen}
                                 setConfirmModal={setConfirmModal}
+                                isLastMessage={index === conversation.messages.length - 1}
                             />
                         ))
                     )}
