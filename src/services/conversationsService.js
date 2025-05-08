@@ -1,4 +1,3 @@
-import { NullLogger } from "@microsoft/signalr";
 import axiosInstance from "./axiosConfig";
 
 export const conversationsService = {
@@ -129,7 +128,7 @@ export const conversationsService = {
         }
     },
 
-    getDeletedConversations: async (
+    getTrashConversations: async (
         PageNumber = 1,
         pageSize = 10,
         search = ""
@@ -139,7 +138,7 @@ export const conversationsService = {
                 `/Conversations/AllConversations`,
                 {
                     params: {
-                        type: "Deleted",
+                        type: "Trash",
                         PageNumber,
                         pageSize,
                         search,
@@ -183,7 +182,7 @@ export const conversationsService = {
 export const deleteConversation = async (conversationId) => {
     try {
         const response = await axiosInstance.post(
-            `/Conversations/ChangeConversationStatus/${conversationId}/Deleted`,
+            `/Conversations/ChangeConversationStatus/${conversationId}/Trash`,
             null,
             {
                 headers: {
@@ -194,6 +193,42 @@ export const deleteConversation = async (conversationId) => {
         return response;
     } catch (error) {
         console.error("Error deleting conversation:", error);
+        throw error;
+    }
+};
+
+export const deleteConversationPermanently = async (conversationId) => {
+    try {
+        const response = await axiosInstance.post(
+            `/Conversations/ChangeConversationStatus/${conversationId}/Deleted`,
+            null,
+            {
+                headers: {
+                    accept: "*/*",
+                },
+            }
+        );
+        return response;
+    } catch (error) {
+        console.error("Error permanently deleting conversation:", error);
+        throw error;
+    }
+};
+
+export const restoreConversation = async (conversationId) => {
+    try {
+        const response = await axiosInstance.post(
+            `/Conversations/ChangeConversationStatus/${conversationId}/Active`,
+            null,
+            {
+                headers: {
+                    accept: "*/*",
+                },
+            }
+        );
+        return response;
+    } catch (error) {
+        console.error("Error permanently deleting conversation:", error);
         throw error;
     }
 };

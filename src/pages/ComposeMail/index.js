@@ -1,20 +1,20 @@
 
-import { Trash2, ArrowRight } from "lucide-react";
+import { ArrowRight, Trash2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { MdAttachFile, MdMessage, MdSubject } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { MdAttachFile, MdMessage, MdSend, MdSubject } from "react-icons/md";
 
+import { toast } from "react-toastify";
 import EmailLookup from "../../components/ComposeModal/EmailLookup";
+import DeleteConfirmationModal from "../../components/EmailDetail/DeleteConfim";
+import { deleteConversation } from "../../services/conversationsService";
 import { composeEmail } from "../../services/emailService";
 import getContacts from "../../services/getContactsService";
-import { errorToast, successToast } from "../../utils/toastConfig";
 import { getCookie } from "../../utils/cookieUtils";
-import { toast } from "react-toastify";
-import { deleteConversation } from "../../services/conversationsService";
-import DeleteConfirmationModal from "../../components/EmailDetail/DeleteConfim";
+import { errorToast, successToast } from "../../utils/toastConfig";
 
 
 const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
@@ -159,11 +159,14 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                     </h1>
                 </div>
                 <div className="ms-auto">
-                    <button className="flex items-center space-x-2 p-2 rounded-lg bg-red-100 hover:bg-red-200 transition-colors"
-                        onClick={() => handleDeleteClick(email.id)} title={t("common.delete")}
+                    <button
+                        className="flex items-center gap-2 p-2 text-red-600 bg-red-100 hover:bg-red-200
+                                rounded-lg transition-all duration-100 text-sm font-medium"
+                        onClick={() => handleDeleteClick(email.id)}
+                        title={t("email.deletePermanently")}
                     >
-                        <Trash2 className="w-5 h-5 text-red-500" />
-                        <span className="text-red-500 font-semibold">{t("Compose.deleteDraft")}</span>
+                        <Trash2 className="w-5 h-5" />
+                        <span>{t("email.deletePermanently")}</span>
                     </button>
                 </div>
             </div>

@@ -7,6 +7,7 @@ function DeleteConfirmationModal({
     setConfirmModal,
     handleConversationDelete,
     handleDraftDelete,
+    handleConversationDeletePermanently,
     handleDeleteMessage,
 }) {
     const modalRef = useRef(null);
@@ -49,7 +50,7 @@ function DeleteConfirmationModal({
                 <h3 className="text-lg font-semibold mb-4">
                     {
                         confirmModal.type === "draft"
-                            ? t("email.deleteDraftTitle")
+                            ? t("email.deletePermanentlyTitle")
                             : confirmModal.type === "conversation"
                                 ? t("email.deleteConversationTitle")
                                 : t("email.deleteMessageTitle")
@@ -58,7 +59,7 @@ function DeleteConfirmationModal({
                 <p className="mb-4 text-gray-600">
                     {
                         confirmModal.type === "draft"
-                            ? t("email.deleteDraftConfirmation")
+                            ? t("email.deletePermanentlyConfirmation")
                             : confirmModal.type === "conversation"
                                 ? t("email.deleteConversationConfirmation")
                                 : t("email.deleteMessageConfirmation")
@@ -77,6 +78,8 @@ function DeleteConfirmationModal({
                                 handleConversationDelete();
                             } else if (confirmModal.type === "draft") {
                                 handleDraftDelete();
+                            } else if (confirmModal.type === "permanent_delete") {
+                                handleConversationDeletePermanently();
                             } else {
                                 handleDeleteMessage(confirmModal.type);
                             }

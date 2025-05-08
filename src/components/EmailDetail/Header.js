@@ -2,13 +2,12 @@ import {
     Archive,
     ArchiveRestore,
     ArrowRight,
-    Clock,
+    AtSign,
     ForwardIcon,
     Reply,
     Send,
     Star,
     Trash2,
-    AtSign,
     User
 } from "lucide-react";
 import React from "react";
@@ -22,10 +21,13 @@ const EmailHeader = ({
     onReply,
     onForward,
     onDelete,
+    onDeletePermanently,
     fromSearch,
     onArchive,
+    onRestore,
     isArchived,
     isStarred,
+    isTrash,
     onToggleStar,
 }) => {
     const user = useSelector((state) => state.auth.user);
@@ -71,57 +73,79 @@ const EmailHeader = ({
                 <button className="p-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
                     onClick={onGoBack}
                 >
-                    <ArrowRight className={` w-5 h-5 text-gray-600 ${isRTL ? "" : "rotate-180"} `} />
+                    <ArrowRight className={`w-5 h-5 text-gray-600 ${isRTL ? "" : "rotate-180"}`} />
                 </button>
 
-                <div className="flex items-center gap-1 md:gap-3 lg:gap-4">
-                    <button
-                        onClick={onReply}
-                        className="flex items-center gap-2 p-2 text-blue-600 
-                            hover:bg-blue-100 rounded-lg transition-all duration-100
+                {isTrash ? (
+                    <div className="flex items-center gap-2 md:gap-3 lg:gap-3">
+                        <button
+                            className="flex items-center gap-2 p-2 text-green-700 bg-green-100 hover:bg-green-200
+                                 rounded-lg transition-all duration-100 text-sm font-medium"
+                            onClick={() => onRestore(email.id)}
+                            title={t("email.restore")}
+                        >
+                            <ArchiveRestore className="w-5 h-5" />
+                            <span className="truncate">{t("email.restore")}</span>
+                        </button>
+                        <button
+                            className="w-[110px] md:w-fit lg:w-fit flex items-center gap-2 p-2 text-red-500 bg-red-100 hover:bg-red-200
+                                 rounded-lg transition-all duration-100 text-sm font-medium"
+                            onClick={() => onDeletePermanently(email.id)}
+                            title={t("email.deletePermanently")}
+                        >
+                            <Trash2 className="w-5 h-5" />
+                            <span className="truncate">{t("email.deletePermanently")}</span>
+                        </button>
+                    </div>
+                ) : (
+                    <div className="flex items-center gap-1 md:gap-3 lg:gap-4">
+                        <button
+                            onClick={onReply}
+                            className="flex items-center gap-2 p-2 text-blue-600 
+                                hover:bg-blue-100 rounded-lg transition-all duration-100
+                                text-sm font-medium"
+                        >
+                            <Reply className="w-5 h-5" />
+                            <span className="hidden sm:inline">{t("email.Reply")}</span>
+                        </button>
+
+                        <button className="flex items-center gap-2 p-2 text-emerald-600
+                            hover:bg-emerald-100 rounded-lg transition-all duration-100
                             text-sm font-medium"
-                    >
-                        <Reply className="w-5 h-5" />
-                        <span className="hidden sm:inline">{t("email.Reply")}</span>
-                    </button>
+                            onClick={onForward}
+                        >
+                            <ForwardIcon className="w-5 h-5" />
+                            <span className="hidden sm:inline">{t("email.Forward")}</span>
+                        </button>
 
-                    <button className="flex items-center gap-2 p-2 text-emerald-600
-                        hover:bg-emerald-100 rounded-lg transition-all duration-100
-                        text-sm font-medium"
-                        onClick={onForward}
-                    >
-                        <ForwardIcon className="w-5 h-5" />
-                        <span className="hidden sm:inline">{t("email.Forward")}</span>
-                    </button>
+                        <button className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
+                            onClick={() => onArchive(email.id)}
+                            title={isArchived ? t("common.unarchive") : t("common.archive")}
+                        >
+                            {isArchived ? (
+                                <ArchiveRestore className="w-5 h-5 text-blue-600" />
+                            ) : (
+                                <Archive className="w-5 h-5 text-blue-600" />
+                            )}
+                        </button>
 
-                    <button className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
-                        onClick={() => onArchive(email.id)}
-                        title={isArchived ? t("common.unarchive") : t("common.archive")}
-                    >
-                        {isArchived ? (
-                            <ArchiveRestore className="w-5 h-5 text-blue-600" />
-                        ) : (
-                            <Archive className="w-5 h-5 text-blue-600" />
-                        )}
-                    </button>
+                        <button className="p-2 hover:bg-yellow-100 rounded-lg transition-colors"
+                            onClick={() => onToggleStar(email.id)}
+                            title={isStarred ? t("starred.unstar") : t("starred.star")}
+                        >
+                            <Star className={`w-5 h-5 ${isStarred ? "text-yellow-400 fill-yellow-400" : "text-yellow-400"}`} />
+                        </button>
 
-                    <button className="p-2 hover:bg-yellow-100 rounded-lg transition-colors"
-                        onClick={() => onToggleStar(email.id)}
-                        title={isStarred ? t("starred.unstar") : t("starred.star")}
-                    >
-                        <Star className={`w-5 h-5 ${isStarred ? "text-yellow-400 fill-yellow-400" : "text-yellow-400"} `} />
-                    </button>
+                        <button className="p-2 hover:bg-red-100 rounded-lg transition-colors"
+                            onClick={() => onDelete(email.id)}
+                            title={t("common.delete")}
+                        >
+                            <Trash2 className="w-5 h-5 text-red-500" />
+                        </button>
+                    </div>
+                )}
 
-                    <button className="p-2 hover:bg-red-100 rounded-lg transition-colors"
-                        onClick={() => onDelete(email.id)}
-                        title={t("common.delete")}
-                    >
-                        <Trash2 className="w-5 h-5 text-red-500" />
-                    </button>
-                </div>
             </div>
-
-            {/* Email Info Section */}
             <div className="p-3.5 md:4.5 lg:p-6 space-y-3">
                 <div className="ms-6 md:ms-[75px] lg:ms-[75px]">
                     <h1 className="text-2xl font-bold text-gray-900 leading-tight">

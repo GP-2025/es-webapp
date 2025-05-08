@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import {
     conversationsService,
     deleteConversation,
+    deleteConversationPermanently,
+    restoreConversation
 } from "../../services/conversationsService";
 import ForwardList from "../ForwardList";
 
@@ -18,6 +20,7 @@ import EmailMessage from "./EmailMessage";
 import EmailHeader from "./Header";
 import Replay from "./Replay";
 import { getCookie } from "../../utils/cookieUtils";
+import { successToast } from "../../utils/toastConfig";
 
 const EmailDetail = ({
     email,
@@ -28,6 +31,7 @@ const EmailDetail = ({
     fromSearch,
     onToggleStar,
     isStarred,
+    isTrash,
     messages,
 }) => {
     const { t } = useTranslation();
@@ -161,6 +165,31 @@ const EmailDetail = ({
         });
     };
 
+    const handleConversationDeletePermanently = async () => {
+        try {
+            const token = getCookie("token");
+            const response = await deleteConversationPermanently(email.id, token);
+            onDelete && onDelete(email.id);
+            onGoBack && onGoBack();
+            if (response.status)
+                successToast(t("email.deleteSuccess"))
+            else
+                successToast(t("email.deleteFailed"))
+        } catch (error) {
+            console.error("Error permanently deleting conversation:", error);
+            toast.error("Failed to permanently delete conversation");
+        }
+    };
+
+    const handleDeletePermanentlyClick = () => {
+        console.log("||||||| welcome back to trash ||||||||||||||")
+        setConfirmModal({
+            open: true,
+            type: "permanent_delete",
+            onConfirm: handleConversationDeletePermanently,
+        });
+    };
+
     const handleArchiveClick = async () => {
         try {
             await onArchive(email.id);
@@ -168,6 +197,22 @@ const EmailDetail = ({
         } catch (error) {
             console.error("Error archiving/unarchiving:", error);
             toast.error("Failed to archive/unarchive conversation");
+        }
+    };
+
+    const handleRestoreClick = async () => {
+        try {
+            const response = await restoreConversation(email.id);
+            onGoBack();
+            if (response.status == 200) {
+                onDelete && onDelete(email.id);
+                successToast(t("email.restoreSuccess"))
+            }
+            else
+                successToast(t("email.restoreFailed"))
+        } catch (error) {
+            console.error("Error restoring conversation:", error);
+            toast.error("Failed to restoring conversation");
         }
     };
 
@@ -182,9 +227,12 @@ const EmailDetail = ({
                     onReply={handleReply}
                     onForward={handleForward}
                     onDelete={handleDeleteClick}
+                    onDeletePermanently={handleDeletePermanentlyClick}
                     onArchive={handleArchiveClick}
+                    onRestore={handleRestoreClick}
                     isArchived={isArchived}
                     isStarred={isStarred}
+                    isTrash={isTrash}
                     onToggleStar={onToggleStar}
                     className="sticky top-0 z-10 bg-white"
                 />
@@ -202,7 +250,6 @@ const EmailDetail = ({
                                 menuOpen={menuOpen}
                                 setMenuOpen={setMenuOpen}
                                 setConfirmModal={setConfirmModal}
-                            // DeleteMenu={<DeleteMenu setConfirmModal={setConfirmModal} />}
                             />
                         ))
                     )}
@@ -232,6 +279,7 @@ const EmailDetail = ({
                 confirmModal={confirmModal}
                 setConfirmModal={setConfirmModal}
                 handleConversationDelete={handleConversationDelete}
+                handleConversationDeletePermanently={handleConversationDeletePermanently}
                 handleDeleteMessage={handleDeleteMessage}
             />
             {composeOpen && (

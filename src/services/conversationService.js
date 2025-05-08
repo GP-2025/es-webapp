@@ -55,6 +55,20 @@ export const conversationService = {
 
     deleteConversation: async (conversationId) => {
         const response = await axiosInstance.post(
+            `/Conversations/ChangeConversationStatus/${conversationId}/Trash`
+        );
+        return response.data;
+    },
+
+    restoreConversation: async (conversationId) => {
+        const response = await axiosInstance.post(
+            `/Conversations/ChangeConversationStatus/${conversationId}/Active`
+        );
+        return response.data;
+    },
+
+    deleteConversationPermanently: async (conversationId) => {
+        const response = await axiosInstance.post(
             `/Conversations/ChangeConversationStatus/${conversationId}/Deleted`
         );
         return response.data;
