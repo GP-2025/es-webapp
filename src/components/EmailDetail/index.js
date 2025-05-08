@@ -237,7 +237,7 @@ const EmailDetail = ({
                     className="sticky top-0 z-10 bg-white"
                 />
 
-                <div className="overflow-y-auto h-[calc(100vh-247px)] lg:h-[calc(100vh-268px)]">
+                <div className="overflow-y-auto h-[calc(100vh-247px)] lg:h-[calc(100vh-268px)] mb-[100px]">
                     {isLoading ? (
                         <div className="flex justify-center py-8">
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />

@@ -30,6 +30,7 @@ const DraftPage = () => {
                 page,
                 pageSize
             );
+            console.log(response.data)
 
             const transformedEmails = response.data.map((email) => ({
                 id: email.id,
@@ -43,11 +44,11 @@ const DraftPage = () => {
                     new Date(email.createdAt).getTime() + 2 * 60 * 60 * 1000
                 ),
                 read: true, // Drafts are always considered read
-                attachments: email.attachments || [],
+                attachments: email.draftAttachments || [],
                 senderPictureURL: email.senderPictureURL || "Empty",
                 receiverPictureURL: email.receiverPictureURL || "Empty",
             }));
-
+            console.log("transformedEmails", transformedEmails)
             setEmails(transformedEmails);
             setTotalCount(response.count);
         } catch (err) {

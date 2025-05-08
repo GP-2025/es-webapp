@@ -347,12 +347,9 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
 
                                         {/* Attachment List */}
                                         {attachments.length > 0 && (
-                                            <ul className="mt-3 divide-y divide-gray-100">
+                                            <ul className="mt-4 divide-y divide-gray-100">
                                                 {attachments.map((file, index) => (
-                                                    <li
-                                                        key={index}
-                                                        className="flex items-center justify-between mb-2"
-                                                    >
+                                                    <li key={index} className="flex items-center mb-3 space-x-3">
                                                         <span className="flex items-center text-sm text-gray-600">
                                                             <svg
                                                                 className="w-4 h-4 mr-2 text-gray-400"

@@ -18,6 +18,7 @@ import { errorToast, successToast } from "../../utils/toastConfig";
 
 
 const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
+    console.log("email.attachments", email.attachments)
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     const navigate = useNavigate(); // Initialize navigate
@@ -174,7 +175,7 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="bg-white p-4 mb-[220px]">
+                    <div className="bg-white p-4 md:p-5 lg:p-6 mb-[220px]">
                         {/* Recipients Field */}
                         <EmailLookup control={control} errors={errors} />
 
@@ -288,13 +289,9 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                             </div>
 
                             {attachments.length > 0 && (
-                                <ul className="mt-3 divide-y divide-gray-100">
+                                <ul className="mt-4 divide-y divide-gray-100">
                                     {attachments.map((file, index) => (
-                                        <li
-                                            key={index}
-                                            // className="flex items-center justify-between py-2"
-                                            className="flex items-center justify-between mb-2"
-                                        >
+                                        <li key={index} className="flex items-center mb-3 space-x-3">
                                             <span className="flex items-center text-sm text-gray-600">
                                                 <svg
                                                     className="w-4 h-4 mr-2 text-gray-400"

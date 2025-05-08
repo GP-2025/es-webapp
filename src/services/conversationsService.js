@@ -40,7 +40,7 @@ export const conversationsService = {
             // Add attachments if any
             if (attachments && attachments.length > 0) {
                 attachments.forEach((file) => {
-                    formData.append("Attachments", file);
+                    formData.append("DraftAttachments", file);
                 });
             }
 
