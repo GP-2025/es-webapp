@@ -210,14 +210,14 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
         open && (
             <div className="select-none fixed inset-0 z-[999] h-screen w-screen flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
                 <div
-                    className="flex justify-center items-center w-full max-w-screen-md mx-auto md:rounded-xl lg:rounded-xl sm:mx-2 my-2 overflow-hidden"
+                    className="flex justify-center items-center w-full max-w-screen-xl mx-auto md:rounded-xl lg:rounded-xl overflow-hidden"
                     dir={isRTL ? "rtl" : "ltr"}
                     lang={i18n.language}
                     onClick={handleClickOutside}
                 >
                     <div
                         ref={modalRef}
-                        className="relative w-full transform transition-all duration-200 ease-out flex flex-col"
+                        className="relative w-full transform transition-all duration-200 ease-out flex flex-col h-[100vh-20px"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div className="bg-white flex flex-col h-full">
@@ -229,7 +229,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                 <button
                                     // onClick={closeModal}
                                     onClick={handleClose}
-                                    className="p-2 hover:bg-gray-200 rounded-xl"
+                                    className="p-2 hover:bg-gray-300 transition-all duration-100 rounded-lg"
                                     aria-label={t("Compose.close")}
                                 >
                                     <svg
@@ -266,14 +266,14 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                             rules={{
                                                 required: t("Compose.reqsubject"),
                                                 maxLength: {
-                                                    value: 100,
+                                                    value: 150,
                                                     message: t("Compose.lensubject"),
                                                 },
                                             }}
                                             render={({ field }) => (
                                                 <input maxLength={100}
                                                     {...field}
-                                                    className={`w-full border ${errors.recipients
+                                                    className={`w-full border ${errors.subject
                                                             ? "border-red-500"
                                                             : "border-gray-300 focus:ring-indigo-400"
                                                         } rounded-md py-2 px-3 text-sm shadow-sm focus:outline-none`}
@@ -307,10 +307,9 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                             }}
                                             render={({ field }) => (
                                                 <textarea
-                                                    style={{ minHeight: "100px", maxHeight: "300px", resize: "vertical" }}
+                                                    style={{ minHeight: "120px", maxHeight: "400px", resize: "vertical" }}
                                                     {...field}
-                                                    rows={5}
-                                                    className={`w-full border ${errors.recipients
+                                                    className={`w-full border ${errors.body
                                                             ? "border-red-500"
                                                             : "border-gray-300 focus:ring-indigo-400"
                                                         } rounded-md py-2 px-3 text-sm shadow-sm focus:outline-none`}
@@ -326,12 +325,12 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                     </div>
 
                                     {/* Attachments Section */}
-                                    <div className="space-y-2">
+                                    <div className="">
                                         <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                                             <MdAttachFile className="w-5 h-5 text-gray-500" />
                                             {t("Compose.attachments")}
                                         </label>
-                                        <div className="flex items-center justify-center w-full">
+                                        <div className="mt-2 flex items-center justify-center w-full">
                                             <label className="flex flex-col items-center w-full px-4 py-6 bg-gray-50 border-2 border-gray-300 border-dashed rounded-xl hover:bg-gray-200 cursor-pointer">
                                                 <svg
                                                     className="w-8 h-8 text-gray-500 mb-2"
@@ -364,7 +363,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                                 {attachments.map((file, index) => (
                                                     <li
                                                         key={index}
-                                                        className="flex items-center justify-between py-2"
+                                                        className="flex items-center justify-between mb-2"
                                                     >
                                                         <span className="flex items-center text-sm text-gray-600">
                                                             <svg
@@ -379,7 +378,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                                         <button
                                                             type="button"
                                                             onClick={() => removeAttachment(index)}
-                                                            className="text-sm text-red-500 hover:text-red-700 transition-colors"
+                                                            className="text-sm text-red-500"
                                                         >
                                                             {t("Compose.remove")}
                                                         </button>
@@ -394,13 +393,13 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                             {/* Footer - Fixed */}
                             <div className="px-6 py-4 border-t border-gray-200">
                                 <div className="flex justify-end gap-3">
-                                    {/* <button
+                                    <button
                                         type="button"
                                         onClick={handleClose}
                                         className="px-5 py-2.5 text-gray-700 bg-gray-300 hover:bg-gray-400 rounded-md transition-colors duration-100"
                                     >
                                         {t("Compose.Cancel")}
-                                    </button> */}
+                                    </button>
                                     <button
                                         type="submit"
                                         id="submit-button"

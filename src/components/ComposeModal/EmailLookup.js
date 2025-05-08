@@ -95,7 +95,7 @@ const EmailLookup = ({ control, errors }) => {
 						value && value.length > 0 ? true : t("Compose.recipientRequired"),
 				}}
 				render={({ field }) => (
-					<div className="space-y-2">
+					<div className="space-y-1.5">
 						{/* Selected Recipients */}
 						<div className="flex flex-wrap gap-1">
 							{field.value &&

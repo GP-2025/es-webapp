@@ -39,6 +39,7 @@
         "selectfile": "حدد ملفًا",
         "remove": "إزالة",
         "send": "إرسال",
+        "deleteDraft": "حذف نهائيًا",
         "Cancel": "إلغاء",
         "saveDraft": "احفظ كمسودة",
         "Recipients": "المستلمون",
@@ -84,9 +85,11 @@
         "loading": "جاري التحميل...",
         "reply": "رد",
         "forward": "إعادة توجيه",
+        "deleteDraftTitle": "حذف المسودة",
+        "deleteDraftConfirmation": "هل أنت متأكد أنك تريد حذف هذه المسودة؟",
         "deleteConversationTitle": "حذف المحادثة",
-        "deleteMessageTitle": "حذف الرسالة",
         "deleteConversationConfirmation": "هل أنت متأكد أنك تريد حذف هذه المحادثة؟",
+        "deleteMessageTitle": "حذف الرسالة",
         "deleteMessageConfirmation": "هل أنت متأكد أنك تريد حذف هذا الرسالة",
         "deleteSuccess": "تم حذف البريد الإلكتروني بنجاح",
         "deleteFailed": "فشل حذف البريد الإلكتروني",
@@ -176,6 +179,7 @@
         "submitSuccess": "تم تغيير كلمة المرور بنجاح. يرجى تسجيل الدخول مرة أخرى."
     },
     "Draft": {
+        "title": "المسودة",
         "edit": "تعديل المسودة",
         "new": "مسودة جديدة",
         "close": "إغلاق",

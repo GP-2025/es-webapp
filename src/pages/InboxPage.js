@@ -12,6 +12,7 @@ const InboxPage = ({ messages }) => {
     const isRTL = i18n.dir() === "rtl";
     const user = useSelector((state) => state.auth.user);
 
+    
     // State management
     const [emails, setEmails] = useState([]);
     const [isLoading, setIsLoading] = useState(true);

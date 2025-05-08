@@ -39,6 +39,7 @@
         "selectfile": "Select a file",
         "remove": "Remove",
         "send": "Send",
+        "deleteDraft": "Delete Permanently",
         "Cancel": "Cancel",
         "saveDraft": "Save as Draft",
         "Recipients": "Recipients",
@@ -84,9 +85,11 @@
         "loading": "Loading...",
         "reply": "Reply",
         "forward": "Forward",
+        "deleteDraftTitle": "Delete Draft",
+        "deleteDraftConfirmation": "Are you sure you want to delete this draft?",
         "deleteConversationTitle": "Delete Conversation",
-        "deleteMessageTitle": "Delete Message",
         "deleteConversationConfirmation": "Are you sure you want to delete this conversation?",
+        "deleteMessageTitle": "Delete Message",
         "deleteMessageConfirmation": "Are you sure you want to delete this message?",
         "deleteSuccess": "Email deleted successfully",
         "deleteFailed": "Failed to delete email",
@@ -167,6 +170,7 @@
         "successMessage": "Password changed successfully. Please log in with your new password."
     },
     "Draft": {
+        "title": "Draft",
         "edit": "Edit Draft",
         "new": "New Draft",
         "close": "Close",

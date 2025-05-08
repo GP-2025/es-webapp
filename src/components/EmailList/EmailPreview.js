@@ -27,7 +27,7 @@ const EmailPreview = ({ email, isUnread, page, isSent, isArchived, isTrash }) =>
                     </p>
                 </div>
 
-                <div className="me-3 flex items-center gap-2 font-normal hidden lg:inline">
+                <div className="me-3 items-center gap-2 font-normal hidden lg:inline">
                     <p className="text-sm text-gray-800 sm:text-base">-</p>
                 </div>
 

@@ -6,6 +6,7 @@ function DeleteConfirmationModal({
     confirmModal,
     setConfirmModal,
     handleConversationDelete,
+    handleDraftDelete,
     handleDeleteMessage,
 }) {
     const modalRef = useRef(null);
@@ -46,14 +47,22 @@ function DeleteConfirmationModal({
                 className="bg-white rounded-xl p-6 max-w-sm w-full mx-4"
             >
                 <h3 className="text-lg font-semibold mb-4">
-                    { confirmModal.type === "conversation"
-                        ? t("email.deleteConversationTitle")
-                        : t("email.deleteMessageTitle") }
+                    {
+                        confirmModal.type === "draft"
+                            ? t("email.deleteDraftTitle")
+                            : confirmModal.type === "conversation"
+                                ? t("email.deleteConversationTitle")
+                                : t("email.deleteMessageTitle")
+                    }
                 </h3>
                 <p className="mb-4 text-gray-600">
-                    { confirmModal.type === "conversation"
-                        ? t("email.deleteConversationConfirmation")
-                        : t("email.deleteMessageConfirmation") }
+                    {
+                        confirmModal.type === "draft"
+                            ? t("email.deleteDraftConfirmation")
+                            : confirmModal.type === "conversation"
+                                ? t("email.deleteConversationConfirmation")
+                                : t("email.deleteMessageConfirmation")
+                    }
                 </p>
                 <div className="flex justify-end gap-3">
                     <button
@@ -66,6 +75,8 @@ function DeleteConfirmationModal({
                         onClick={() => {
                             if (confirmModal.type === "conversation") {
                                 handleConversationDelete();
+                            } else if (confirmModal.type === "draft") {
+                                handleDraftDelete();
                             } else {
                                 handleDeleteMessage(confirmModal.type);
                             }

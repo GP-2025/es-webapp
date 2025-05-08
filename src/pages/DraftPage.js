@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { File } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import EmailListItem from "../components/EmailList/index.js";
@@ -56,6 +56,15 @@ const DraftPage = () => {
             setIsLoading(false);
         }
     };
+
+    const handleDeleteEmail = useCallback(
+        (emailId) => {
+            const updatedEmails = emails.filter((email) => email.id !== emailId);
+            setEmails(updatedEmails);
+            setCurrentEmail(null);
+        },
+        [emails]
+    );
 
     // Update useEffect for initial load
     useEffect(() => {
@@ -140,7 +149,7 @@ const DraftPage = () => {
                         </div>
 
                         {isLoading && emails.length === 0 ? (
-                            <div className="flex justify-center items-center h-64 overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                            <div className="flex justify-center items-center overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
                                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
                             </div>
                         ) : emails.length === 0 ? (
@@ -155,6 +164,7 @@ const DraftPage = () => {
                                             <EmailListItem
                                                 email={email}
                                                 onSelect={() => handleEmailSelect(email)}
+                                                handleDeleteEmail={handleDeleteEmail}
                                                 isSelected={currentEmail?.id === email.id}
                                                 page="draft"
                                                 isSent={email.senderEmail === user.email}
@@ -168,9 +178,9 @@ const DraftPage = () => {
                 ) : (
                     <motion.div
                         key="compose-mail"
-                        initial={{ x: "100%" }}
-                        animate={{ x: 0 }}
-                        exit={{ x: "100%" }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
                     >
                         <ComposeMail
                             email={currentEmail}
