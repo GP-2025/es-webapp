@@ -75,7 +75,24 @@
         "deleteForMe": "Delete for me",
         "deleteForEveryone": "Delete for everyone",
         "to": "To:",
-        "me": "Me"
+        "me": "Me",
+
+        "title": "Email Message",
+        "loading": "Loading...",
+        "reply": "Reply",
+        "forward": "Forward",
+        "deleteConversationTitle": "Delete Conversation",
+        "deleteMessageTitle": "Delete Message",
+        "deleteConversationConfirmation": "Are you sure you want to delete this conversation?",
+        "deleteMessageConfirmation": "Are you sure you want to delete this message?",
+        "deleteSuccess": "Email deleted successfully",
+        "deleteFailed": "Failed to delete email",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "replySuccess": "Reply sent successfully",
+        "replyFailed": "Failed to send reply",
+        "forwardSuccess": "Email forwarded successfully",
+        "forwardFailed": "Failed to forward email"
     },
     "archived": {
         "title": "Archived",

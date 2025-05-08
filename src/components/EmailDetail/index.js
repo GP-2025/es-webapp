@@ -157,8 +157,6 @@ const EmailDetail = ({
         setConfirmModal({
             open: true,
             type: "conversation",
-            title: "Delete Conversation",
-            message: "Are you sure you want to delete this conversation?",
             onConfirm: handleConversationDelete,
         });
     };

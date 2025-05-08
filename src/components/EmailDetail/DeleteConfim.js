@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+
 
 function DeleteConfirmationModal({
     confirmModal,
@@ -7,6 +9,7 @@ function DeleteConfirmationModal({
     handleDeleteMessage,
 }) {
     const modalRef = useRef(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         // Handle escape key
@@ -43,17 +46,21 @@ function DeleteConfirmationModal({
                 className="bg-white rounded-xl p-6 max-w-sm w-full mx-4"
             >
                 <h3 className="text-lg font-semibold mb-4">
-                    {confirmModal.title || "Confirm Delete"}
+                    { confirmModal.type === "conversation"
+                        ? t("email.deleteConversationTitle")
+                        : t("email.deleteMessageTitle") }
                 </h3>
                 <p className="mb-4 text-gray-600">
-                    {confirmModal.message || "Are you sure you want to delete this item?"}
+                    { confirmModal.type === "conversation"
+                        ? t("email.deleteConversationConfirmation")
+                        : t("email.deleteMessageConfirmation") }
                 </p>
                 <div className="flex justify-end gap-3">
                     <button
                         onClick={() => setConfirmModal({ open: false })}
-                        className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-xl"
+                        className="px-4 py-2 text-gray-600 hover:bg-gray-200 rounded-lg"
                     >
-                        Cancel
+                        {t("email.cancel")}
                     </button>
                     <button
                         onClick={() => {
@@ -64,9 +71,9 @@ function DeleteConfirmationModal({
                             }
                             setConfirmModal({ open: false });
                         }}
-                        className="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600"
+                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
                     >
-                        Delete
+                        {t("email.delete")}
                     </button>
                 </div>
             </div>

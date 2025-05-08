@@ -65,17 +65,34 @@
         "SelectedRecipients": "المستلمون المحددون"
     },
     "email": {
-        "Reply": "الرد",
-        "Forward": "إعادة التوجيه",
+        "Reply": "رد",
+        "Forward": "إعادة توجيه",
         "From": "من:",
-        "Attachments": "الملحقات:",
+        "Attachments": "المرفقات:",
         "Subject": "الموضوع:",
         "today": "اليوم",
         "yesterday": "أمس",
         "deleteForMe": "حذف بالنسبة لي",
         "deleteForEveryone": "حذف للجميع",
         "to": "إلى:",
-        "me": "أنا"
+        "me": "أنا",
+
+        "title": "رسالة البريد الإلكتروني",
+        "loading": "جاري التحميل...",
+        "reply": "رد",
+        "forward": "إعادة توجيه",
+        "deleteConversationTitle": "حذف المحادثة",
+        "deleteMessageTitle": "حذف الرسالة",
+        "deleteConversationConfirmation": "هل أنت متأكد أنك تريد حذف هذه المحادثة؟",
+        "deleteMessageConfirmation": "هل أنت متأكد أنك تريد حذف هذا الرسالة",
+        "deleteSuccess": "تم حذف البريد الإلكتروني بنجاح",
+        "deleteFailed": "فشل حذف البريد الإلكتروني",
+        "delete": "حذف",
+        "cancel": "إلغاء",
+        "replySuccess": "تم إرسال الرد بنجاح",
+        "replyFailed": "فشل إرسال الرد",
+        "forwardSuccess": "تمت إعادة توجيه البريد الإلكتروني بنجاح",
+        "forwardFailed": "فشل إعادة توجيه البريد الإلكتروني"
     },
     "error": {
         "generalError": "خطأ عام"
