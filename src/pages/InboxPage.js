@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Inbox } from "lucide-react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import EmailDetail from "../components/EmailDetail";
@@ -167,7 +167,7 @@ const InboxPage = ({ messages }) => {
 
     // Responsive layout with RTL support
     return (
-        <div className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
+        <div className={`flex flex-col`}
             dir={isRTL ? "rtl" : "ltr"}
         >
             {error ? (

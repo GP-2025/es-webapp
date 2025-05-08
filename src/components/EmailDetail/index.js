@@ -44,6 +44,26 @@ const EmailDetail = ({
     const emailDetailRef = useRef(null);
     const isOpen = useSelector((state) => state.auth.sidebarOpen);
     const [menuOpen, setMenuOpen] = useState(null);
+    
+    const emailHeaderRef = useRef(null);
+    const [headerHeight, setHeaderHeight] = useState(0);
+
+    useEffect(() => {
+        if (emailHeaderRef.current) {
+        setHeaderHeight(emailHeaderRef.current.offsetHeight);
+        }
+
+        // Optional: Recalculate on window resize
+        const handleResize = () => {
+            if (emailHeaderRef.current) {
+                setHeaderHeight(emailHeaderRef.current.offsetHeight);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const [confirmModal, setConfirmModal] = useState({
         open: false,
         type: null,
@@ -218,6 +238,7 @@ const EmailDetail = ({
 
     if (!email) return null;
 
+
     return (
         <div className="rounded-t-lg">
             <div className="rounded-t-lg">
@@ -235,10 +256,18 @@ const EmailDetail = ({
                     isTrash={isTrash}
                     onToggleStar={onToggleStar}
                     className="sticky top-0 z-10 bg-white"
+                    ref={emailHeaderRef}
                 />
 
-                {/* <div className="overflow-y-auto h-[calc(100vh-325px)] md:h-[calc(100vh-268px)] lg:h-[calc(100vh-268px)]"> */}
-                <div className="overflow-y-auto">
+                <div
+                    className="overflow-auto"
+                    style={{
+                        // height: `calc(100vh - ${emailDetailRef.current?.offsetHeight || 0}px)`,
+                        // height: `calc(100vh)`,
+                        // maxHeight: `calc(100vh - ${headerHeight}px)`,
+
+                    }}
+                >
                     {isLoading ? (
                         <div className="flex justify-center py-8">
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
@@ -255,7 +284,7 @@ const EmailDetail = ({
                         ))
                     )}
                 </div>
-                <div className="fixed bottom-0 left-0 right-0 md:absolute sm:hidden  ">
+                <div className="fixed bottom-0 left-0 right-0 md:absolute sm:hidden">
                     <Replay
                         width={componentWidth}
                         open={replyOpen}
@@ -266,7 +295,7 @@ const EmailDetail = ({
                     />
                 </div>
             </div>
-            <div className="fixed bottom-0 left-0 right-0 md:absolute hidden  lg:block">
+            <div className="fixed bottom-0 left-0 right-0 md:absolute hidden lg:block">
                 <Replay
                     width={componentWidth}
                     open={replyOpen}

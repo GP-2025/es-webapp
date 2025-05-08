@@ -34,10 +34,7 @@ const SideNavbar = ({ children }) => {
 
     return (
         <div className="flex h-screen bg-gray-100 w-full">
-            <div
-                className={`h-full transition-all duration-200 ${isOpen ? "w-48" : "w-16"
-                    } flex-0.4`}
-            >
+            <div className={`h-full transition-all duration-200 ${isOpen ? "w-48" : "w-16"} flex-0.4`} >
                 <UserProfile
                     user={user}
                     isOpen={isOpen}
@@ -45,7 +42,7 @@ const SideNavbar = ({ children }) => {
                     setsettingsOpen={setsettingsOpen}
                 />
 
-                <div className="h-fit mt-[68px]">
+                <div className="h-fit mt-[65px]">
                     <ComposeButton isOpen={isOpen} setcompose={setcompose} t={t} />
                     <NavigationItems isOpen={isOpen} t={t} isRTL={isRTL} />
                 </div>
@@ -65,15 +62,10 @@ const SideNavbar = ({ children }) => {
             </div>
 
             <div
-                className={`transition-all duration-200 overflow-hidden relative top-[4rem] right-0  flex-1 px-1   rounded-lg m-1 ${isRTL ? "pl-0" : "pr-0"
-                    }`}
+                className={`bg-white transition-all duration-200 overflow-hidden
+                    border border-gray-300 rounded-xl relative top-[65px] end-0 flex-1 me-2`}
                 style={{
-                    maxHeight: "calc(100vh - 4rem)",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    backdropFilter: "blur(300px)",
-                    background:
-                        "linear-gradient(rgba(203, 204, 206, 0.1), rgba(255, 255, 255, 0.5)) ",
+                    maxHeight: "calc(100vh - 72px)",
                 }}
             >
                 {children}

@@ -10,7 +10,7 @@ const UserProfile = ({
     setsettingsOpen,
 }) => {
     return (
-        <div className="absolute top-0 w-full bg-gray-100 flex items-center justify-endpx-2">
+        <div className="absolute top-0 w-full flex items-center justify-endpx-2">
             <div className="w-full flex items-center justify-between p-2">
                 <div className="flex">
                     <button
@@ -27,7 +27,7 @@ const UserProfile = ({
                 <div className="ms-auto relative">
                     <div className="flex items-center gap-3 relative">
                         <div className="hover:cursor-pointer group">
-                            <div className="pb-1">
+                            <div>
                                 <img
                                     src={
                                         (user?.profilePicture != "Empty" && user?.profilePicture) ||

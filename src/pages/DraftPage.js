@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { File } from "lucide-react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import EmailListItem from "../components/EmailList/index.js";
@@ -93,7 +93,7 @@ const DraftPage = () => {
 
     return (
         <div
-            className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
+            className={`flex flex-col`}
             dir={isRTL ? "rtl" : "ltr"}
         >
             <AnimatePresence mode="wait">
