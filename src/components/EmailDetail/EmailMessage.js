@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import React from "react";
 import EmailAttachments from "./Attachments";
-import EmailBody from "./Body";
 import DeleteMenu from "./DeleteMenu";
 
 import { useTranslation } from "react-i18next";
@@ -109,15 +108,16 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
                 </div>
 
                 {/* Message Body */}
-                <div className="prose prose-sm max-w-none">
-                    <EmailBody body={message.body} />
+                <div className="
+                    break-words whitespace-pre-wrap overflow-hidden max-w-none
+                    mt-4 text-gray-800 text-sm sm:text-base prose prose-sm"
+                >
+                    {message.body}
                 </div>
 
                 {/* Attachments */}
                 {message?.attachments?.length > 0 && (
-                    <div className="">
-                        <EmailAttachments attachments={message.attachments} />
-                    </div>
+                    <EmailAttachments attachments={message.attachments} />
                 )}
             </div>
         </div>

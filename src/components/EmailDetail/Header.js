@@ -147,7 +147,7 @@ const EmailHeader = ({
 
             </div>
             <div className="p-3.5 md:4.5 lg:p-6 space-y-3">
-                <div className="ms-6 md:ms-[75px] lg:ms-[75px]">
+                <div className="md:ms-[75px] lg:ms-[75px]">
                     <h1 className="text-2xl font-bold text-gray-900 leading-tight">
                         {email.subject}
                     </h1>
