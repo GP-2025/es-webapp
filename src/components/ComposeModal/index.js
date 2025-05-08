@@ -13,7 +13,6 @@ import {
 import EmailLookup from "./EmailLookup";
 
 const ComposeModal = ({ open, onClose, initialCompose = null }) => {
-    // console.log(initialCompose, "intial");
     const { t, i18n } = useTranslation();
     const modalRef = useRef(null);
     const isClosingRef = useRef(false);
@@ -69,9 +68,6 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
             return emailToIdMap;
         }
         const map = mapEmailsToIds(Contacts);
-        
-        console.log("map", map)
-        console.log("formContent.recipients", formContent.recipients)
 
         if (isClosingRef.current || isSaving) return;
 
@@ -120,10 +116,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
     useEffect(() => {
         const fetchContacts = async () => {
             try {
-                const data = await getContacts();
-                // console.log(data);
-
-                setContacts(data);
+                const data = await getContacts();setContacts(data);
             } catch (error) {
                 console.error("Error fetching contacts:", error);
             }
@@ -162,10 +155,6 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
             const validAttachments = attachments.filter((file) => {
                 return file instanceof File || file instanceof Blob;
             });
-            
-            console.log("data", data)
-            console.log("emailToIdMap", map)
-            console.log("validAttachments", validAttachments)
             
             // for each recipient, check if it exists in the map
             // compose an email for each recipient

@@ -18,7 +18,6 @@ import DeleteConfirmationModal from "../../components/EmailDetail/DeleteConfim";
 
 
 const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
-    // console.log(email);
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
     const navigate = useNavigate(); // Initialize navigate
@@ -31,8 +30,6 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
         messageId: null,
     });
 
-
-    // console.log(email);
     const {
         control,
         handleSubmit,
@@ -49,7 +46,6 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
         const fetchContacts = async () => {
             try {
                 const data = await getContacts();
-                // console.log(data);
 
                 setContacts(data);
             } catch (error) {
@@ -83,6 +79,10 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
 
     const onSubmit = async (data) => {
         try {
+            const submitButton = document.getElementById("submit-button");
+            submitButton.classList.add("cursor-wait");
+            submitButton.disabled = true;
+
             function mapEmailsToIds(contacts) {
                 const emailToIdMap = {};
                 contacts.forEach((contact) => {
@@ -93,29 +93,41 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                 return emailToIdMap;
             }
             const map = mapEmailsToIds(Contacts);
-            // Validate attachments
+            
+            // validate attachments
             const validAttachments = attachments.filter((file) => {
-                // Add any file validation logic here if needed
                 return file instanceof File || file instanceof Blob;
             });
+            
+            // for each recipient, check if it exists in the map
+            // compose an email for each recipient
+            data.recipients.forEach(async (recipient, index) => {
+                if (!map[recipient])
+                    errorToast(t("Compose.recipientInvalid") + " " + recipient);
+                
+                const emailData = {
+                    receiverId: map[recipient],
+                    subject: data.subject,
+                    content: data.body,
+                    attachments: validAttachments,
+                }
+                
+                // adding the id of the draft email for index zero compose
+                // only: to remove the draft email from draft conversations
+                if (index === 0) emailData.id = email.id;
+                
+                await composeEmail(emailData);
 
-            const emailData = {
-                id: email.id,
-                subject: data.subject,
-                receiverId: map[data.recipients[0]],
-                content: data.body,
-                attachments: validAttachments,
-            };
+                successToast(t("Compose.sent") + " " + recipient);
+            });
+            
+            submitButton.classList.add("cursor-wait");
+            submitButton.disabled = true;
 
-            const response = await composeEmail(emailData);
-            if (response) {
-                successToast(t("Compose.saved"));
-                reset();
-                setAttachments([]);
-                onGoBack(); // Refresh the page
-            } else {
-                throw new Error(t("Compose.sendFailed"));
-            }
+            reset();
+            setAttachments([]);
+            onGoBack();
+
         } catch (error) {
             errorToast(error.message || t("Compose.sendFailed"));
         }
@@ -307,6 +319,7 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                     {/* Fixed Footer */}
                     <div className="bg-white border-t border-e border-gray-300 p-4 fixed bottom-0 w-full flex justify-end space-x-3">
                         <button
+                            id="submit-button"
                             type="submit"
                             className={`px-8 py-2.5 rounded-md font-medium text-white shadow-sm ${"bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"} transition-colors`}
                         >
