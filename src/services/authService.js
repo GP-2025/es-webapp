@@ -32,7 +32,7 @@ export const authService = {
             IDP: CryptoJS.AES.encrypt(credentials.password, secretKey).toString(),
         }));
 
-        successToast(`Welcome back, ${userData.name}!`);
+        successToast(`Welcome, ${userData.name}!`);
         return userData;
     },
 

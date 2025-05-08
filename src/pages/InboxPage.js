@@ -166,8 +166,7 @@ const InboxPage = ({ messages }) => {
 
     // Responsive layout with RTL support
     return (
-        <div
-            className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
+        <div className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
             dir={isRTL ? "rtl" : "ltr"}
         >
             {error ? (
