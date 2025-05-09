@@ -5,11 +5,13 @@ import { saveDraft, sendReply } from "../../services/emailService";
 import { getCookie } from "../../utils/cookieUtils";
 import { errorToast, successToast } from "../../utils/toastConfig";
 
+
 // Custom hook to manage draft content and API calls
 const useDraftManager = (initialContent = "", conversationId, onClose) => {
     const [content, setContent] = useState(initialContent);
     const [isSaving, setIsSaving] = useState(false);
     const [shouldSave, setShouldSave] = useState(false);
+
 
     // Effect to handle draft saving
     useEffect(() => {
@@ -89,6 +91,8 @@ const Replay = ({
     conversationId,
 }) => {
     const { t } = useTranslation();
+    const { i18n } = useTranslation();
+    const isRTL = i18n.dir() === "rtl";
     const [attachments, setAttachments] = useState([]);
 
     // Initialize draft manager with proper conversation ID
@@ -104,9 +108,8 @@ const Replay = ({
     }, [draftMessage, handleContentChange]);
 
     // Handle attachment changes
-    const handleAttachmentChange = useCallback(
-        (e) => {
-            const files = Array.from(e.target.files || []);
+    const handleAttachmentChange = useCallback((e) => {
+            const files = Array.from(e.target.files);
             const validFiles = files.filter((file) => {
                 if (file.size > 5 * 1024 * 1024) {
                     errorToast(t("Compose.FileSizeError"));
@@ -118,7 +121,7 @@ const Replay = ({
                         existing.name === file.name && existing.size === file.size
                 );
                 if (isDuplicate) {
-                    errorToast(t("Compose.DuplicateFile", { filename: file.name }));
+                    errorToast( (t("Compose.DuplicateFile") +" "+ file.name) );
                     return false;
                 }
 
@@ -126,6 +129,7 @@ const Replay = ({
             });
 
             setAttachments((prev) => [...prev, ...validFiles]);
+            e.target.value = "";
         },
         [attachments, t]
     );
@@ -185,46 +189,60 @@ const Replay = ({
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "tween" }}
-            className="relative w-full bg-white border-t border-gray-300 p-5 lg:p-6"
+            className="relative w-full bg-white border-t border-gray-300 p-6"
         >
             {/* Draft saving indicator */}
             {isSaving && (
-                <div className="text-sm absolute -top-8 px-2 py-1 rounded-md shadow-sm bg-white text-gray-500 flex items-center gap-2">
+                <div className="text-sm absolute start-3 -top-8 px-2 py-1 rounded-md shadow-sm
+                    border border-gray-300 bg-blue-50 text-gray-500 flex items-center gap-2">
                     <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
                     {t("Draft.Saving")}
                 </div>
             )}
-            
-            <div className="">
+
+            <button className={`absolute end-0 top-0 p-1 bg-white
+                border-b border-s border-gray-300 text-gray-600
+                hover:bg-gray-300 transition-all duration-100`}
+                onClick={handleClose}aria-label={t("Compose.close")}
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-700"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                >
+                    <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div className="flex flex-col gap-4">
                 <textarea
                     placeholder={t("Compose.MessagePlaceholder")}
                     value={content}
-                    style={{ minHeight: "200px", maxHeight: "400px", resize: "vertical" }}
+                    style={{ minHeight: "150px", maxHeight: "300px", resize: "vertical" }}
                     onChange={(e) => handleContentChange(e.target.value)}
-                    // className="w-full p-2 border border-gray-300 rounded-lg h-32 focus:outline-none focus:border-blue-300"
-                    className="w-full py-2  h-32 focus:outline-none focus:border-blue-300"
+                    className="w-full py-2 focus:outline-none focus:border-blue-300"
                 />
-
-                <div className="mt-2 flex flex-col items-start">
-                    <div className="flex flex-col gap-1 md:gap-2 lg:gap-2">
-                        {attachments.map((file, index) => (
-                            <div key={index} className="flex items-center text-black">
-                                <span className="truncate max-w-[240px] md:max-w-[400px] lg:max-w-[400px]">
+                
+                <ul className="space-y-2">
+                    {attachments.map((file, index) => (
+                        <li key={index} className="flex items-center">
+                            <span className="flex items-center text-sm text-gray-600 me-3">
+                                <svg className="w-4 h-4 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
+                                </svg>
+                                <span className="truncate max-w-[230px] md:max-w-[400px] lg:max-w-[400px]">
                                     {file.name}
                                 </span>
-                                <button
-                                    onClick={() =>
-                                        setAttachments((prev) => prev.filter((_, i) => i !== index))
-                                    }
-                                    className="text-red-500 ms-2"
-                                >
-                                    Remove
-                                </button>
-                            </div>
-                        ))}
-                    </div>
+                            </span>
+                            <button type="button" className="text-sm text-red-500"
+                                onClick={() => setAttachments((prev) => prev.filter((_, i) => i !== index)) }
+                            >
+                                {t("Compose.remove")}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
 
-                    <div className="flex w-full gap-4 mt-3 ms-auto">
+                <div className="items-start">
+                    <div className="flex w-full gap-4 ms-auto">
                         <input
                             type="file"
                             onChange={handleAttachmentChange}
@@ -239,7 +257,7 @@ const Replay = ({
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5 me-2"
+                                className="h-5 w-5"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                             >
@@ -249,18 +267,12 @@ const Replay = ({
                                     clipRule="evenodd"
                                 />
                             </svg>
-                            {t("Compose.Attach")}
+                            <span className="hidden md:inline lg:inline ms-2 text-sm text-gray-600">{t("Compose.Attach")}</span>
                         </label>
 
                         <button
-                            onClick={handleClose}
-                            className="px-4 py-2 text-gray-600 bg-gray-200 hover:bg-gray-300 rounded-md"
-                        >
-                            {t("Compose.Cancel")}
-                        </button>
-                        <button
                             onClick={handleSend}
-                            className="px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+                            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
                             disabled={!content.trim() || isSaving}
                         >
                             {t("Compose.send")}

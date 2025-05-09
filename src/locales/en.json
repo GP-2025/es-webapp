@@ -53,7 +53,9 @@
         "sentTo": "Email sent successfully to",
         "draft": "Email saved automatically to draft",
         "recipientRequired": "At least one recipient is required",
-        "recipientInvalid": "Invalid recipient email address"
+        "recipientInvalid": "Invalid recipient email address",
+        "FileSizeError": "File size exceeds the limit of 5MB",
+        "DuplicateFile": "Duplicate file"
     },
     "general": {
         "Compose": "Compose",

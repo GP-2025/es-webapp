@@ -219,8 +219,8 @@ const EmailDetail = ({
 
 
     return (
-        <div className="rounded-t-lg">
-            <div className="rounded-t-lg">
+        <div className="relative">
+            <div className="">
                 <EmailHeader
                     email={email}
                     onGoBack={onGoBack}
@@ -247,7 +247,7 @@ const EmailDetail = ({
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
                         </div>
                     ) : (
-                        conversation?.messages.map((message, index) => (    
+                        conversation?.messages.map((message, index) => (
                             <EmailMessage
                                 key={message.id}
                                 message={message}
@@ -259,7 +259,7 @@ const EmailDetail = ({
                         ))
                     )}
                 </div>
-                <div className="fixed bottom-0 left-0 right-0 md:absolute sm:hidden">
+                <div className="fixed md:absolute lg:absolute bottom-0 left-0 right-0">
                     <Replay
                         width={componentWidth}
                         open={replyOpen}
@@ -269,16 +269,6 @@ const EmailDetail = ({
                         draftMessage={conversation?.draftMessage}
                     />
                 </div>
-            </div>
-            <div className="fixed bottom-0 left-0 right-0 md:absolute hidden lg:block">
-                <Replay
-                    width={componentWidth}
-                    open={replyOpen}
-                    onClose={closeReply}
-                    email={email}
-                    conversationid={conversation?.id}
-                    draftMessage={conversation?.draftMessage}
-                />
             </div>
             <DeleteConfirmationModal
                 confirmModal={confirmModal}

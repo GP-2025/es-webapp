@@ -67,7 +67,7 @@ const EmailHeader = ({
     };
 
     return (
-        <div className="sticky top-0 bg-white z-10 border-b border-gray-300 rounded-t-lg">
+        <div className="sticky top-0 bg-white z-60 border-b border-gray-300 rounded-t-lg">
             {/* Top Actions Bar */}
             <div className="flex items-center justify-between p-3 pe-4 border-b border-gray-300">
                 <button className="p-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
