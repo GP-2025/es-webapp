@@ -136,19 +136,31 @@ const Replay = ({
 
     // Handle send message
     const handleSend = async () => {
+        const submitButton = document.getElementById("submit-button");
+        submitButton.classList.add("cursor-wait");
+        submitButton.disabled = true;
+
+        const removeCursorWait = () => {
+            submitButton.classList.remove("cursor-wait");
+            submitButton.disabled = false;
+        };
+
         if (!actualConversationId) {
             errorToast("Invalid conversation ID");
+            removeCursorWait()
             return;
         }
 
         const token = getCookie("token");
         if (!token) {
             errorToast(t("Auth.LoginRequired"));
+            removeCursorWait()
             return;
         }
 
         if (!content?.trim()) {
             errorToast(t("Compose.EmptyMessage"));
+            removeCursorWait()
             return;
         }
 
@@ -166,7 +178,9 @@ const Replay = ({
             } else {
                 errorToast(t("Compose.SendError"));
             }
+            removeCursorWait()
         } catch (error) {
+            removeCursorWait()
             console.error("Failed to send reply:", error);
             errorToast(error.message || t("Compose.SendError"));
         }
@@ -262,6 +276,7 @@ const Replay = ({
                         </label>
 
                         <button
+                            id="submit-button"
                             onClick={handleSend}
                             className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
                             disabled={!content.trim() || isSaving}

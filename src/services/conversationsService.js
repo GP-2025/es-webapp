@@ -84,7 +84,7 @@ export const conversationsService = {
                 senderEmail: message.senderEmail,
                 senderPictureURL:
                     message.senderEmail === response.data.senderEmail
-                        ? response.data.senderPictureURLURL
+                        ? response.data.senderPictureURL
                         : response.data.receiverPictureURL,
                 body: message.content,
                 date: new Date(message.sentAt),
@@ -98,7 +98,7 @@ export const conversationsService = {
                 messages: messages,
                 senderName: response.data.senderName,
                 senderEmail: response.data.senderEmail,
-                senderPictureURL: response.data.senderPictureURLURL,
+                senderPictureURL: response.data.senderPictureURL,
                 receiverName: response.data.receiverName,
                 receiverEmail: response.data.receiverEmail,
                 receiverPicture: response.data.receiverPictureURL,

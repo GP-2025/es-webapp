@@ -59,13 +59,14 @@ const EmailDetail = ({
             messages[messages.length - 1].type === "message"
         ) {
             const latestMessage = messages[messages.length - 1];
+            console.log("Latest message:", latestMessage);
 
             // Transform the new message to match our message format
             const newMessage = {
                 id: latestMessage.content.id,
                 sender: latestMessage.content.senderName,
                 senderEmail: latestMessage.content.senderEmail,
-                senderPictureURL: latestMessage.content.senderPictureURLURL,
+                senderPictureURL: latestMessage.content.senderPictureURL,
                 body: latestMessage.content.content,
                 date: new Date(latestMessage.content.sentAt),
                 attachments:
@@ -88,7 +89,7 @@ const EmailDetail = ({
         try {
             setIsLoading(true);
             const data = await conversationsService.getConversationById(email.id);
-
+            
             setConversation(data);
         } catch (error) {
             console.error("Error fetching conversation:", error);

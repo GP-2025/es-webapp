@@ -135,8 +135,8 @@ const ComposeMail = ({ email, onGoBack, handleDeleteEmail }) => {
                 successToast(t("Compose.sent") + " " + recipient);
             });
 
-            submitButton.classList.add("cursor-wait");
-            submitButton.disabled = true;
+            submitButton.classList.remove("cursor-wait");
+            submitButton.disabled = false;
 
             reset();
             setAttachments([]);

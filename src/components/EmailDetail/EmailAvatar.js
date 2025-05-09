@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EmailAvatar = ({ picture, alt, isSent, senderPictureURL }) => {
+const EmailAvatar = ({ alt, pictureURL }) => {
     const [imgError, setImgError] = useState(false);
     const [recipientImgError, setRecipientImgError] = useState(false);
 
@@ -20,29 +20,20 @@ const EmailAvatar = ({ picture, alt, isSent, senderPictureURL }) => {
         </div>
     );
 
-    console.log("picture", picture)
-
-    if ( !isSent && senderPictureURL && senderPictureURL !== "Empty") {
+    if (
+        pictureURL &&
+        pictureURL !== "Empty" &&
+        pictureURL !== "https://emailingsystemapi.runasp.net/"
+    ) {
         return (
             <img
-                src={senderPictureURL}
+                src={pictureURL}
                 alt={alt}
                 className="hidden md:flex lg:flex me-3 w-10 h-10 rounded-full"
                 onError={() => handleImageError(true)}
             />
         );
     }
-    if (isSent && picture && picture !== "Empty" && !imgError) {
-        return (
-            <img
-                src={picture}
-                alt={alt}
-                className="hidden md:flex lg:flex me-3 w-10 h-10 rounded-full"
-                onError={() => handleImageError(false)}
-            />
-        );
-    }
-
 
     if (alt) {
         return renderFallbackAvatar();

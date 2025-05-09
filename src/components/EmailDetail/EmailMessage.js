@@ -9,6 +9,7 @@ import {
 import React from "react";
 import EmailAttachments from "./Attachments";
 import DeleteMenu from "./DeleteMenu";
+import EmailAvatar from "./EmailAvatar";
 
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -50,14 +51,19 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal, isLastM
     return (
         <div className={`max-h-none border-b border-gray-300
             ${ isLastMessage==true ? "pb-20" : "" }
-            ${message.senderEmail === user.email ? "bg-green-50" : "bg-white"}
+            ${message.senderEmail === user.email ? "bg-blue-100/50" : "bg-white"}
         `}>
             <div className="p-3.5 md:p-4.5 lg:px-6 lg:py-5 max-h-none">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row lg:flex-row justify-between">
                     <div className="flex items-start me-auto">
                         <div className="flex-shrink-0 me-3 hidden md:flex lg:flex">
-                            {message.senderPictureURL ? (
+                             <EmailAvatar
+                                pictureURL={message.senderPictureURL}
+                                alt={message.sender}
+                            />
+
+                            {/* {message.senderPictureURL ? (
                                 <img
                                     src={message.senderPictureURL}
                                     alt={message.sender}
@@ -66,10 +72,10 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal, isLastM
                             ) : (
                                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
                                     <span className="text-white text-lg font-medium">
-                                        {message.sender?.charAt(0).toUpperCase()}
+                                        {message.sender.charAt(0).toUpperCase()}
                                     </span>
                                 </div>
-                            )}
+                            )} */}
                         </div>
 
                         <div className="flex-1  min-w-0">

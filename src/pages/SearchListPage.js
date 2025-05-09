@@ -67,7 +67,7 @@ const SearchListPage = ({ messages }) => {
                     exit={{ opacity: 0 }}
                     className="flex-grow overflow-y-auto"
                 >
-                    <div className="sticky top-0 bg-white dark:bg-gray-100 z-10 px-4 py-3 border-b">
+                    <div className="sticky top-0 bg-white z-10 px-4 py-3 border-b">
                         <div className="flex items-center gap-2">
                             <Search className="w-6 h-6 text-blue-500" />
                             <h1 className="text-2xl font-bold">{t("search.results")}</h1>

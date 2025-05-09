@@ -85,7 +85,7 @@ const LoginPage = () => {
 
     return (
         <div dir="ltr" className="min-h-screen flex items-center justify-center bg-gray-200">
-            <div className="z-[999] bg-white border border-gray-300 rounded-lg max-w-sm md:max-w-md lg:max-w-md w-full flex flex-col md:flex-row">
+            <div className="z-[999] bg-white border border-gray-300 rounded-none md:rounded-lg lg:rounded-lg max-w-sm md:max-w-md lg:max-w-md w-full flex flex-col md:flex-row">
                 <div className="w-full p-6 items-center">
                     <div className="flex flex-col items-center">
                         <img src="/uni-logo.png" className="w-16 h-16 items-center justify-center mb-6" />

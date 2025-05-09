@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EmailAvatar = ({ senderPictureURL, alt, isSent, receiverPictureURL }) => {
+const EmailAvatar = ({ alt, pictureURL }) => {
     const [imgError, setImgError] = useState(false);
     const [recipientImgError, setRecipientImgError] = useState(false);
 
@@ -13,40 +13,20 @@ const EmailAvatar = ({ senderPictureURL, alt, isSent, receiverPictureURL }) => {
     };
 
     const renderFallbackAvatar = () => (
-        <div className="me-4 hidden md:flex lg:flex w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+        <div className="me-4 hidden md:flex lg:flex w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 items-center justify-center">
             <span className="text-white text-md font-medium">
                 {alt?.charAt(0).toUpperCase()}
             </span>
         </div>
     );
 
-    if (
-        !isSent &&
-        receiverPictureURL &&
-        receiverPictureURL !== "Empty" &&
-        !recipientImgError
-    ) {
+    if (pictureURL && pictureURL !== "Empty") {
         return (
             <img
-                src={receiverPictureURL}
+                src={pictureURL}
                 alt={alt}
                 className="me-4 hidden md:flex lg:flex w-8 h-8 rounded-full"
                 onError={() => handleImageError(true)}
-            />
-        );
-    }
-    if (
-        isSent &&
-        senderPictureURL &&
-        senderPictureURL !== "Empty" &&
-        !imgError
-    ) {
-        return (
-            <img
-                src={senderPictureURL}
-                alt={alt}
-                className="me-4 hidden md:flex lg:flex w-8 h-8 rounded-full"
-                onError={() => handleImageError(false)}
             />
         );
     }

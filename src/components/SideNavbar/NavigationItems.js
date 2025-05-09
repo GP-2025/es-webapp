@@ -58,7 +58,7 @@ const NavigationItems = ({ isOpen, t, isRTL }) => {
                         to={item.path}
                         className={({ isActive }) =>
                             `flex items-center ps-5 py-1 transition-all duration-200 w-10 hover:bg-gray-400 rounded-e-xl
-              ${isActive
+                            ${isActive
                                 ? `${item.color} bg-opacity-20 font-semibold bg-blue-600 hover:bg-opacity-40`
                                 : `${item.color} text-opacity-70 hover:bg-opacity-25`
                             } w-full h-10`

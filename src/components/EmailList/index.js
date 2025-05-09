@@ -55,10 +55,8 @@ const EmailListItem = React.memo(
                 <div className="flex sm:flex-row flex-col md:items-center lg:items-center w-full">
                     <div className={`flex-shrink-0 ${isArchived || isTrash ? 'hidden' : ''}`}>
                         <EmailAvatar
-                            senderPictureURL={email.senderPictureURL}
-                            receiverPictureURL={email.receiverPictureURL}
-                            alt={isSent ? email.recipient : email.sender}
-                            isSent={isSent}
+                            pictureURL={email.senderEmail === user.email ? email.receiverPictureURL : email.senderPictureURL}
+                            alt={email.senderEmail === user.email ? email.receiver : email.sender}
                         />
                     </div>
 
