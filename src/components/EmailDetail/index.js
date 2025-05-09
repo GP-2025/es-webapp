@@ -89,7 +89,6 @@ const EmailDetail = ({
         try {
             setIsLoading(true);
             const data = await conversationsService.getConversationById(email.id);
-            
             setConversation(data);
         } catch (error) {
             console.error("Error fetching conversation:", error);

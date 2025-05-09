@@ -108,6 +108,7 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal, isLastM
                             {menuOpen === message.id && (
                                 <DeleteMenu
                                     messageId={message.id}
+                                    senderEmail={message.senderEmail}
                                     setConfirmModal={setConfirmModal}
                                     setMenuOpen={setMenuOpen}
                                 />

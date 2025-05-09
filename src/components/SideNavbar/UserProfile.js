@@ -24,7 +24,7 @@ const UserProfile = ({
                     </button>
                 </div>
 
-                <div className="ms-auto relative">
+                <div className="ms-auto relative z-[99]">
                     <div className="flex items-center gap-3 relative">
                         <div className="hover:cursor-pointer group">
                             <div>
