@@ -43,7 +43,7 @@ const EmailDetail = ({
     const [isLoading, setIsLoading] = useState(true);
     const emailDetailRef = useRef(null);
     const isOpen = useSelector((state) => state.auth.sidebarOpen);
-    const [menuOpen, setMenuOpen] = useState(null);    
+    const [menuOpen, setMenuOpen] = useState(null);
 
     const [confirmModal, setConfirmModal] = useState({
         open: false,

@@ -1,5 +1,5 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FiGlobe, FiLock, FiSettings } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
@@ -14,8 +14,32 @@ function SettingsPage({
     const { t, i18n } = useTranslation();
     const [language, setLanguage] = useState(i18n.language);
 
+    // close settings when clicking outside the panel
+    useEffect(() => {
+        function handleClickOutside(event) {
+            const panel = document.getElementById("settings-panel");
+            if (panel && !panel.contains(event.target)) {
+                setAnimationClass("scroll-down");
+                setTimeout(() => {
+                    setsettingsOpen(false);
+                    setAnimationClass("");
+                    document.body.style.overflow = "";
+                }, 300);
+            }
+        }
+        if (settingsOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [settingsOpen]);
+
     const handleLanguageChange = (event, newLanguage) => {
         if (newLanguage) {
+            // closing settings panel
+            handleClose();
+
             setLanguage(newLanguage);
             i18n.changeLanguage(newLanguage);
 
@@ -57,8 +81,9 @@ function SettingsPage({
             </button>
         );
     }
+
     return (
-        <div
+        <div id="settings-panel"
             className={`w-full bg-white border border-gray-200 rounded-e-lg p-3 settings-panel ${animationClass}`}
         >
             <div className="flex items-center justify-between mb-3">
