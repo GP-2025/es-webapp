@@ -209,7 +209,9 @@ const Replay = ({
                     <div className="flex flex-col gap-1 md:gap-2 lg:gap-2">
                         {attachments.map((file, index) => (
                             <div key={index} className="flex items-center text-black">
-                                <span className="truncate max-w-[240px] md:max-w-[400px lg:max-w-[400px">{file.name}</span>
+                                <span className="truncate max-w-[240px] md:max-w-[400px] lg:max-w-[400px]">
+                                    {file.name}
+                                </span>
                                 <button
                                     onClick={() =>
                                         setAttachments((prev) => prev.filter((_, i) => i !== index))
