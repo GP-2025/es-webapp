@@ -4,6 +4,7 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { conversationsService } from "../services/conversationsService";
+import { useSelector } from "react-redux";
 
 const SearchInput = () => {
     const { t, i18n } = useTranslation();
@@ -15,6 +16,8 @@ const SearchInput = () => {
     const [showTypeMenu, setShowTypeMenu] = useState(false);
     const [query, setQuery] = useState("");
     const navigate = useNavigate();
+
+    const user = useSelector((state) => state.auth.user);
 
     const maxItemsSizeNoScroll = 5;
     const pageSize = 8;
@@ -209,7 +212,12 @@ const SearchInput = () => {
                                         <div className="font-semibold">{email.subject}</div>
                                         <div className="flex">
                                             <div className="text-xs text-gray-500 me-auto">{email.date.toLocaleDateString()}</div>
-                                            <div className="text-sm text-gray-600">{email.sender}</div>
+                                            <div className="text-sm text-gray-600">{
+                                                    email.senderEmail === user.email
+                                                        ? email.receiver
+                                                        : email.sender
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
