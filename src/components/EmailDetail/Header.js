@@ -156,7 +156,8 @@ const EmailHeader = ({
                 <div className="flex items-start">
                     {/* Sender Avatar */}
                     <EmailAvatar
-                        picture={email.senderPictureURL}
+                        // picture={email.senderPictureURL}
+                        picture={email}
                         alt={email.sender}
                         isSent={email.senderEmail === user.email}
                     />

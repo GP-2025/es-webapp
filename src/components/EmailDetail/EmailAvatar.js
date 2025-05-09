@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EmailAvatar = ({ picture, alt, isSent, receiverPictureURL }) => {
+const EmailAvatar = ({ picture, alt, isSent, senderPictureURL }) => {
     const [imgError, setImgError] = useState(false);
     const [recipientImgError, setRecipientImgError] = useState(false);
 
@@ -20,15 +20,12 @@ const EmailAvatar = ({ picture, alt, isSent, receiverPictureURL }) => {
         </div>
     );
 
-    if (
-        !isSent &&
-        receiverPictureURL &&
-        receiverPictureURL !== "Empty" &&
-        !recipientImgError
-    ) {
+    console.log("picture", picture)
+
+    if ( !isSent && senderPictureURL && senderPictureURL !== "Empty") {
         return (
             <img
-                src={receiverPictureURL}
+                src={senderPictureURL}
                 alt={alt}
                 className="hidden md:flex lg:flex me-3 w-10 h-10 rounded-full"
                 onError={() => handleImageError(true)}
@@ -45,6 +42,7 @@ const EmailAvatar = ({ picture, alt, isSent, receiverPictureURL }) => {
             />
         );
     }
+
 
     if (alt) {
         return renderFallbackAvatar();

@@ -18,7 +18,7 @@ const UserProfile = ({
                             handleToggleSidebar(!isOpen);
                             setsettingsOpen(false);
                         }}
-                        className="p-3 rounded-xl bg-gray-300 hover:bg-gray-400 focus:outline-offset-2 focus:outline-gray-500 transition"
+                        className="p-3 rounded-xl bg-gray-200 hover:bg-gray-300 focus:outline-offset-2 focus:outline-gray-300 transition"
                     >
                         <FiMenu className="text-2xl text-gray-600" />
                     </button>
