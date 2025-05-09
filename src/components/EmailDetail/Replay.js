@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { saveDraft, sendReply } from "../../services/emailService";
 import { getCookie } from "../../utils/cookieUtils";
 import { errorToast, successToast } from "../../utils/toastConfig";
+import { use } from "react";
 
 
 // Custom hook to manage draft content and API calls
@@ -11,7 +12,6 @@ const useDraftManager = (initialContent = "", conversationId, onClose) => {
     const [content, setContent] = useState(initialContent);
     const [isSaving, setIsSaving] = useState(false);
     const [shouldSave, setShouldSave] = useState(false);
-
 
     // Effect to handle draft saving
     useEffect(() => {
@@ -172,15 +172,6 @@ const Replay = ({
         }
     };
 
-    // Log state for debugging
-    useEffect(() => {
-        // console.log("Current state:", {
-        //   conversationId: actualConversationId,
-        //   content,
-        //   isSaving,
-        // });
-    }, [actualConversationId, content, isSaving]);
-
     if (!open) return null;
 
     return (
@@ -189,7 +180,7 @@ const Replay = ({
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "tween" }}
-            className="relative w-full bg-white border-t border-gray-300 p-6"
+            className="relative w-full bg-white border-t border-gray-300 p-6 md:pb-2 lg:pb-2"
         >
             {/* Draft saving indicator */}
             {isSaving && (
@@ -200,12 +191,12 @@ const Replay = ({
                 </div>
             )}
 
-            <button className={`absolute end-0 top-0 p-1 bg-white
-                border-b border-s border-gray-300 text-gray-600
-                hover:bg-gray-300 transition-all duration-100`}
-                onClick={handleClose}aria-label={t("Compose.close")}
+            <button className={`absolute end-6 -top-9 p-1 bg-red-100 rounded-md
+                border border-gray-300 text-red-600
+                hover:bg-red-300 transition-all duration-100`}
+                onClick={handleClose} aria-label={t("Compose.close")}
             >
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-700"
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                 >
                     <path d="M6 18L18 6M6 6l12 12" />

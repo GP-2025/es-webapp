@@ -48,7 +48,10 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal, isLastM
     };
 
     return (
-        <div className={`bg-white max-h-none ${ isLastMessage==true ? "pb-20" : "border-b border-gray-300" }`}>
+        <div className={`max-h-none border-b border-gray-300
+            ${ isLastMessage==true ? "pb-20" : "" }
+            ${message.senderEmail === user.email ? "bg-green-50" : "bg-white"}
+        `}>
             <div className="p-3.5 md:p-4.5 lg:px-6 lg:py-5 max-h-none">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row lg:flex-row justify-between">

@@ -67,7 +67,7 @@ const EmailHeader = ({
     };
 
     return (
-        <div className="sticky top-0 bg-white z-60 border-b border-gray-300 rounded-t-lg">
+        <div className="sticky top-0 bg-white z-60 border-b border-gray-300 rounded-t-lg shadow-md shadow-gray-300/40">
             {/* Top Actions Bar */}
             <div className="flex items-center justify-between p-3 pe-4 border-b border-gray-300">
                 <button className="p-2 rounded-lg hover:bg-gray-300 transition-all duration-100"
@@ -148,7 +148,7 @@ const EmailHeader = ({
             </div>
             <div className="p-3.5 md:4.5 lg:p-6 space-y-3">
                 <div className="md:ms-[75px] lg:ms-[75px]">
-                    <h1 className="text-2xl font-bold text-gray-900 leading-tight">
+                    <h1 className="text-xl md:text-2xl lg:text-2xl font-bold text-gray-900 leading-tight">
                         {email.subject}
                     </h1>
                 </div>
@@ -167,25 +167,27 @@ const EmailHeader = ({
                             <div className="flex-grow">
                                 <div className="font-semibold text-gray-900 flex items-center gap-2">
                                     <User className="w-4 h-4 text-gray-500" />
-                                    <h2 className="">
+                                    <h2 className="text-md md:text-md lg:text-md">
                                         {email.sender === user.name ? `${t("email.me")}` : email.sender}
                                     </h2>
                                 </div>
 
-                                <div className="text-sm text-gray-500 flex items-center gap-2">
+                                <div className="text-xs md:text-md lg:text-md text-gray-500 flex items-center gap-2">
                                     <AtSign className="w-4 h-4 text-gray-500" />
                                     <span> {email.senderEmail} </span>
                                 </div>
 
-                                <div className="text-sm text-gray-500 flex items-center gap-2">
+                                <div className="text-xs md:text-md lg:text-md text-gray-500 flex items-center gap-2">
                                     <Send className="w-4 h-4 text-gray-500" />
                                     <span>
-                                        {email.receiverEmail === user.email ? `${t("email.to")} ${t("email.me")}` : `${t("email.to")} ${email.receiverEmail}`}
+                                        {email.receiverEmail === user.email
+                                            ? `${t("email.to")} ${t("email.me")}`
+                                            : `${t("email.to")} ${email.receiverEmail}`}
                                     </span>
                                 </div>
                             </div>
 
-                            <div className="flex text-gray-500 text-sm">
+                            <div className="flex text-gray-500 text-xs md:text-sm lg:text-sm">
                                 {formatDateTime(email.date)}
                             </div>
                         </div>
