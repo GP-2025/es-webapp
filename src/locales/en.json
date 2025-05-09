@@ -6,6 +6,7 @@
         "title": "Sent"
     },
     "search": {
+        "search": "Search",
         "results": "Search Results",
         "Searchemails": "Search Emails",
         "SeeAllResults": "See All Results"
