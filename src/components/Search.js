@@ -13,10 +13,11 @@ const SearchInput = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [searchType, setSearchType] = useState("inbox");
     const [showTypeMenu, setShowTypeMenu] = useState(false);
+    const [query, setQuery] = useState("");
     const navigate = useNavigate();
 
     const maxItemsSizeNoScroll = 5;
-    const pageSize = 8; // Number of items to fetch per page
+    const pageSize = 8;
 
     const searchTypes = [
         {
@@ -34,6 +35,7 @@ const SearchInput = () => {
     // Debounced search function that takes searchType as an argument
     const performSearch = React.useRef(
         debounce(async (query, type) => {
+            setQuery(query)
             if (!query.trim()) {
                 setSearchResults([]);
                 return;
@@ -41,14 +43,13 @@ const SearchInput = () => {
 
             try {
                 setIsLoading(true);
-                console.log("searchType", type);
                 const response = await conversationsService.getAllConversations(
                     type,
                     1,
                     pageSize,
                     query
                 );
-
+                
                 const transformedResults = response.data.map((conversation) => ({
                     id: conversation.id,
                     subject: conversation.subject,
@@ -97,11 +98,15 @@ const SearchInput = () => {
 
     const handleSeeAllResults = () => {
         navigate("/home/searchList", {
+            replace: true,
             state: {
+                type: searchType,
+                query: query,
                 filteredEmails: searchResults,
                 fromSearch: true,
             },
         });
+        window.location.reload();
         setSearchResults([]);
     };
 

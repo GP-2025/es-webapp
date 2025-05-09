@@ -61,7 +61,8 @@ export const saveDraft = async (content, conversationId, attachments) => {
     formData.append("Id", "");
     formData.append("Content", content);
     formData.append("ParentMessageId", conversationId);
-    formData.append("IsDraft", false);
+    // formData.append("IsDraft", false);
+    formData.append("IsDraft", true);
 
     try {
         const response = await axiosInstance.post(
