@@ -156,7 +156,7 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
     };
 
     return (
-        <div className={`bg-blue-100 -ms-1 flex flex-col h-[calc(100vh-69px)]`}
+        <div className={`bg-blue-50 -ms-1 flex flex-col h-[calc(100vh-69px)]`}
             dir={isRTL ? "rtl" : "ltr"}
         >
             <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
