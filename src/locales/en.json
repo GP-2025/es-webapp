@@ -26,6 +26,7 @@
     },
     "Compose": {
         "Compose": "Compose",
+        "Forward": "Forward Email",
         "Email": "Compose Email",
         "subject": "Email Subject",
         "reqsubject": "Subject is required",

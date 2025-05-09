@@ -19,6 +19,8 @@ import DeleteConfirmationModal from "./DeleteConfim";
 import EmailMessage from "./EmailMessage";
 import EmailHeader from "./Header";
 import Replay from "./Replay";
+import ComposeModal from "../ComposeModal";
+
 import { getCookie } from "../../utils/cookieUtils";
 import { successToast } from "../../utils/toastConfig";
 
@@ -59,7 +61,6 @@ const EmailDetail = ({
             messages[messages.length - 1].type === "message"
         ) {
             const latestMessage = messages[messages.length - 1];
-            console.log("Latest message:", latestMessage);
 
             // Transform the new message to match our message format
             const newMessage = {
@@ -216,7 +217,6 @@ const EmailDetail = ({
 
     if (!email) return null;
 
-
     return (
         <div className="relative">
             <div className="">
@@ -277,11 +277,20 @@ const EmailDetail = ({
                 handleDeleteMessage={handleDeleteMessage}
             />
             {composeOpen && (
-                <ForwardList
+                // <ForwardList
+                //     open={composeOpen}
+                //     onClose={closeCompose}
+                //     email={email}
+                //     conversation={conversation}
+                // />
+                <ComposeModal
                     open={composeOpen}
-                    onClose={closeCompose}
-                    email={email}
-                    conversation={conversation}
+                    isForward={true}
+                    forwardEmailSubject={conversation.subject} // getting email subject
+                    forwardEmailBody={conversation.messages[conversation.messages.length - 1].body} // getting first sent email message
+                    onClose={() => {
+                        setComposeOpen(false);
+                    }}
                 />
             )}
         </div>

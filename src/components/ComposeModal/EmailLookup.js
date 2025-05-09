@@ -102,8 +102,8 @@ const EmailLookup = ({ control, errors }) => {
 								field.value.map((email) => (
 									<div
 										key={email}
-										className={`flex items-center ${language === "ar" ? "flex-row-reverse" : "flex-row"
-											} bg-indigo-200 text-indigo-800 ps-1.5 pe-0.5 py-0.5 rounded-md text-xs`}
+										className={`flex items-center ${language === "ar" ? "flex-row-reverse" : "flex-row"}
+										bg-indigo-200 text-indigo-800 pl-1.5 pr-0.5 py-0.5 rounded-md text-xs`}
 									>
 										{email}
 
@@ -166,10 +166,7 @@ const EmailLookup = ({ control, errors }) => {
 														{option.departmentName || ""}
 													</span>
 												</div>
-												<div
-													className={`text-xs text-gray-600 truncate ${language === "ar" ? "text-right" : "text-left"
-														}`}
-												>
+												<div className={`text-xs text-gray-600 truncate ${language === "ar" ? "text-right" : "text-left"}`}>
 													{option.email}
 												</div>
 											</div>

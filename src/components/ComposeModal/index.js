@@ -12,13 +12,14 @@ import {
 } from "../../utils/toastConfig";
 import EmailLookup from "./EmailLookup";
 
-const ComposeModal = ({ open, onClose, initialCompose = null }) => {
+const ComposeModal = ({ open, onClose, initialCompose = null, isForward, forwardEmailSubject, forwardEmailBody }) => {
     const { t, i18n } = useTranslation();
     const modalRef = useRef(null);
     const isClosingRef = useRef(false);
     const [attachments, setAttachments] = useState([]);
     const [isSaving, setIsSaving] = useState(false);
     const [Contacts, setContacts] = useState(false);
+
     const isRTL = i18n.language === "ar";
 
     // Form initialization with the same logic
@@ -99,6 +100,18 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
         cleanup();
         onClose();
     }, [isDirty, isSaving, formContent, attachments, cleanup, onClose, t]);
+
+    useEffect(() => {
+        if (isForward) {
+            // Set subject and body when forwarding
+            reset({
+                recipients: "",
+                subject: forwardEmailSubject,
+                body: forwardEmailBody,
+            });
+            console.log("welcome from isForward");
+        }
+    }, [isForward, forwardEmailSubject, forwardEmailBody, reset]);
 
     // Escape key handler
     useEffect(() => {
@@ -213,7 +226,12 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                             {/* Header - Fixed */}
                             <div className="px-6 py-4 flex border-b border-gray-200 justify-between items-center select-none">
                                 <h3 className="text-xl font-bold text-gray-700">
-                                    {initialCompose ? t("Compose.edit") : t("Compose.Compose")}
+                                    {initialCompose
+                                        ? t("Compose.edit")
+                                        : isForward
+                                            ? t("Compose.Forward")
+                                            : t("Compose.Compose")
+                                    }
                                 </h3>
                                 <button
                                     onClick={closeModal}
@@ -261,12 +279,15 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                             render={({ field }) => (
                                                 <input maxLength={100}
                                                     {...field}
+                                                    id="subject"
                                                     className={`w-full border ${errors.subject
                                                             ? "border-red-500"
                                                             : "border-gray-300 focus:ring-indigo-400"
                                                         } rounded-md py-2 px-3 text-sm shadow-sm focus:outline-none`}
                                                     type="text"
                                                     placeholder={t("Compose.subjectplaceholder")}
+                                                    // value={field.value}
+                                                    // onChange={field.onChange}
                                                 />
                                             )}
                                         />
@@ -295,6 +316,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                             }}
                                             render={({ field }) => (
                                                 <textarea
+                                                    id="body"
                                                     style={{ minHeight: "120px", maxHeight: "400px", resize: "vertical" }}
                                                     {...field}
                                                     className={`w-full border ${errors.body
@@ -302,6 +324,8 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                                             : "border-gray-300 focus:ring-indigo-400"
                                                         } rounded-md py-2 px-3 text-sm shadow-sm focus:outline-none`}
                                                     placeholder={t("Compose.bodyplaceholder")}
+                                                    // value={field.value}
+                                                    // onChange={field.onChange}
                                                 />
                                             )}
                                         />

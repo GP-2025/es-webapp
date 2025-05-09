@@ -76,7 +76,6 @@ const SideNavbar = ({ children }) => {
                     open={compose}
                     onClose={() => {
                         setcompose(false);
-                        // window.location.reload();
                     }}
                 />
             )}
