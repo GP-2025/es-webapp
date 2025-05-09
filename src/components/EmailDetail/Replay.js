@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { saveDraft, sendReply } from "../../services/emailService";
 import { getCookie } from "../../utils/cookieUtils";
 import { errorToast, successToast } from "../../utils/toastConfig";
-import { use } from "react";
 
 
 // Custom hook to manage draft content and API calls
@@ -62,7 +61,6 @@ const useDraftManager = (initialContent = "", conversationId, onClose) => {
             try {
                 setIsSaving(true);
                 await saveDraft(content, conversationId);
-                // console.log("Final draft saved before closing");
             } catch (error) {
                 console.error("Error saving final draft:", error);
                 errorToast("Failed to save draft");
@@ -173,16 +171,16 @@ const Replay = ({
             );
 
             if (response.status === 200) {
-                successToast(response.data.message || t("Compose.SendSuccess"));
+                successToast(response.data.message || t("Compose.sent"));
                 onClose();
             } else {
-                errorToast(t("Compose.SendError"));
+                errorToast(t("Compose.fail"));
             }
             removeCursorWait()
         } catch (error) {
             removeCursorWait()
             console.error("Failed to send reply:", error);
-            errorToast(error.message || t("Compose.SendError"));
+            errorToast(error.message || t("Compose.fail"));
         }
     };
 

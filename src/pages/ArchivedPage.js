@@ -42,6 +42,8 @@ const ArchivedPage = ({ messages }) => {
                 receiver: conversation.receiverName,
                 receiverEmail: conversation.receiverEmail,
                 receiverPictureURL: conversation.receiverPictureURL,
+                lastMessageSenderId: conversation.lastMessage.senderId,
+                lastMessageReceiverId: conversation.lastMessage.receiverId,
                 body: conversation.lastMessage.content,
                 date: new Date(conversation.lastMessage.sentAt),
                 read: conversation.lastMessage.isRead,

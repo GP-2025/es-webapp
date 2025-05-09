@@ -24,13 +24,12 @@ const EmailListItem = React.memo(
         // conversation data
         const senderEmail = email.senderEmail
         const receiverEmail = email.receiverEmail
-        const lastMessage = email.lastMessage
+        const lastMessageSenderId = email.lastMessageSenderId
 
         // making sure that the only the Is Read Feature works
         // only on the receiver side not the sender side.
         if (senderEmail == user.email) isUnread = false
-        // todo: make sure that senderEmail is added to the endpoint | Call the Backend SWE
-        // if (lastMessage.senderEmail == user.email) isUnread = false
+        if (lastMessageSenderId == user.userId) isUnread = false
 
         const getLayoutClasses = () => {
             return `
@@ -53,7 +52,7 @@ const EmailListItem = React.memo(
                 dir={isRTL ? "rtl" : "ltr"}
             >
                 <div className="flex sm:flex-row flex-col md:items-center lg:items-center w-full">
-                    <div className={`flex-shrink-0 ${isArchived || isTrash ? 'hidden' : ''}`}>
+                    <div className={`me-4 flex-shrink-0 ${isArchived || isTrash ? 'hidden' : ''}`}>
                         <EmailAvatar
                             pictureURL={email.senderEmail === user.email ? email.receiverPictureURL : email.senderPictureURL}
                             alt={email.senderEmail === user.email ? email.receiver : email.sender}

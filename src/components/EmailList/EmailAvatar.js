@@ -13,7 +13,7 @@ const EmailAvatar = ({ alt, pictureURL }) => {
     };
 
     const renderFallbackAvatar = () => (
-        <div className="me-4 hidden md:flex lg:flex w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 items-center justify-center">
+        <div className="hidden md:flex lg:flex w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 items-center justify-center">
             <span className="text-white text-md font-medium">
                 {alt?.charAt(0).toUpperCase()}
             </span>
@@ -25,7 +25,7 @@ const EmailAvatar = ({ alt, pictureURL }) => {
             <img
                 src={pictureURL}
                 alt={alt}
-                className="me-4 hidden md:flex lg:flex w-8 h-8 rounded-full"
+                className="hidden md:flex lg:flex w-8 h-8 rounded-full"
                 onError={() => handleImageError(true)}
             />
         );

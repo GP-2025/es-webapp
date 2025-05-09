@@ -127,7 +127,6 @@ const EmailDetail = ({
     const closeReply = () => {
         setReplyOpen(false);
         setComposeData(null);
-        fetchConversation();
     };
 
     const handleDeleteMessage = async (type) => {

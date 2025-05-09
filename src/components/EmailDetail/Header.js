@@ -161,7 +161,7 @@ const EmailHeader = ({
                     />
 
                     {/* Sender Info & Time */}
-                    <div className="flex-grow min-w-0">
+                    <div className="ms-3 flex-grow min-w-0">
                         <div className="flex items-end justify-between">
                             <div className="flex-grow">
                                 <div className="font-semibold text-gray-900 flex items-center gap-2">

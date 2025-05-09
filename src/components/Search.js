@@ -31,9 +31,9 @@ const SearchInput = () => {
         },
     ];
 
-    // Debounced search function
-    const performSearch = useCallback(
-        debounce(async (query) => {
+    // Debounced search function that takes searchType as an argument
+    const performSearch = React.useRef(
+        debounce(async (query, type) => {
             if (!query.trim()) {
                 setSearchResults([]);
                 return;
@@ -41,9 +41,9 @@ const SearchInput = () => {
 
             try {
                 setIsLoading(true);
-                console.log("searchType", searchType);
+                console.log("searchType", type);
                 const response = await conversationsService.getAllConversations(
-                    searchType,
+                    type,
                     1,
                     pageSize,
                     query
@@ -67,21 +67,22 @@ const SearchInput = () => {
             } finally {
                 setIsLoading(false);
             }
-        }, 300),
-        [searchType]
-    );
+        }, 300)
+    ).current;
+
+
     const handleTypeSelect = (type) => {
         setSearchType(type);
         setShowTypeMenu(false);
         if (search.trim()) {
-            performSearch(search);
+            performSearch(search, type);
         }
     };
 
     const handleSearchChange = (event) => {
         const query = event.target.value;
         setSearch(query);
-        performSearch(query);
+        performSearch(query, searchType);
     };
 
     const handleItemSelect = (email) => {
@@ -180,7 +181,7 @@ const SearchInput = () => {
                 {search && (searchResults.length > 0 || isLoading) && (
                     <div
                         className={`
-                            absolute mt-2 bg-white border border-gray-200 rounded-xl shadow-lg lg:w-[800px]
+                            absolute mt-1 bg-white border border-gray-200 rounded-xl shadow-lg lg:w-[800px]
                             overflow-y-auto max-h-64 md:max-h-96 lg:max-h-96
                         `}
                         dir={!isRTL ? "rtl" : "ltr"}
@@ -245,9 +246,12 @@ const SearchInput = () => {
                                 id={type.id}
                                 key={type.id}
                                 onClick={() => handleTypeSelect(type.id)}
-                                className={`w-full flex items-center gap-2 py-2 px-3
+                                className={`
+                                    w-full flex items-center gap-2 py-2 px-3
+                                    hover:bg-gray-300 transition-colors duration-100 ease-in-out
                                     ${isRTL ? "text-right" : "text-left"}
                                     ${searchType === type.id ? "bg-gray-200" : ""}
+                                    ${type.id === "inbox" ? "rounded-t-lg" : "rounded-b-lg"}
                                 `}
                             >
                                 {type.icon}
