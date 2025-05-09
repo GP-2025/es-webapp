@@ -57,7 +57,6 @@ const isAccessTokenExpired = (token) => {
 	try {
 		const decodedToken = jwtDecode(token);
 		const currentTime = Date.now() / 1000;
-		// console.log("Minutes until token expires:", Math.floor((decodedToken.exp - currentTime)/60/60));
 		
 		// 5 minutes before the token expires
 		return currentTime > (decodedToken.exp - 60 * 5);
@@ -84,7 +83,6 @@ const refreshToken = async () => {
 	const data = await response.json();
 	if (response.ok) {
 		const token = data.accessToken;
-		// console.log("token refreshed from login endpoint:", token);
 		setCookie("token", token);
 		return token;
 	}
@@ -96,10 +94,10 @@ axiosInstance.interceptors.request.use(
 		// same the normal isTokenExpired but for checks for the expire time
 		// of the access token before its actually expires
 		if (
-				window.location.pathname != "/login/" ||
-				window.location.pathname != "/login" ||
-				window.location.pathname != "/"
-			)
+			window.location.pathname != "/login/" &&
+			window.location.pathname != "/login" &&
+			window.location.pathname != "/" 
+		)
 			if (isAccessTokenExpired(getCookie("token")))
 				await refreshToken();
 

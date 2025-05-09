@@ -15,7 +15,7 @@ const EmailAttachments = ({ attachments }) => {
                 </div>
                 <ul className="space-y-2">
                     {attachments.map((attachment, index) => (
-                        <li className="flex items-center justify-between px-2 py-1 text-xs rounded-lg
+                        <li key={index} className="flex items-center justify-between px-2 py-1 text-xs rounded-lg
                             md:text-sm lg:text-base bg-gray-200 hover:underline hover:bg-gray-300 w-fit"
                         >
                             <a key={index} target="_blank" href={attachment.url || attachment.fileURL}>

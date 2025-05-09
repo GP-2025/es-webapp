@@ -3,6 +3,7 @@ import { Inbox } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import EmailDetail from "../components/EmailDetail";
 import EmailListItem from "../components/EmailList/index";
 import { conversationsService } from "../services/conversationsService";
@@ -11,6 +12,7 @@ const InboxPage = ({ messages }) => {
     const { t, i18n } = useTranslation();
     const isRTL = i18n.dir() === "rtl";
     const user = useSelector((state) => state.auth.user);
+    const navigate = useNavigate();
 
     
     // State management
@@ -110,9 +112,13 @@ const InboxPage = ({ messages }) => {
     const handleStar = async (emailId) => {
         try {
             await conversationsService.changeConversationStatus(emailId, "Starred");
-            const updatedEmails = emails.filter((email) => email.id !== emailId);
-            setEmails(updatedEmails);
-            setCurrentEmail(null);
+            // window.location.reload()
+            // navigate("/home/inbox")
+            navigate("/home/starred")
+
+            // const updatedEmails = emails.filter((email) => email.id !== emailId);
+            // setEmails(updatedEmails);
+            // setCurrentEmail(null);
         } catch (error) {
             console.error("Error removing from starred:", error);
         }
@@ -167,7 +173,7 @@ const InboxPage = ({ messages }) => {
 
     // Responsive layout with RTL support
     return (
-        <div className={`flex flex-col`}
+        <div className="flex flex-col"
             dir={isRTL ? "rtl" : "ltr"}
         >
             {error ? (
@@ -226,7 +232,7 @@ const InboxPage = ({ messages }) => {
                                 </div>
                             </div>
 
-                            <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                            <div className="overflow-y-auto overflow-x-auto h-[calc(100vh-132px)]">
                                 <ul className="">
                                     {emails.map((email) => (
                                         <li key={email.id} className="email-item">

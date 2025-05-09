@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import EmailDetail from "../components/EmailDetail";
 import EmailListItem from "../components/EmailList/index";
 import { conversationsService } from "../services/conversationsService";
@@ -9,6 +10,7 @@ import { conversationsService } from "../services/conversationsService";
 const SentPage = ({ messages }) => {
     const { t, i18n } = useTranslation();
     const isRTL = i18n.dir() === "rtl";
+    const navigate = useNavigate();
 
     // State management
     const [emails, setEmails] = useState([]);
@@ -129,9 +131,13 @@ const SentPage = ({ messages }) => {
     const handleStar = async (emailId) => {
         try {
             await conversationsService.changeConversationStatus(emailId, "Starred");
-            const updatedEmails = emails.filter((email) => email.id !== emailId);
-            setEmails(updatedEmails);
-            setCurrentEmail(null);
+            // window.location.reload()
+            // navigate("/home/inbox")
+            navigate("/home/starred")
+            
+            // const updatedEmails = emails.filter((email) => email.id !== emailId);
+            // setEmails(updatedEmails);
+            // setCurrentEmail(null);
         } catch (error) {
             console.error("Error removing from starred:", error);
         }
@@ -216,7 +222,7 @@ const SentPage = ({ messages }) => {
                                 </div>
                             </div>
 
-                            <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                            <div className="overflow-y-auto overflow-x-auto h-[calc(100vh-132px)]">
                                 <ul className="">
                                     {emails.map((email) => (
                                         <li key={email.id} className="email-item">

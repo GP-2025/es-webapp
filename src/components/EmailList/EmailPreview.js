@@ -22,7 +22,7 @@ const EmailPreview = ({ email, isUnread, page, isSent, isArchived, isTrash }) =>
                 </div>
 
                 <div className="me-3 flex items-center gap-2 font-normal">
-                    <p className={`truncate text-sm text-gray-800 sm:text-base max-w-[230px] md:max-w-[300px] lg:max-w-[500px] ${isUnread ? "font-bold" : "font-normal"}`}>
+                    <p className={`truncate text-sm text-gray-800 sm:text-base max-w-[230px] md:max-w-[300px] lg:max-w-[400px] ${isUnread ? "font-bold" : "font-normal"}`}>
                         {email.subject}
                     </p>
                 </div>

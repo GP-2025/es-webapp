@@ -8,14 +8,15 @@ import EmailListItem from "../components/EmailList/";
 
 const SearchListPage = ({ messages }) => {
     const { t } = useTranslation(); // Access translation function
-
     const navigate = useNavigate();
-
+    
     const location = useLocation();
     const { filteredEmails = [] } = location.state || {};
+    
+    console.log("filteredEmails", filteredEmails)
 
     const [emails, setEmails] = useState(filteredEmails);
-
+    
     // Handle real-time updates to search results
     useEffect(() => {
         if (messages && messages.length > 0) {
@@ -47,8 +48,6 @@ const SearchListPage = ({ messages }) => {
     }, [messages]);
 
     const handleItemSelect = (email) => {
-        // console.log("email selected", email);
-
         navigate("/home/search", {
             state: {
                 email: email,
@@ -74,14 +73,16 @@ const SearchListPage = ({ messages }) => {
                             <h1 className="text-2xl font-bold">{t("search.results")}</h1>
                         </div>
                     </div>
-                    <div className="px-4 ">
-                        <ul className="space-y-3">
+                    <div className="">
+                        <ul className="">
                             {emails.map((email) => (
                                 <li key={email.id} className="email-item">
                                     <EmailListItem
+                                        page="search"
                                         email={email}
                                         onSelect={handleItemSelect}
-                                        page="search"
+                                        isRead={true}
+                                        isSent={false}
                                     />
                                 </li>
                             ))}

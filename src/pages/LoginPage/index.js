@@ -51,10 +51,6 @@ const LoginPage = () => {
         try {
             setLoginError(null);
 
-            const submitButton = document.getElementById("submit-button");
-            submitButton.classList.add("cursor-wait");
-            submitButton.disabled = true;
-
             const response = await authService.login(data);
 
             if (response.accessToken) {        
@@ -69,8 +65,6 @@ const LoginPage = () => {
                 } else {
                     navigate("/home/inbox");
                 }
-                submitButton.classList.remove("cursor-wait");
-                submitButton.disabled = false;
             }
         } catch (err) {
             const errorMessage =

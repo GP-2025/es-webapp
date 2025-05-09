@@ -50,6 +50,8 @@ const SearchInput = () => {
                     subject: conversation.subject,
                     sender: conversation.senderName,
                     senderEmail: conversation.senderEmail,
+                    receiver: conversation.receiverName,
+                    receiverEmail: conversation.receiverEmail,
                     date: new Date(conversation.lastMessage.sentAt),
                     body: conversation.lastMessage.content,
                 }));
@@ -79,6 +81,7 @@ const SearchInput = () => {
     };
 
     const handleItemSelect = (email) => {
+        console.log("email from handleItemSelect", email)
         navigate("/home/search", {
             state: {
                 email: email,
@@ -141,14 +144,11 @@ const SearchInput = () => {
                                     <div
                                         key={email.id}
                                         onClick={() => handleItemSelect(email)}
-                                        className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${isRTL ? "text-right" : "text-left"
-                                            }`}
+                                        className={`px-4 py-2 hover:bg-gray-100 cursor-pointer text-end`}
                                     >
                                         <div className="font-semibold">{email.subject}</div>
                                         <div className="text-sm text-gray-600">{email.sender}</div>
-                                        <div className="text-xs text-gray-500">
-                                            {email.date.toLocaleDateString(i18n.language)}
-                                        </div>
+                                        <div className="text-xs text-gray-500">{email.date.toLocaleDateString(i18n.language)}</div>
                                     </div>
                                 ))}
                                 {searchResults.length > 0 && (
@@ -188,14 +188,14 @@ const SearchInput = () => {
                             <button
                                 key={type.id}
                                 onClick={() => handleTypeSelect(type.id)}
-                                className={`w-full flex items-center gap-2 ${isRTL ? "text-right" : "text-left"
-                                    } py-2 px-3 ${searchType === type.id ? "bg-gray-200" : ""
-                                    }
-                ${type.label === "Inbox"
+                                className={`w-full flex items-center gap-2 py-2 px-3
+                                    ${isRTL ? "text-right" : "text-left"}
+                                    ${searchType === type.id ? "bg-gray-200" : ""}
+                                    ${type.label === "Inbox"
                                         ? "rounded-t-md"
                                         : "rounded-b-md"
                                     }
-                `}
+                                `}
                             >
                                 {type.icon}
                                 <span className="hidden sm:inline">{type.label}</span>

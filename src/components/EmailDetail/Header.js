@@ -109,14 +109,14 @@ const EmailHeader = ({
                             <span className="hidden sm:inline">{t("email.Reply")}</span>
                         </button>
 
-                        <button className="flex items-center gap-2 p-2 text-emerald-600
+                        {/* <button className="flex items-center gap-2 p-2 text-emerald-600
                             hover:bg-emerald-100 rounded-lg transition-all duration-100
                             text-sm font-medium"
                             onClick={onForward}
                         >
                             <ForwardIcon className="w-5 h-5" />
                             <span className="hidden sm:inline">{t("email.Forward")}</span>
-                        </button>
+                        </button> */}
 
                         <button className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
                             onClick={() => onArchive(email.id)}

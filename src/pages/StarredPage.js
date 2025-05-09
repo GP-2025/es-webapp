@@ -209,7 +209,7 @@ const StarredPage = ({ messages }) => {
                                 </div>
                             </div>
 
-                            <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                            <div className="overflow-y-auto overflow-x-auto h-[calc(100vh-132px)]">
                                 <ul className="">
                                     {emails.map((email) => (
                                         <li key={email.id} className="email-item">
