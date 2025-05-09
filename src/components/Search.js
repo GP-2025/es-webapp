@@ -103,6 +103,28 @@ const SearchInput = () => {
         setSearchResults([]);
     };
 
+    // Add a ref to the type menu and button
+    const typeMenuRef = React.useRef(null);
+
+    // Close the type menu when clicking outside
+    React.useEffect(() => {
+        if (!showTypeMenu) return;
+
+        const handleClickOutside = (event) => {
+            if (
+                typeMenuRef.current &&
+                !typeMenuRef.current.contains(event.target)
+            ) {
+                setShowTypeMenu(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showTypeMenu]);
+
     return (
         <div className="absolute top-2 left-1/2 -translate-x-1/2 flex gap-2 z-[20]">
             <div className="relative flex-1 gap-2">
@@ -165,7 +187,7 @@ const SearchInput = () => {
                 )}
             </div>
 
-            <div className="flex-col items-center gap-2">
+            <div className="flex-col items-center gap-2" ref={typeMenuRef}>
                 <button
                     onClick={() => setShowTypeMenu(!showTypeMenu)}
                     className="

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiGlobe, FiLock, FiSettings } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
+import { setCookie } from "../../utils/cookieUtils";
 
 function SettingsPage({
     setsettingsOpen,
@@ -13,15 +14,17 @@ function SettingsPage({
     const { t, i18n } = useTranslation();
     const [language, setLanguage] = useState(i18n.language);
 
-    // Handle language change
     const handleLanguageChange = (event, newLanguage) => {
         if (newLanguage) {
             setLanguage(newLanguage);
             i18n.changeLanguage(newLanguage);
 
-            // Update document direction based on language
             document.documentElement.dir = newLanguage === "ar" ? "rtl" : "ltr";
             document.documentElement.lang = newLanguage;
+
+            // 365 days in minutes
+            const langCookieExpirationDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+            setCookie("language", newLanguage, langCookieExpirationDate);
         }
     };
 
