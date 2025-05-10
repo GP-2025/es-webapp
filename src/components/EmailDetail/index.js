@@ -7,7 +7,6 @@ import {
     deleteConversationPermanently,
     restoreConversation
 } from "../../services/conversationsService";
-import ForwardList from "../ForwardList";
 
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -278,12 +277,6 @@ const EmailDetail = ({
                 handleDeleteMessage={handleDeleteMessage}
             />
             {composeOpen && (
-                // <ForwardList
-                //     open={composeOpen}
-                //     onClose={closeCompose}
-                //     email={email}
-                //     conversation={conversation}
-                // />
                 <ComposeModal
                     open={composeOpen}
                     isForward={true}

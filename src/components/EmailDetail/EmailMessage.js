@@ -62,20 +62,6 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal, isLastM
                                 pictureURL={message.senderPictureURL}
                                 alt={message.sender}
                             />
-
-                            {/* {message.senderPictureURL ? (
-                                <img
-                                    src={message.senderPictureURL}
-                                    alt={message.sender}
-                                    className="w-10 h-10 rounded-full object-cover"
-                                />
-                            ) : (
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
-                                    <span className="text-white text-lg font-medium">
-                                        {message.sender.charAt(0).toUpperCase()}
-                                    </span>
-                                </div>
-                            )} */}
                         </div>
 
                         <div className="flex-1  min-w-0">
@@ -92,7 +78,7 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal, isLastM
 
                     <div className="flex md:flex-col lg:flex-col items-end justify-between gap-2 text-sm text-gray-500">
                         <div className="flex items-start justify-between flex-nowrap">
-                            <time>{formatDate(message.date)}</time>
+                            <time dir="ltr">{formatDate(message.date)}</time>
                         </div>
                         <div className="relative">
                             <button
