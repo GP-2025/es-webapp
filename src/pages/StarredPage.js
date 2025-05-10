@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Star } from "lucide-react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { conversationsService } from "../services/conversationsService";
 
@@ -39,10 +39,12 @@ const StarredPage = ({ messages }) => {
                 subject: conversation.subject,
                 sender: conversation.senderName,
                 senderEmail: conversation.senderEmail,
-                senderPictureURL: conversation.senderPictureURLURL,
+                senderPictureURL: conversation.senderPictureURL,
                 receiver: conversation.receiverName,
                 receiverEmail: conversation.receiverEmail,
-                receiverPicture: conversation.receiverPictureURL,
+                receiverPictureURL: conversation.receiverPictureURL,
+                lastMessageSenderId: conversation.lastMessage.senderId,
+                lastMessageReceiverId: conversation.lastMessage.receiverId,
                 body: conversation.lastMessage.content,
                 date: new Date(conversation.lastMessage.sentAt),
                 read: conversation.lastMessage.isRead,
@@ -150,7 +152,7 @@ const StarredPage = ({ messages }) => {
 
     return (
         <div
-            className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg ${isRTL ? "rtl" : "ltr"}`}
+            className={`flex flex-col ${isRTL ? "rtl" : "ltr"}`}
             dir={isRTL ? "rtl" : "ltr"}
         >
             {error ? (
@@ -209,7 +211,7 @@ const StarredPage = ({ messages }) => {
                                 </div>
                             </div>
 
-                            <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                            <div className="overflow-y-auto overflow-x-auto h-[calc(100vh-132px)]">
                                 <ul className="">
                                     {emails.map((email) => (
                                         <li key={email.id} className="email-item">

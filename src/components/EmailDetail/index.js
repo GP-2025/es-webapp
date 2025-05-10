@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import {
     conversationsService,
     deleteConversation,
+    deleteConversationPermanently,
+    restoreConversation
 } from "../../services/conversationsService";
 import ForwardList from "../ForwardList";
 
@@ -17,7 +19,10 @@ import DeleteConfirmationModal from "./DeleteConfim";
 import EmailMessage from "./EmailMessage";
 import EmailHeader from "./Header";
 import Replay from "./Replay";
+import ComposeModal from "../ComposeModal";
+
 import { getCookie } from "../../utils/cookieUtils";
+import { successToast } from "../../utils/toastConfig";
 
 const EmailDetail = ({
     email,
@@ -28,6 +33,7 @@ const EmailDetail = ({
     fromSearch,
     onToggleStar,
     isStarred,
+    isTrash,
     messages,
 }) => {
     const { t } = useTranslation();
@@ -40,6 +46,7 @@ const EmailDetail = ({
     const emailDetailRef = useRef(null);
     const isOpen = useSelector((state) => state.auth.sidebarOpen);
     const [menuOpen, setMenuOpen] = useState(null);
+
     const [confirmModal, setConfirmModal] = useState({
         open: false,
         type: null,
@@ -60,7 +67,7 @@ const EmailDetail = ({
                 id: latestMessage.content.id,
                 sender: latestMessage.content.senderName,
                 senderEmail: latestMessage.content.senderEmail,
-                senderPictureURL: latestMessage.content.senderPictureURLURL,
+                senderPictureURL: latestMessage.content.senderPictureURL,
                 body: latestMessage.content.content,
                 date: new Date(latestMessage.content.sentAt),
                 attachments:
@@ -70,13 +77,12 @@ const EmailDetail = ({
                         size: att.size,
                     })) || [],
             };
-            // console.log(newMessage, "new message in details");
+            
             // Append the new message to the conversation
             setConversation((prev) => ({
                 ...prev,
                 messages: [newMessage, ...prev.messages],
             }));
-            // console.log("setConversation,indetails");
         }
     }, [messages]);
 
@@ -84,7 +90,6 @@ const EmailDetail = ({
         try {
             setIsLoading(true);
             const data = await conversationsService.getConversationById(email.id);
-
             setConversation(data);
         } catch (error) {
             console.error("Error fetching conversation:", error);
@@ -157,9 +162,31 @@ const EmailDetail = ({
         setConfirmModal({
             open: true,
             type: "conversation",
-            title: "Delete Conversation",
-            message: "Are you sure you want to delete this conversation?",
             onConfirm: handleConversationDelete,
+        });
+    };
+
+    const handleConversationDeletePermanently = async () => {
+        try {
+            const token = getCookie("token");
+            const response = await deleteConversationPermanently(email.id, token);
+            onDelete && onDelete(email.id);
+            onGoBack && onGoBack();
+            if (response.status)
+                successToast(t("email.deleteSuccess"))
+            else
+                successToast(t("email.deleteFailed"))
+        } catch (error) {
+            console.error("Error permanently deleting conversation:", error);
+            toast.error("Failed to permanently delete conversation");
+        }
+    };
+
+    const handleDeletePermanentlyClick = () => {
+        setConfirmModal({
+            open: true,
+            type: "permanent_delete",
+            onConfirm: handleConversationDeletePermanently,
         });
     };
 
@@ -173,43 +200,66 @@ const EmailDetail = ({
         }
     };
 
+    const handleRestoreClick = async () => {
+        try {
+            const response = await restoreConversation(email.id);
+            onGoBack();
+            if (response.status == 200) {
+                onDelete && onDelete(email.id);
+                successToast(t("email.restoreSuccess"))
+            }
+            else
+                successToast(t("email.restoreFailed"))
+        } catch (error) {
+            console.error("Error restoring conversation:", error);
+            toast.error("Failed to restoring conversation");
+        }
+    };
+
     if (!email) return null;
 
     return (
-        <div className="rounded-t-lg">
-            <div className="rounded-t-lg">
+        <div className="relative">
+            <div className="">
                 <EmailHeader
                     email={email}
                     onGoBack={onGoBack}
                     onReply={handleReply}
                     onForward={handleForward}
                     onDelete={handleDeleteClick}
+                    onDeletePermanently={handleDeletePermanentlyClick}
                     onArchive={handleArchiveClick}
+                    onRestore={handleRestoreClick}
                     isArchived={isArchived}
                     isStarred={isStarred}
+                    isTrash={isTrash}
                     onToggleStar={onToggleStar}
                     className="sticky top-0 z-10 bg-white"
                 />
 
-                <div className="overflow-y-auto h-[calc(100vh-247px)] lg:h-[calc(100vh-268px)]">
+                <div className="overflow-auto
+                    h-[calc(100vh-330px)]
+                    md:h-[calc(100vh-300px)]
+                    lg:h-[calc(100vh-300px)]"
+                >
                     {isLoading ? (
                         <div className="flex justify-center py-8">
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
                         </div>
                     ) : (
-                        conversation?.messages.map((message) => (
+                        conversation?.messages.map((message, index) => (
                             <EmailMessage
                                 key={message.id}
                                 message={message}
                                 menuOpen={menuOpen}
                                 setMenuOpen={setMenuOpen}
                                 setConfirmModal={setConfirmModal}
-                            // DeleteMenu={<DeleteMenu setConfirmModal={setConfirmModal} />}
+                                isLastMessage={index === conversation.messages.length - 1}
                             />
                         ))
                     )}
                 </div>
-                <div className="fixed bottom-0 left-0 right-0 md:absolute sm:hidden  ">
+                <div className="fixed md:absolute lg:absolute bottom-0 left-0 right-0">
                     <Replay
                         width={componentWidth}
                         open={replyOpen}
@@ -220,28 +270,28 @@ const EmailDetail = ({
                     />
                 </div>
             </div>
-            <div className="fixed bottom-0 left-0 right-0 md:absolute hidden  lg:block">
-                <Replay
-                    width={componentWidth}
-                    open={replyOpen}
-                    onClose={closeReply}
-                    email={email}
-                    conversationid={conversation?.id}
-                    draftMessage={conversation?.draftMessage}
-                />
-            </div>
             <DeleteConfirmationModal
                 confirmModal={confirmModal}
                 setConfirmModal={setConfirmModal}
                 handleConversationDelete={handleConversationDelete}
+                handleConversationDeletePermanently={handleConversationDeletePermanently}
                 handleDeleteMessage={handleDeleteMessage}
             />
             {composeOpen && (
-                <ForwardList
+                // <ForwardList
+                //     open={composeOpen}
+                //     onClose={closeCompose}
+                //     email={email}
+                //     conversation={conversation}
+                // />
+                <ComposeModal
                     open={composeOpen}
-                    onClose={closeCompose}
-                    email={email}
-                    conversation={conversation}
+                    isForward={true}
+                    forwardEmailSubject={conversation.subject} // getting email subject
+                    forwardEmailBody={conversation.messages[conversation.messages.length - 1].body} // getting first sent email message
+                    onClose={() => {
+                        setComposeOpen(false);
+                    }}
                 />
             )}
         </div>

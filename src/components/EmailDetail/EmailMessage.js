@@ -8,13 +8,13 @@ import {
 } from "lucide-react";
 import React from "react";
 import EmailAttachments from "./Attachments";
-import EmailBody from "./Body";
 import DeleteMenu from "./DeleteMenu";
+import EmailAvatar from "./EmailAvatar";
 
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
-const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
+const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal, isLastMessage }) => {
     const user = useSelector((state) => state.auth.user);
     const { t, i18n } = useTranslation();
     const isRTL = i18n.dir() === "rtl";
@@ -49,13 +49,21 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
     };
 
     return (
-        <div className="bg-white border-b border-gray-300">
-            <div className="p-3.5 md:p-4.5 lg:px-6 lg:py-5">
+        <div className={`max-h-none border-b border-gray-300
+            ${ isLastMessage==true ? "pb-20" : "" }
+            ${message.senderEmail === user.email ? "bg-blue-100/50" : "bg-white"}
+        `}>
+            <div className="p-3.5 md:p-4.5 lg:px-6 lg:py-5 max-h-none">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row lg:flex-row justify-between">
                     <div className="flex items-start me-auto">
                         <div className="flex-shrink-0 me-3 hidden md:flex lg:flex">
-                            {message.senderPictureURL ? (
+                             <EmailAvatar
+                                pictureURL={message.senderPictureURL}
+                                alt={message.sender}
+                            />
+
+                            {/* {message.senderPictureURL ? (
                                 <img
                                     src={message.senderPictureURL}
                                     alt={message.sender}
@@ -64,10 +72,10 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
                             ) : (
                                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
                                     <span className="text-white text-lg font-medium">
-                                        {message.sender?.charAt(0).toUpperCase()}
+                                        {message.sender.charAt(0).toUpperCase()}
                                     </span>
                                 </div>
-                            )}
+                            )} */}
                         </div>
 
                         <div className="flex-1  min-w-0">
@@ -100,6 +108,7 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
                             {menuOpen === message.id && (
                                 <DeleteMenu
                                     messageId={message.id}
+                                    senderEmail={message.senderEmail}
                                     setConfirmModal={setConfirmModal}
                                     setMenuOpen={setMenuOpen}
                                 />
@@ -109,15 +118,16 @@ const EmailMessage = ({ message, menuOpen, setMenuOpen, setConfirmModal }) => {
                 </div>
 
                 {/* Message Body */}
-                <div className="prose prose-sm max-w-none">
-                    <EmailBody body={message.body} />
+                <div className="
+                    break-words whitespace-pre-wrap overflow-hidden max-h-none
+                    mt-4 text-gray-800 text-sm sm:text-base prose prose-sm"
+                >
+                    {message.body}
                 </div>
 
                 {/* Attachments */}
                 {message?.attachments?.length > 0 && (
-                    <div className="">
-                        <EmailAttachments attachments={message.attachments} />
-                    </div>
+                    <EmailAttachments attachments={message.attachments} />
                 )}
             </div>
         </div>

@@ -10,7 +10,7 @@ const UserProfile = ({
     setsettingsOpen,
 }) => {
     return (
-        <div className="absolute top-0 w-full bg-gray-100 flex items-center justify-endpx-2">
+        <div className="absolute top-0 w-full flex items-center justify-endpx-2">
             <div className="w-full flex items-center justify-between p-2">
                 <div className="flex">
                     <button
@@ -18,16 +18,16 @@ const UserProfile = ({
                             handleToggleSidebar(!isOpen);
                             setsettingsOpen(false);
                         }}
-                        className="p-3 rounded-xl bg-gray-300 hover:bg-gray-400 focus:outline-offset-2 focus:outline-gray-500 transition"
+                        className="p-3 rounded-xl bg-gray-200 hover:bg-gray-300 focus:outline-offset-2 focus:outline-gray-300 transition"
                     >
                         <FiMenu className="text-2xl text-gray-600" />
                     </button>
                 </div>
 
-                <div className="ms-auto relative">
+                <div className="ms-auto relative z-[99]">
                     <div className="flex items-center gap-3 relative">
                         <div className="hover:cursor-pointer group">
-                            <div className="pb-1">
+                            <div>
                                 <img
                                     src={
                                         (user?.profilePicture != "Empty" && user?.profilePicture) ||

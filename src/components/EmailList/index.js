@@ -6,25 +6,39 @@ import EmailAvatar from "./EmailAvatar";
 import EmailDateTime from "./EmailDateTime";
 import EmailMetadata from "./EmailMetadata";
 import EmailPreview from "./EmailPreview";
+import { useSelector } from "react-redux";
 
 const EmailListItem = React.memo(
     ({ email, onSelect, isSelected, page, isSent, isArchived, isTrash }) => {
         const { i18n } = useTranslation();
         const isRTL = i18n.dir() === "rtl";
-        const isUnread = !email.read;
+        var isUnread = !email.read;
 
         const handleClick = () => {
             onSelect(email.id);
         };
 
+        // current logged in user data
+        const user = useSelector((state) => state.auth.user);
+
+        // conversation data
+        const senderEmail = email.senderEmail
+        const receiverEmail = email.receiverEmail
+        const lastMessageSenderId = email.lastMessageSenderId
+
+        // making sure that the only the Is Read Feature works
+        // only on the receiver side not the sender side.
+        if (senderEmail == user.email) isUnread = false
+        if (lastMessageSenderId == user.userId) isUnread = false
+
         const getLayoutClasses = () => {
             return `
-        flex items-center px-4 py-2
-        ${isUnread ? "bg-blue-100 font-bold" : "bg-white"}
-        hover:bg-gray-300
-        border-b border-gray-300
-        cursor-pointer
-      `;
+                flex items-center px-4 py-2
+                ${isUnread ? "bg-blue-100 font-bold" : "bg-white"}
+                hover:bg-gray-300
+                border-b border-gray-300
+                cursor-pointer
+            `;
         };
 
         return (
@@ -38,12 +52,10 @@ const EmailListItem = React.memo(
                 dir={isRTL ? "rtl" : "ltr"}
             >
                 <div className="flex sm:flex-row flex-col md:items-center lg:items-center w-full">
-                    <div className={`flex-shrink-0 ${isArchived || isTrash ? 'hidden' : ''}`}>
+                    <div className={`me-4 flex-shrink-0 ${isArchived || isTrash ? 'hidden' : ''}`}>
                         <EmailAvatar
-                            senderPictureURL={email.senderPictureURL}
-                            receiverPictureURL={email.receiverPictureURL}
-                            alt={isSent ? email.recipient : email.sender}
-                            isSent={isSent}
+                            pictureURL={email.senderEmail === user.email ? email.receiverPictureURL : email.senderPictureURL}
+                            alt={email.senderEmail === user.email ? email.receiver : email.sender}
                         />
                     </div>
 

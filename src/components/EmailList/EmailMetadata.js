@@ -9,15 +9,14 @@ const EmailMetadata = ({ attachments, hasDraft }) => {
     if (!attachments?.length && !hasDraft) return null;
 
     return (
-        <div className="items-center mt-1 me-3">
-            {attachments?.length > 0 && (
-                <span className="text-xs text-gray-500 flex items-center">
-                    <Paperclip size={16} className="inline" />
-                    {attachments.length}
-                </span>
-            )}
+        <div className="flex items-center space-x-2 mt-1 me-3">
             {hasDraft && (
                 <span className="text-xs text-red-600">{<FiFileText />}</span>
+            )}
+            {attachments?.length > 0 && (
+                <span className="text-xs text-gray-500 flex items-center">
+                    <Paperclip size={14} className="inline" />
+                </span>
             )}
         </div>
     );

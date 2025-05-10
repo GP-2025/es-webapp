@@ -1,4 +1,3 @@
-import { NullLogger } from "@microsoft/signalr";
 import axiosInstance from "./axiosConfig";
 
 export const conversationsService = {
@@ -41,7 +40,7 @@ export const conversationsService = {
             // Add attachments if any
             if (attachments && attachments.length > 0) {
                 attachments.forEach((file) => {
-                    formData.append("Attachments", file);
+                    formData.append("DraftAttachments", file);
                 });
             }
 
@@ -85,7 +84,7 @@ export const conversationsService = {
                 senderEmail: message.senderEmail,
                 senderPictureURL:
                     message.senderEmail === response.data.senderEmail
-                        ? response.data.senderPictureURLURL
+                        ? response.data.senderPictureURL
                         : response.data.receiverPictureURL,
                 body: message.content,
                 date: new Date(message.sentAt),
@@ -99,7 +98,7 @@ export const conversationsService = {
                 messages: messages,
                 senderName: response.data.senderName,
                 senderEmail: response.data.senderEmail,
-                senderPictureURL: response.data.senderPictureURLURL,
+                senderPictureURL: response.data.senderPictureURL,
                 receiverName: response.data.receiverName,
                 receiverEmail: response.data.receiverEmail,
                 receiverPicture: response.data.receiverPictureURL,
@@ -129,7 +128,7 @@ export const conversationsService = {
         }
     },
 
-    getDeletedConversations: async (
+    getTrashConversations: async (
         PageNumber = 1,
         pageSize = 10,
         search = ""
@@ -139,7 +138,7 @@ export const conversationsService = {
                 `/Conversations/AllConversations`,
                 {
                     params: {
-                        type: "Deleted",
+                        type: "Trash",
                         PageNumber,
                         pageSize,
                         search,
@@ -183,7 +182,7 @@ export const conversationsService = {
 export const deleteConversation = async (conversationId) => {
     try {
         const response = await axiosInstance.post(
-            `/Conversations/ChangeConversationStatus/${conversationId}/Deleted`,
+            `/Conversations/ChangeConversationStatus/${conversationId}/Trash`,
             null,
             {
                 headers: {
@@ -194,6 +193,42 @@ export const deleteConversation = async (conversationId) => {
         return response;
     } catch (error) {
         console.error("Error deleting conversation:", error);
+        throw error;
+    }
+};
+
+export const deleteConversationPermanently = async (conversationId) => {
+    try {
+        const response = await axiosInstance.post(
+            `/Conversations/ChangeConversationStatus/${conversationId}/Deleted`,
+            null,
+            {
+                headers: {
+                    accept: "*/*",
+                },
+            }
+        );
+        return response;
+    } catch (error) {
+        console.error("Error permanently deleting conversation:", error);
+        throw error;
+    }
+};
+
+export const restoreConversation = async (conversationId) => {
+    try {
+        const response = await axiosInstance.post(
+            `/Conversations/ChangeConversationStatus/${conversationId}/Active`,
+            null,
+            {
+                headers: {
+                    accept: "*/*",
+                },
+            }
+        );
+        return response;
+    } catch (error) {
+        console.error("Error permanently deleting conversation:", error);
         throw error;
     }
 };

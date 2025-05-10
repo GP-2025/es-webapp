@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Trash2 } from "lucide-react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import EmailDetail from "../components/EmailDetail";
 import EmailListItem from "../components/EmailList/index";
 import { conversationsService } from "../services/conversationsService";
 
@@ -24,7 +25,7 @@ const TrashPage = () => {
     const fetchDeletedConversations = async (page) => {
         try {
             setIsLoading(true);
-            const response = await conversationsService.getDeletedConversations(
+            const response = await conversationsService.getTrashConversations(
                 page,
                 pageSize
             );
@@ -34,10 +35,12 @@ const TrashPage = () => {
                 subject: conversation.subject,
                 sender: conversation.senderName,
                 senderEmail: conversation.senderEmail,
-                senderPictureURL: conversation.senderPictureURLURL,
+                senderPictureURL: conversation.senderPictureURL,
                 receiver: conversation.receiverName,
                 receiverEmail: conversation.receiverEmail,
-                receiverPicture: conversation.receiverPictureURL,
+                receiverPictureURL: conversation.receiverPictureURL,
+                lastMessageSenderId: conversation.lastMessage.senderId,
+                lastMessageReceiverId: conversation.lastMessage.receiverId,
                 body: conversation.lastMessage.content,
                 date: new Date(conversation.lastMessage.sentAt),
                 read: conversation.lastMessage.isRead,
@@ -97,70 +100,66 @@ const TrashPage = () => {
 
     return (
         <div
-            className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
+            className={`flex flex-col`}
             dir={isRTL ? "rtl" : "ltr"}
         >
             {error ? (
                 <div className="text-red-500 text-center p-4">{error}</div>
             ) : (
                 <AnimatePresence mode="wait">
-                    <motion.div
-                        key="email-list"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="flex-grow"
-                    >
-                        <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
-                            <div className="select-none flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <Trash2 className="w-6 h-6 text-red-500" />
-                                    <h1 className="text-2xl font-bold">{t("trash.title")}</h1>
-                                </div>
+                    {!currentEmail ? (
+                        <motion.div
+                            key="email-list"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="flex-grow"
+                        >
+                            <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
+                                <div className="select-none flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <Trash2 className="w-6 h-6 text-red-500" />
+                                        <h1 className="text-2xl font-bold">{t("trash.title")}</h1>
+                                    </div>
 
-                                {/* Pagination Controls */}
-                                <div className="flex items-center gap-2">
-                                    <span className="hidden md:block lg:block text-gray-500 text-sm py-1.5 px-4 rounded-lg border border-gray-300">
-                                        {(pageNumber - 1) * pageSize + 1} - {Math.min(pageNumber * pageSize, totalCount)} {t("pagination.of")} {totalCount}
-                                    </span>
+                                    {/* Pagination Controls */}
+                                    <div className="flex items-center gap-2">
+                                        <span className="hidden md:block lg:block text-gray-500 text-sm py-1.5 px-4 rounded-lg border border-gray-300">
+                                            {(pageNumber - 1) * pageSize + 1} - {Math.min(pageNumber * pageSize, totalCount)} {t("pagination.of")} {totalCount}
+                                        </span>
 
-                                    <button
-                                        onClick={() => handlePageChange(pageNumber - 1)}
-                                        disabled={pageNumber === 1 || isLoading}
-                                        className="p-2 rounded-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-400" viewBox="0 0 512 512" fill="currentColor">
-                                            <path d={
-                                                isRTL
-                                                    ? "M406.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-192-192c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 256 169.3 425.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l192-192z"
-                                                    : "M105.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L173.3 256l169.4 169.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192z"}
-                                            />
-                                        </svg>
-                                    </button>
+                                        <button
+                                            onClick={() => handlePageChange(pageNumber - 1)}
+                                            disabled={pageNumber === 1 || isLoading}
+                                            className="p-2 rounded-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-400" viewBox="0 0 512 512" fill="currentColor">
+                                                <path d={
+                                                    isRTL
+                                                        ? "M406.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-192-192c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 256 169.3 425.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l192-192z"
+                                                        : "M105.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L173.3 256l169.4 169.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192z"}
+                                                />
+                                            </svg>
+                                        </button>
 
-                                    <button
-                                        onClick={() => handlePageChange(pageNumber + 1)}
-                                        disabled={pageNumber === totalPages || isLoading}
-                                        className="p-2 rounded-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-400" viewBox="0 0 512 512" fill="currentColor">
-                                            <path d={
-                                                isRTL
-                                                    ? "M105.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L173.3 256l169.4 169.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192z"
-                                                    : "M406.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-192-192c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 256 169.3 425.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l192-192z"}
-                                            />
-                                        </svg>
-                                    </button>
+                                        <button
+                                            onClick={() => handlePageChange(pageNumber + 1)}
+                                            disabled={pageNumber === totalPages || isLoading}
+                                            className="p-2 rounded-lg border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-400" viewBox="0 0 512 512" fill="currentColor">
+                                                <path d={
+                                                    isRTL
+                                                        ? "M105.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L173.3 256l169.4 169.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192z"
+                                                        : "M406.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-192-192c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.7 256 169.3 425.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l-192-192z"}
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
-                            {isLoading && emails.length === 0 ? (
-                                <div className="flex justify-center items-center h-32">
-                                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500" />
-                                </div>
-                            ) : (
+                            <div className="overflow-y-auto overflow-x-auto h-[calc(100vh-132px)]">
                                 <ul className="">
                                     {emails.map((email) => (
                                         <li key={email.id} className="email-item">
@@ -169,15 +168,27 @@ const TrashPage = () => {
                                                 email={email}
                                                 onSelect={handleEmailSelect}
                                                 isSelected={currentEmail?.id === email.id}
-                                                isSent={email.senderEmail == user.email}
+                                                isArchived={false}
+                                                isSent={email.senderEmail === user.email}
+                                                isStarred={false}
                                                 isTrash={true}
                                             />
                                         </li>
                                     ))}
                                 </ul>
-                            )}
-                        </div>
-                    </motion.div>
+                            </div>
+                        </motion.div>
+                    ) : (
+                        <EmailDetail
+                            key="email-detail"
+                            email={currentEmail}
+                            onGoBack={handleClearCurrentEmail}
+                            onDelete={handleDeleteEmail}
+                            isArchived={false}
+                            isStarred={false}
+                            isTrash={true}
+                        />
+                    )}
                 </AnimatePresence>
             )}
         </div>

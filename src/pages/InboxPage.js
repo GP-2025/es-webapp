@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Inbox } from "lucide-react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import EmailDetail from "../components/EmailDetail";
 import EmailListItem from "../components/EmailList/index";
 import { conversationsService } from "../services/conversationsService";
@@ -11,7 +12,9 @@ const InboxPage = ({ messages }) => {
     const { t, i18n } = useTranslation();
     const isRTL = i18n.dir() === "rtl";
     const user = useSelector((state) => state.auth.user);
+    const navigate = useNavigate();
 
+    
     // State management
     const [emails, setEmails] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -77,10 +80,12 @@ const InboxPage = ({ messages }) => {
                 subject: conversation.subject,
                 sender: conversation.senderName,
                 senderEmail: conversation.senderEmail,
-                senderPictureURL: conversation.senderPictureURLURL,
+                senderPictureURL: conversation.senderPictureURL,
                 receiver: conversation.receiverName,
                 receiverEmail: conversation.receiverEmail,
-                receiverPicture: conversation.receiverPictureURL,
+                receiverPictureURL: conversation.receiverPictureURL,
+                lastMessageSenderId: conversation.lastMessage.senderId,
+                lastMessageReceiverId: conversation.lastMessage.receiverId,
                 body: conversation.lastMessage.content,
                 date: new Date(conversation.lastMessage.sentAt),
                 read: conversation.lastMessage.isRead,
@@ -109,9 +114,13 @@ const InboxPage = ({ messages }) => {
     const handleStar = async (emailId) => {
         try {
             await conversationsService.changeConversationStatus(emailId, "Starred");
-            const updatedEmails = emails.filter((email) => email.id !== emailId);
-            setEmails(updatedEmails);
-            setCurrentEmail(null);
+            // window.location.reload()
+            // navigate("/home/inbox")
+            navigate("/home/starred")
+
+            // const updatedEmails = emails.filter((email) => email.id !== emailId);
+            // setEmails(updatedEmails);
+            // setCurrentEmail(null);
         } catch (error) {
             console.error("Error removing from starred:", error);
         }
@@ -166,7 +175,7 @@ const InboxPage = ({ messages }) => {
 
     // Responsive layout with RTL support
     return (
-        <div className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
+        <div className="flex flex-col"
             dir={isRTL ? "rtl" : "ltr"}
         >
             {error ? (
@@ -225,7 +234,7 @@ const InboxPage = ({ messages }) => {
                                 </div>
                             </div>
 
-                            <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                            <div className="overflow-y-auto overflow-x-auto h-[calc(100vh-132px)]">
                                 <ul className="">
                                     {emails.map((email) => (
                                         <li key={email.id} className="email-item">

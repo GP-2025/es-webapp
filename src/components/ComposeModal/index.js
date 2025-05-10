@@ -12,14 +12,14 @@ import {
 } from "../../utils/toastConfig";
 import EmailLookup from "./EmailLookup";
 
-const ComposeModal = ({ open, onClose, initialCompose = null }) => {
-    // console.log(initialCompose, "intial");
+const ComposeModal = ({ open, onClose, initialCompose = null, isForward, forwardEmailSubject, forwardEmailBody }) => {
     const { t, i18n } = useTranslation();
     const modalRef = useRef(null);
     const isClosingRef = useRef(false);
     const [attachments, setAttachments] = useState([]);
     const [isSaving, setIsSaving] = useState(false);
     const [Contacts, setContacts] = useState(false);
+
     const isRTL = i18n.language === "ar";
 
     // Form initialization with the same logic
@@ -49,6 +49,14 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
         setIsSaving(false);
     }, [reset]);
 
+    // Close modal function
+    const closeModal = useCallback(() => {
+        if (isClosingRef.current || isSaving) return;
+        isClosingRef.current = true;
+        cleanup();
+        onClose();
+    }, [isDirty, isSaving, cleanup, onClose]);
+
     // Modal close handler with proper cleanup
     const handleClose = useCallback(async () => {
         function mapEmailsToIds(contacts) {
@@ -61,9 +69,6 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
             return emailToIdMap;
         }
         const map = mapEmailsToIds(Contacts);
-        
-        console.log("map", map)
-        console.log("formContent.recipients", formContent.recipients)
 
         if (isClosingRef.current || isSaving) return;
 
@@ -74,7 +79,8 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                 setIsSaving(true);
                 await conversationsService.composeDraft(
                     formContent.subject,
-                    map[formContent.recipients],
+                    // map[formContent.recipients],
+                    "",
                     formContent.body,
                     attachments.filter(
                         (file) => file instanceof File || file instanceof Blob
@@ -95,25 +101,35 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
         onClose();
     }, [isDirty, isSaving, formContent, attachments, cleanup, onClose, t]);
 
+    useEffect(() => {
+        if (isForward) {
+            // Set subject and body when forwarding
+            reset({
+                recipients: "",
+                subject: forwardEmailSubject,
+                body: forwardEmailBody,
+            });
+            console.log("welcome from isForward");
+        }
+    }, [isForward, forwardEmailSubject, forwardEmailBody, reset]);
+
     // Escape key handler
     useEffect(() => {
         const handleEscape = (event) => {
             if (event.key === "Escape" && open) {
+                // closeModal();
                 handleClose();
             }
         };
 
         document.addEventListener("keydown", handleEscape);
         return () => document.removeEventListener("keydown", handleEscape);
-    }, [open, handleClose]);
+    }, [open, closeModal, handleClose]);
 
     useEffect(() => {
         const fetchContacts = async () => {
             try {
-                const data = await getContacts();
-                // console.log(data);
-
-                setContacts(data);
+                const data = await getContacts();setContacts(data);
             } catch (error) {
                 console.error("Error fetching contacts:", error);
             }
@@ -130,9 +146,13 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
         [handleClose]
     );
 
-    // Form submission handler
+    // form submission handler
     const onSubmit = async (data) => {
         try {
+            const submitButton = document.getElementById("submit-button");
+            submitButton.classList.add("cursor-wait");
+            submitButton.disabled = true;
+
             function mapEmailsToIds(contacts) {
                 const emailToIdMap = {};
                 contacts.forEach((contact) => {
@@ -143,24 +163,35 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                 return emailToIdMap;
             }
             const map = mapEmailsToIds(Contacts);
-            // Validate attachments
+            
+            // validate attachments
             const validAttachments = attachments.filter((file) => {
-                // Add any file validation logic here if needed
                 return file instanceof File || file instanceof Blob;
             });
-            // console.log(map[data.recipients[0]], "data");
-            const emailData = {
-                subject: data.subject,
-                receiverId: map[data.recipients[0]], // Assuming single recipient for now
-                content: data.body,
-                attachments: validAttachments,
-            };
+            
+            // for each recipient, check if it exists in the map
+            // compose an email for each recipient
+            data.recipients.forEach(async (recipient) => {
+                if (!map[recipient])
+                    errorToast(t("Compose.recipientInvalid") +" "+ recipient);
 
-            await composeEmail(emailData);
-            successToast(t("Compose.saved"));
+                await composeEmail({
+                    receiverId: map[recipient],
+                    subject: data.subject,
+                    content: data.body,
+                    attachments: validAttachments,
+                });
+
+                successToast(t("Compose.sent") +" "+ recipient);
+            });
+            
+            submitButton.classList.add("cursor-wait");
+            submitButton.disabled = true;
+
             onClose();
             reset();
             setAttachments([]);
+
         } catch (error) {
             errorToast(error.message || t("Compose.sendFailed"));
         }
@@ -181,25 +212,30 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
         open && (
             <div className="select-none fixed inset-0 z-[999] h-screen w-screen flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
                 <div
-                    className="flex justify-center items-center w-full max-w-screen-md mx-auto md:rounded-xl lg:rounded-xl sm:mx-2 my-2 overflow-hidden"
+                    className="flex justify-center items-center w-full max-w-screen-xl mx-auto md:rounded-xl lg:rounded-xl overflow-hidden"
                     dir={isRTL ? "rtl" : "ltr"}
                     lang={i18n.language}
                     onClick={handleClickOutside}
                 >
                     <div
                         ref={modalRef}
-                        className="relative w-full transform transition-all duration-200 ease-out flex flex-col"
+                        className="relative w-full transform transition-all duration-200 ease-out flex flex-col h-[100vh-20px"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div className="bg-white flex flex-col h-full">
                             {/* Header - Fixed */}
                             <div className="px-6 py-4 flex border-b border-gray-200 justify-between items-center select-none">
                                 <h3 className="text-xl font-bold text-gray-700">
-                                    {initialCompose ? t("Compose.edit") : t("Compose.Compose")}
+                                    {initialCompose
+                                        ? t("Compose.edit")
+                                        : isForward
+                                            ? t("Compose.Forward")
+                                            : t("Compose.Compose")
+                                    }
                                 </h3>
                                 <button
-                                    onClick={handleClose}
-                                    className="p-2 hover:bg-gray-200 rounded-xl"
+                                    onClick={closeModal}
+                                    className="p-2 hover:bg-gray-300 transition-all duration-100 rounded-lg"
                                     aria-label={t("Compose.close")}
                                 >
                                     <svg
@@ -243,12 +279,15 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                             render={({ field }) => (
                                                 <input maxLength={100}
                                                     {...field}
-                                                    className={`w-full border ${errors.recipients
+                                                    id="subject"
+                                                    className={`w-full border ${errors.subject
                                                             ? "border-red-500"
                                                             : "border-gray-300 focus:ring-indigo-400"
                                                         } rounded-md py-2 px-3 text-sm shadow-sm focus:outline-none`}
                                                     type="text"
                                                     placeholder={t("Compose.subjectplaceholder")}
+                                                    // value={field.value}
+                                                    // onChange={field.onChange}
                                                 />
                                             )}
                                         />
@@ -277,14 +316,16 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                             }}
                                             render={({ field }) => (
                                                 <textarea
-                                                    style={{ minHeight: "100px", maxHeight: "300px", resize: "vertical" }}
+                                                    id="body"
+                                                    style={{ minHeight: "120px", maxHeight: "400px", resize: "vertical" }}
                                                     {...field}
-                                                    rows={5}
-                                                    className={`w-full border ${errors.recipients
+                                                    className={`w-full border ${errors.body
                                                             ? "border-red-500"
                                                             : "border-gray-300 focus:ring-indigo-400"
                                                         } rounded-md py-2 px-3 text-sm shadow-sm focus:outline-none`}
                                                     placeholder={t("Compose.bodyplaceholder")}
+                                                    // value={field.value}
+                                                    // onChange={field.onChange}
                                                 />
                                             )}
                                         />
@@ -296,12 +337,12 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                     </div>
 
                                     {/* Attachments Section */}
-                                    <div className="space-y-2">
+                                    <div className="">
                                         <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                                             <MdAttachFile className="w-5 h-5 text-gray-500" />
                                             {t("Compose.attachments")}
                                         </label>
-                                        <div className="flex items-center justify-center w-full">
+                                        <div className="mt-2 flex items-center justify-center w-full">
                                             <label className="flex flex-col items-center w-full px-4 py-6 bg-gray-50 border-2 border-gray-300 border-dashed rounded-xl hover:bg-gray-200 cursor-pointer">
                                                 <svg
                                                     className="w-8 h-8 text-gray-500 mb-2"
@@ -330,13 +371,10 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
 
                                         {/* Attachment List */}
                                         {attachments.length > 0 && (
-                                            <ul className="mt-3 divide-y divide-gray-100">
+                                            <ul className="mt-4 divide-y divide-gray-100">
                                                 {attachments.map((file, index) => (
-                                                    <li
-                                                        key={index}
-                                                        className="flex items-center justify-between py-2"
-                                                    >
-                                                        <span className="flex items-center text-sm text-gray-600">
+                                                    <li key={index} className="flex items-center mb-3">
+                                                        <span className="flex items-center text-sm text-gray-600 me-3">
                                                             <svg
                                                                 className="w-4 h-4 mr-2 text-gray-400"
                                                                 fill="currentColor"
@@ -349,7 +387,7 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                                                         <button
                                                             type="button"
                                                             onClick={() => removeAttachment(index)}
-                                                            className="text-sm text-red-500 hover:text-red-700 transition-colors"
+                                                            className="text-sm text-red-500"
                                                         >
                                                             {t("Compose.remove")}
                                                         </button>
@@ -364,20 +402,23 @@ const ComposeModal = ({ open, onClose, initialCompose = null }) => {
                             {/* Footer - Fixed */}
                             <div className="px-6 py-4 border-t border-gray-200">
                                 <div className="flex justify-end gap-3">
-                                    {/* <button
+                                    <button
                                         type="button"
                                         onClick={handleClose}
                                         className="px-5 py-2.5 text-gray-700 bg-gray-300 hover:bg-gray-400 rounded-md transition-colors duration-100"
                                     >
-                                        {t("Compose.Cancel")}
-                                    </button> */}
+                                        {t("Compose.saveDraft")}
+                                    </button>
                                     <button
                                         type="submit"
+                                        id="submit-button"
                                         form="compose-form"
                                         className="px-5 py-2.5 text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-md hover:shadow-lg flex items-center gap-2 transition-colors duration-100"
                                     >
-                                        {t("Compose.send")}
-                                        <MdSend className="w-5 h-5" />
+                                        <span> {t("Compose.send")} </span>
+                                        <MdSend
+                                            className={`w-5 h-5 ${isRTL ? "transform rotate-180" : ""}`}
+                                        />
                                     </button>
                                 </div>
                             </div>

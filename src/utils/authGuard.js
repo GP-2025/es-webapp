@@ -23,12 +23,10 @@ const AuthGuard = ({ fristtime = false }) => {
     if (isAuthenticated || token) {
         return (
             <>
-                <div className="flex h-screen">
-                    <SideNavbar>
-                        {/* <SearchInput /> */}
-                        <Outlet />
-                    </SideNavbar>
-                </div>
+                <SideNavbar>
+                    {/* <SearchInput /> */}
+                    <Outlet />
+                </SideNavbar>
             </>
         );
     }

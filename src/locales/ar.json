@@ -3,9 +3,10 @@
         "title": "البريد المحذوف"
     },
     "sent": {
-        "title": "البريد المرسل"
+        "title": "المرسل"
     },
     "search": {
+        "search": "بحث",
         "results": "نتائج البحث",
         "Searchemails": "بحث البريد الإلكتروني",
         "SeeAllResults": "عرض جميع النتائج"
@@ -16,7 +17,7 @@
         "loading": "جاري تحميل المزيد من المسودات..."
     },
     "inbox": {
-        "inbox": "البريد الوارد"
+        "inbox": "الوارد"
     },
     "pagination": {
         "previous": "السابق",
@@ -25,12 +26,14 @@
         "of": "من"
     },
     "Compose": {
-        "Compose": "إنشاء بريد  ",
+        "Compose": "إنشاء بريد",
+        "Forward": "إعادة توجيه البريد الإلكتروني",
         "Email": "إنشاء بريد إلكتروني",
         "subject": "موضوع البريد",
         "reqsubject": "يُطلب إدخال الموضوع",
         "lensubject": "يجب ألا يتجاوز الموضوع 100 حرف",
         "subjectplaceholder": "أدخل الموضوع",
+        "MessagePlaceholder": "أدخل الرسالة",
         "body": "نص البريد",
         "reqbody": "يُطلب إدخال نص البريد",
         "lenbody": "يجب أن يتجاوز نص البريد 10 أحرف على الأقل",
@@ -40,16 +43,21 @@
         "remove": "إزالة",
         "send": "إرسال",
         "Cancel": "إلغاء",
+        "saveDraft": "احفظ كمسودة",
         "Recipients": "المستلمون",
-        "recipientRequired": "مطلوب مستلم واحد على الأقل",
         "duplicate": "مكرر",
         "Attach": "إرفاق",
         "file": "الملف",
-        "saved": "تم ارسال البريد الإلكتروني  بنجاح",
+        "saved": "تم حفظ البريد الإلكتروني بنجاح",
         "saveFailed": "فشل حفظ البريد الإلكتروني",
         "fail": "فشل إرسال البريد الإلكتروني",
         "sent": "تم إرسال البريد الإلكتروني بنجاح",
-        "draft": "تم الحفظ التلقائي للمسودة"
+        "sentTo": "تم إرسال البريد الإلكتروني بنجاح إلى",
+        "draft": "تم الحفظ التلقائي للمسودة",
+        "recipientRequired": "مطلوب مستلم واحد على الأقل",
+        "recipientInvalid": "عنوان البريد الإلكتروني للمستلم غير صالح",
+        "FileSizeError": "حجم الملف يتجاوز الحد المسموح به 5 ميجابايت",
+        "DuplicateFile": "ملف مكرر"
     },
     "general": {
         "Compose": "إنشاء",
@@ -57,24 +65,48 @@
         "Settings": "الإعدادات",
         "ChangePassword": "تغيير كلمة المرور",
         "Language": "اللغة",
-        "FirstTimeLogin": "تسجيل الدخول لأول مرة - تغيير كلمة المرور"
+        "FirstTimeLogin": "تسجيل الدخول لأول مرة - تغيير كلمة المرور",
+        "loginHelp": "هل تحتاج إلى مساعدة؟ تواصل مع مسؤول الكلية الخاصة بكم."
     },
     "forward": {
         "ForwardList": "قائمة إعادة التوجيه",
         "SelectedRecipients": "المستلمون المحددون"
     },
     "email": {
-        "Reply": "الرد",
-        "Forward": "إعادة التوجيه",
+        "Reply": "رد",
+        "Forward": "إعادة توجيه",
         "From": "من:",
-        "Attachments": "الملحقات:",
+        "Attachments": "مرفقات:",
         "Subject": "الموضوع:",
         "today": "اليوم",
         "yesterday": "أمس",
         "deleteForMe": "حذف بالنسبة لي",
         "deleteForEveryone": "حذف للجميع",
         "to": "إلى:",
-        "me": "أنا"
+        "me": "أنا",
+
+        "title": "رسالة البريد الإلكتروني",
+        "loading": "جاري التحميل...",
+        "reply": "رد",
+        "forward": "إعادة توجيه",
+        "restore": "استعادة",
+        "deletePermanently": "حذف نهائيًا",
+        "deletePermanentlyTitle": "حذف المسودة",
+        "deletePermanentlyConfirmation": "هل أنت متأكد أنك تريد حذف هذه المسودة؟",
+        "deleteConversationTitle": "حذف المحادثة",
+        "deleteConversationConfirmation": "هل أنت متأكد أنك تريد حذف هذه المحادثة؟",
+        "deleteMessageTitle": "حذف الرسالة",
+        "deleteMessageConfirmation": "هل أنت متأكد أنك تريد حذف هذا الرسالة",
+        "deleteSuccess": "تم حذف البريد الإلكتروني بنجاح",
+        "deleteFailed": "فشل حذف البريد الإلكتروني",
+        "restoreSuccess": "تم استعادة البريد الإلكتروني بنجاح",
+        "restoreFailed": "فشل استعادة البريد الإلكتروني",
+        "delete": "حذف",
+        "cancel": "إلغاء",
+        "replySuccess": "تم إرسال الرد بنجاح",
+        "replyFailed": "فشل إرسال الرد",
+        "forwardSuccess": "تمت إعادة توجيه البريد الإلكتروني بنجاح",
+        "forwardFailed": "فشل إعادة توجيه البريد الإلكتروني"
     },
     "error": {
         "generalError": "خطأ عام"
@@ -155,6 +187,7 @@
         "submitSuccess": "تم تغيير كلمة المرور بنجاح. يرجى تسجيل الدخول مرة أخرى."
     },
     "Draft": {
+        "title": "المسودة",
         "edit": "تعديل المسودة",
         "new": "مسودة جديدة",
         "close": "إغلاق",
@@ -171,6 +204,7 @@
         "cancel": "إلغاء",
         "save": "حفظ المسودة",
         "send": "إرسال",
+        "Saving": "يتم الحفظ",
         "saved": "تم حفظ المسودة بنجاح",
         "saveFailed": "فشل في حفظ المسودة",
         "sent": "تم إرسال البريد الإلكتروني بنجاح",

@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Archive } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import EmailDetail from "../components/EmailDetail";
@@ -38,10 +38,12 @@ const ArchivedPage = ({ messages }) => {
                 subject: conversation.subject,
                 sender: conversation.senderName,
                 senderEmail: conversation.senderEmail,
-                senderPictureURL: conversation.senderPictureURLURL,
+                senderPictureURL: conversation.senderPictureURL,
                 receiver: conversation.receiverName,
                 receiverEmail: conversation.receiverEmail,
-                receiverPicture: conversation.receiverPictureURL,
+                receiverPictureURL: conversation.receiverPictureURL,
+                lastMessageSenderId: conversation.lastMessage.senderId,
+                lastMessageReceiverId: conversation.lastMessage.receiverId,
                 body: conversation.lastMessage.content,
                 date: new Date(conversation.lastMessage.sentAt),
                 read: conversation.lastMessage.isRead,
@@ -146,7 +148,7 @@ const ArchivedPage = ({ messages }) => {
 
     return (
         <div
-            className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
+            className={`flex flex-col`}
             dir={isRTL ? "rtl" : "ltr"}
         >
             {error ? (
@@ -205,7 +207,7 @@ const ArchivedPage = ({ messages }) => {
                                 </div>
                             </div>
 
-                            <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                            <div className="overflow-y-auto overflow-x-auto h-[calc(100vh-132px)]">
                                 <ul className="">
                                     {emails.map((email) => (
                                         <li key={email.id} className="email-item">

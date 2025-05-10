@@ -17,10 +17,7 @@ const FooterSection = ({
 }) => {
     return (
         <div className="absolute bottom-0 transition-all duration-200">
-            <div
-                className={`flex flex-col space-y-1 pe-1.5 pb-1 ${isOpen ? "w-[190px]" : "w-16"
-                    }`}
-            >
+            <div className={`flex flex-col space-y-1 pe-1.5 pb-2 ${isOpen ? "w-[190px]" : "w-[62px]"}`}>
                 <SettingsPage
                     handleToggleSidebar={handleToggleSidebar}
                     isOpen={isOpen}

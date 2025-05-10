@@ -156,7 +156,7 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
     };
 
     return (
-        <div className={`bg-blue-100 -ms-1 flex flex-col border border-gray-300 rounded-t-lg h-[calc(100vh-69px)]`}
+        <div className={`bg-blue-50 -ms-1 flex flex-col h-[calc(100vh-69px)]`}
             dir={isRTL ? "rtl" : "ltr"}
         >
             <div className="sticky top-0 bg-white px-4 py-3 border-b border-gray-300 rounded-t-lg">
@@ -168,7 +168,7 @@ const ChangePassword = ({ onSuccess, isFirstTime = false }) => {
                 </div>
             </div>
 
-            <div className={`max-w-md mx-auto mt-10 p-3 md:p-6 lg:p-6 bg-white rounded-xl shadow-lg ${isRTL ? "rtl" : "ltr"}`} >
+            <div className={`max-w-[400px] mx-auto mt-10 p-3 pt-6 md:p-6 lg:p-6 bg-white rounded-xl shadow-lg ${isRTL ? "rtl" : "ltr"}`} >
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">
                     {isFirstTime
                         ? t("changePassword.firstTimeTitle")

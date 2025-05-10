@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EmailAvatar = ({ picture, alt, isSent, receiverPictureURL }) => {
+const EmailAvatar = ({ alt, pictureURL }) => {
     const [imgError, setImgError] = useState(false);
     const [recipientImgError, setRecipientImgError] = useState(false);
 
@@ -13,7 +13,7 @@ const EmailAvatar = ({ picture, alt, isSent, receiverPictureURL }) => {
     };
 
     const renderFallbackAvatar = () => (
-        <div className="hidden md:flex lg:flex me-3 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+        <div className="hidden md:flex lg:flex w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 items-center justify-center">
             <span className="text-white text-lg font-medium">
                 {alt?.charAt(0).toUpperCase()}
             </span>
@@ -21,27 +21,16 @@ const EmailAvatar = ({ picture, alt, isSent, receiverPictureURL }) => {
     );
 
     if (
-        !isSent &&
-        receiverPictureURL &&
-        receiverPictureURL !== "Empty" &&
-        !recipientImgError
+        pictureURL &&
+        pictureURL !== "Empty" &&
+        pictureURL !== "https://emailingsystemapi.runasp.net/"
     ) {
         return (
             <img
-                src={receiverPictureURL}
+                src={pictureURL}
                 alt={alt}
-                className="hidden md:flex lg:flex me-3 w-10 h-10 rounded-full"
+                className="hidden md:flex lg:flex w-10 h-10 rounded-full"
                 onError={() => handleImageError(true)}
-            />
-        );
-    }
-    if (isSent && picture && picture !== "Empty" && !imgError) {
-        return (
-            <img
-                src={picture}
-                alt={alt}
-                className="hidden md:flex lg:flex me-3 w-10 h-10 rounded-full"
-                onError={() => handleImageError(false)}
             />
         );
     }

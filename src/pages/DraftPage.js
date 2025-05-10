@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { File } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import EmailListItem from "../components/EmailList/index.js";
@@ -43,11 +43,11 @@ const DraftPage = () => {
                     new Date(email.createdAt).getTime() + 2 * 60 * 60 * 1000
                 ),
                 read: true, // Drafts are always considered read
-                attachments: email.attachments || [],
+                attachments: email.draftAttachments || [],
                 senderPictureURL: email.senderPictureURL || "Empty",
                 receiverPictureURL: email.receiverPictureURL || "Empty",
             }));
-
+            
             setEmails(transformedEmails);
             setTotalCount(response.count);
         } catch (err) {
@@ -56,6 +56,15 @@ const DraftPage = () => {
             setIsLoading(false);
         }
     };
+
+    const handleDeleteEmail = useCallback(
+        (emailId) => {
+            const updatedEmails = emails.filter((email) => email.id !== emailId);
+            setEmails(updatedEmails);
+            setCurrentEmail(null);
+        },
+        [emails]
+    );
 
     // Update useEffect for initial load
     useEffect(() => {
@@ -83,7 +92,7 @@ const DraftPage = () => {
 
     return (
         <div
-            className={`bg-white -ms-1 flex flex-col border border-gray-300 rounded-t-lg`}
+            className={`flex flex-col`}
             dir={isRTL ? "rtl" : "ltr"}
         >
             <AnimatePresence mode="wait">
@@ -140,7 +149,7 @@ const DraftPage = () => {
                         </div>
 
                         {isLoading && emails.length === 0 ? (
-                            <div className="flex justify-center items-center h-64 overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                            <div className="flex justify-center items-center overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
                                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
                             </div>
                         ) : emails.length === 0 ? (
@@ -148,13 +157,14 @@ const DraftPage = () => {
                                 {t("draft.empty")}
                             </div>
                         ) : (
-                            <div className="overflow-y-auto overflow-x-auto pb-10 h-[calc(100vh-124px)]">
+                            <div className="overflow-y-auto overflow-x-auto h-[calc(100vh-132px)]">
                                 <ul className="">
                                     {emails.map((email) => (
                                         <li key={email.id}>
                                             <EmailListItem
                                                 email={email}
                                                 onSelect={() => handleEmailSelect(email)}
+                                                handleDeleteEmail={handleDeleteEmail}
                                                 isSelected={currentEmail?.id === email.id}
                                                 page="draft"
                                                 isSent={email.senderEmail === user.email}
@@ -168,9 +178,9 @@ const DraftPage = () => {
                 ) : (
                     <motion.div
                         key="compose-mail"
-                        initial={{ x: "100%" }}
-                        animate={{ x: 0 }}
-                        exit={{ x: "100%" }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
                     >
                         <ComposeMail
                             email={currentEmail}

@@ -1,5 +1,6 @@
 import { AlertCircle, HelpCircle, Lock, User } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +10,13 @@ import { getCookie, setCookie } from "../../utils/cookieUtils";
 
 import ChangePassword from "../ChangePassword";
 import { WindowSharp } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.dir() === "rtl";    
+
     // checking if user is already logged in.
     useEffect(() => {
         if (getCookie("token") && !getCookie("isFirstTimeCookie")) {
@@ -49,7 +53,7 @@ const LoginPage = () => {
 
             const response = await authService.login(data);
 
-            if (response.accessToken) {
+            if (response.accessToken) {        
                 document.getElementById("email").value = "";
                 document.getElementById("password").value = "";
                 setCookie("token", response.accessToken);
@@ -71,9 +75,17 @@ const LoginPage = () => {
         }
     }
 
+    const [show, setShow] = useState(false);
+
+    const handleClick = () => {
+        setShow(!show);
+        const passwordField = document.getElementById("password");
+        passwordField.type = show ? "password" : "text";
+    }
+
     return (
         <div dir="ltr" className="min-h-screen flex items-center justify-center bg-gray-200">
-            <div className="z-[999] bg-white border border-gray-300 rounded-lg max-w-sm md:max-w-md lg:max-w-md w-full flex flex-col md:flex-row">
+            <div className="z-[999] bg-white border border-gray-300 rounded-none md:rounded-lg lg:rounded-lg max-w-sm md:max-w-md lg:max-w-md w-full flex flex-col md:flex-row">
                 <div className="w-full p-6 items-center">
                     <div className="flex flex-col items-center">
                         <img src="/uni-logo.png" className="w-16 h-16 items-center justify-center mb-6" />
@@ -107,6 +119,28 @@ const LoginPage = () => {
                                                 />
                                                 <div className="absolute start-3 top-3 text-gray-400">
                                                     <User size={20} />
+                                                </div>
+                                                <div
+                                                    className="absolute end-3 top-3 text-gray-400 cursor-pointer"
+                                                    onMouseEnter={(e) =>setHelpPopoverAnchor(e.currentTarget)}
+                                                    onMouseLeave={() => setHelpPopoverAnchor(null)}
+                                                >
+                                                    <HelpCircle size={20} />
+
+                                                    {/* Help Popover */}
+                                                    {helpPopoverAnchor && (
+                                                        <div className="absolute mt-1 end-0 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-4 z-10">
+                                                            <h3 className="font-medium text-gray-900 mb-1">
+                                                                Login Help
+                                                            </h3>
+                                                            <p className="text-sm text-gray-600">
+                                                                If this is your first time logging in, please
+                                                                use your National ID as your password. You will
+                                                                be prompted to change your password after
+                                                                successful login.
+                                                            </p>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                             {errors.email && (
@@ -143,32 +177,20 @@ const LoginPage = () => {
                                                         } rounded-lg ps-10`}
                                                     {...field}
                                                 />
+                                                <button
+                                                    type="button"
+                                                    onClick={handleClick}
+                                                    className="absolute end-3 top-1/2 transform -translate-y-1/2 text-gray-400 focus:outline-none"
+                                                    aria-label={show ? "Hide password" : "Show password"}
+                                                >
+                                                    {show ? (
+                                                        <EyeOffIcon className="h-5 w-5" />
+                                                    ) : (
+                                                        <EyeIcon className="h-5 w-5" />
+                                                    )}
+                                                </button>
                                                 <div className="absolute start-3 top-3 text-gray-400">
                                                     <Lock size={20} />
-                                                </div>
-                                                <div
-                                                    className="absolute end-3 top-3 text-gray-400 cursor-pointer"
-                                                    onMouseEnter={(e) =>
-                                                        setHelpPopoverAnchor(e.currentTarget)
-                                                    }
-                                                    onMouseLeave={() => setHelpPopoverAnchor(null)}
-                                                >
-                                                    <HelpCircle size={20} />
-
-                                                    {/* Help Popover */}
-                                                    {helpPopoverAnchor && (
-                                                        <div className="absolute end-0 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-4 z-10">
-                                                            <h3 className="font-medium text-gray-900 mb-1">
-                                                                Login Help
-                                                            </h3>
-                                                            <p className="text-sm text-gray-600">
-                                                                If this is your first time logging in, please
-                                                                use your National ID as your password. You will
-                                                                be prompted to change your password after
-                                                                successful login.
-                                                            </p>
-                                                        </div>
-                                                    )}
                                                 </div>
                                             </div>
                                             {errors.password && (
@@ -190,6 +212,7 @@ const LoginPage = () => {
                             )}
 
                             <button
+                                id="submit-button"
                                 type="submit"
                                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium p-3 rounded-lg transition duration-200 flex justify-center"
                                 disabled={isLoading}
@@ -221,9 +244,8 @@ const LoginPage = () => {
                             </button>
 
                             <div>
-                                <p className="text-center text-gray-500 text-sm hover:text-gray-600 hover:underline cursor-pointer"
-                                    onClick={() => navigate("/support")}>
-                                    Need help? Contact our support team.
+                                <p className="text-center text-gray-500 text-sm">
+                                    {t("general.loginHelp")}
                                 </p>
                             </div>
 

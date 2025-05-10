@@ -7,9 +7,9 @@ import "./i18n"; // Import i18n configuration
 import AuthGuard from "./utils/authGuard";
 import SignalRConnection from "./services/signalRService";
 
+import LoginPage from "./pages/LoginPage";
 import Logout from "./components/Logout";
 
-import LoginPage from "./pages/LoginPage";
 import InboxPage from "./pages/InboxPage";
 import SentPage from "./pages/SentPage";
 import TrashPage from "./pages/TrashPage";
@@ -19,7 +19,6 @@ import StarredPage from "./pages/StarredPage";
 import SearchPage from "./pages/SearchPage";
 import SearchListPage from "./pages/SearchListPage";
 import ChangePassword from "./pages/ChangePassword";
-import SupportPage from "./pages/SupportPage";
 
 
 function App() {
@@ -31,10 +30,6 @@ function App() {
                     {/* Authenticated Routes */}
                     <Route path="/*" element={<LoginPage />} />
                     <Route path="/login" element={<LoginPage />} />
-                    {/* <Route path="/login/*" element={<AuthGuard firsttime={true} />}>
-                        <Route path="firsttime" element={<ChangePassword isFirstTime={true} />} />
-                    </Route> */}
-                    <Route path="/support" element={<SupportPage />} />
                     <Route path="/logout" element={<Logout />} />
                     
                     {/* Public Routes */}
