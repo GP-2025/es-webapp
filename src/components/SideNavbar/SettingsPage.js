@@ -47,7 +47,7 @@ function SettingsPage({
             document.documentElement.lang = newLanguage;
 
             // 365 days in minutes
-            const langCookieExpirationDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+            const langCookieExpirationDate = 365 * 24 * 60 * 60 * 1000;
             setCookie("language", newLanguage, langCookieExpirationDate);
         }
     };
