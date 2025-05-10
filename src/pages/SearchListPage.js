@@ -198,7 +198,7 @@ const SearchListPage = ({ messages, searchQuery }) => {
                                 <div className="select-none flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <Search className="w-6 h-6 text-blue-500" />
-                                        <h1 className="text-2xl font-bold">{t("search.results")}</h1>
+                                        <h1 className="text-2xl font-bold">{t("search.search")}</h1>
                                     </div>
 
                                     {/* Pagination Controls */}
